@@ -3,269 +3,97 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Grancolombiana IPS · Tarifas 2026</title>
+  <title>Grancolombiana IPS · Certificación Aeromédica</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: #f5f6f8;
-      min-height: 100vh;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 2rem 1rem;
-    }
-
-    .wiz-wrap {
-      width: 100%;
-      max-width: 560px;
-    }
-
-    .logo-area {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 2rem;
-    }
-
+    body { font-family: 'DM Sans', sans-serif; background: #f5f6f8; min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 2rem 1rem 4rem; }
+    .wiz-wrap { width: 100%; max-width: 600px; }
+    .logo-area { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-bottom: 2rem; }
     .icon-plane { font-size: 28px; }
-
-    .brand-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 22px;
-      font-weight: 600;
-      color: #0c3b6e;
-      letter-spacing: 0.5px;
-      text-align: center;
-    }
-
-    .brand-sub {
-      font-size: 11px;
-      color: #888;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      text-align: center;
-    }
-
-    /* STEP BAR */
+    .brand-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; color: #0c3b6e; text-align: center; }
+    .brand-sub { font-size: 11px; color: #888; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; }
     .step-bar { display: flex; align-items: center; margin-bottom: 2rem; }
-    .step-dot {
-      width: 28px; height: 28px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 500; flex-shrink: 0;
-      transition: all 0.3s;
-    }
-    .step-dot.done     { background: #0c3b6e; color: white; }
-    .step-dot.active   { background: #1a6cc4; color: white; }
-    .step-dot.pending  { background: #e8eaed; color: #999; border: 0.5px solid #d0d3d8; }
-    .step-line         { flex: 1; height: 1px; background: #d0d3d8; transition: background 0.3s; }
-    .step-line.done    { background: #0c3b6e; }
-
-    /* LABELS */
-    .question-label {
-      font-size: 12px; font-weight: 500; color: #888;
-      letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 8px;
-    }
-    .question-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 22px; font-weight: 500; color: #111;
-      margin-bottom: 1.5rem; line-height: 1.3;
-    }
-
-    /* OPTION GRID */
-    .option-grid       { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .option-grid.wide  { grid-template-columns: 1fr; }
-
-    .option-btn {
-      background: white;
-      border: 0.5px solid #ccc;
-      border-radius: 12px;
-      padding: 14px 16px;
-      cursor: pointer;
-      text-align: left;
-      transition: all 0.2s;
-      color: #111;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px; font-weight: 500; line-height: 1.3;
-    }
-    .option-btn:hover  { border-color: #1a6cc4; background: #E6F1FB; color: #0c3b6e; }
-    .option-btn .opt-sub { font-size: 11px; font-weight: 400; color: #888; margin-top: 4px; }
+    .step-dot { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; flex-shrink: 0; transition: all 0.3s; }
+    .step-dot.done   { background: #0c3b6e; color: white; }
+    .step-dot.active { background: #1a6cc4; color: white; }
+    .step-dot.pending { background: #e8eaed; color: #999; border: 0.5px solid #d0d3d8; }
+    .step-line { flex: 1; height: 1px; background: #d0d3d8; transition: background 0.3s; }
+    .step-line.done { background: #0c3b6e; }
+    .question-label { font-size: 12px; font-weight: 500; color: #888; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 8px; }
+    .question-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500; color: #111; margin-bottom: 1.5rem; line-height: 1.3; }
+    .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .option-grid.wide { grid-template-columns: 1fr; }
+    .option-btn { background: white; border: 0.5px solid #ccc; border-radius: 12px; padding: 14px 16px; cursor: pointer; text-align: left; transition: all 0.2s; color: #111; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; line-height: 1.3; }
+    .option-btn:hover { border-color: #1a6cc4; background: #E6F1FB; color: #0c3b6e; }
+    .opt-sub { font-size: 11px; font-weight: 400; color: #888; margin-top: 4px; }
     .option-btn:hover .opt-sub { color: #185FA5; }
-
-    .no-btn {
-      background: none; border: none; cursor: pointer;
-      text-align: center; color: #888;
-      font-family: 'DM Sans', sans-serif; font-size: 13px;
-      margin-top: 10px; grid-column: 1 / -1; padding: 6px;
-      text-decoration: underline; text-underline-offset: 3px;
-    }
-    .no-btn:hover { color: #1a6cc4; }
-
-    /* BACK */
-    .back-btn {
-      background: none; border: none; color: #888; cursor: pointer;
-      font-size: 13px; font-family: 'DM Sans', sans-serif;
-      padding: 0; margin-top: 1.5rem;
-      display: flex; align-items: center; gap: 6px;
-    }
+    .back-btn { background: none; border: none; color: #888; cursor: pointer; font-size: 13px; font-family: 'DM Sans', sans-serif; padding: 0; margin-top: 1.5rem; display: flex; align-items: center; gap: 6px; }
     .back-btn:hover { color: #333; }
-
-    /* EMAIL */
-    .email-note { font-size: 12px; color: #888; margin-bottom: 1.25rem; line-height: 1.6; }
-    .err-msg    { font-size: 12px; color: #c0392b; margin-bottom: 10px; }
-
-    input[type="email"] {
-      width: 100%; padding: 12px 14px;
-      border: 0.5px solid #ccc; border-radius: 8px;
-      font-family: 'DM Sans', sans-serif; font-size: 14px;
-      color: #111; background: white; margin-bottom: 12px;
-      outline: none; transition: border-color 0.2s;
-    }
-    input[type="email"]:focus { border-color: #1a6cc4; }
-
-    .submit-btn {
-      width: 100%; padding: 13px;
-      background: #0c3b6e; color: white; border: none;
-      border-radius: 8px; font-family: 'DM Sans', sans-serif;
-      font-size: 14px; font-weight: 500; cursor: pointer;
-      transition: background 0.2s;
-    }
+    input[type="number"], input[type="email"], input[type="text"] { width: 100%; padding: 12px 14px; border: 0.5px solid #ccc; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: #111; background: white; margin-bottom: 12px; outline: none; transition: border-color 0.2s; }
+    input:focus { border-color: #1a6cc4; }
+    input[type="password"] { width: 100%; padding: 12px 14px; border: 0.5px solid #ccc; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 18px; color: #111; background: white; margin-bottom: 12px; outline: none; text-align: center; letter-spacing: 4px; }
+    .submit-btn { width: 100%; padding: 13px; background: #0c3b6e; color: white; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
     .submit-btn:hover { background: #1a6cc4; }
-
-    /* RESULT */
-    .result-card {
-      background: white; border: 0.5px solid #e0e2e6;
-      border-radius: 12px; padding: 1.5rem;
-    }
+    .exam-title { font-size: 12px; font-weight: 500; color: #888; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 10px; margin-top: 1.5rem; }
+    .exam-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1rem; }
+    .exam-item { background: white; border: 0.5px solid #e0e2e6; border-radius: 10px; padding: 10px 12px; display: flex; align-items: flex-start; gap: 8px; }
+    .exam-icon { font-size: 16px; flex-shrink: 0; }
+    .exam-name { font-size: 13px; font-weight: 500; color: #111; line-height: 1.3; }
+    .exam-note { font-size: 11px; color: #888; margin-top: 2px; }
+    .alert-box { border-radius: 10px; padding: 12px 16px; font-size: 13px; line-height: 1.5; margin-bottom: 8px; }
+    .alert-warning { background: #fff8e1; border: 0.5px solid #f0c040; color: #7a5500; }
+    .alert-info    { background: #E6F1FB; border: 0.5px solid #B5D4F4; color: #185FA5; }
+    .result-card { background: white; border: 0.5px solid #e0e2e6; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; margin-top: 1rem; }
     .result-label { font-size: 11px; color: #888; letter-spacing: 1px; text-transform: uppercase; }
-    .result-inst  {
-      font-family: 'Playfair Display', serif;
-      font-size: 20px; font-weight: 500; color: #111;
-      margin: 4px 0 2px;
-    }
-    .result-prog  { font-size: 14px; color: #888; margin-bottom: 1.5rem; }
-
-    .price-box {
-      background: #0c3b6e; border-radius: 8px;
-      padding: 1.25rem 1.5rem;
-      display: flex; align-items: center; justify-content: space-between;
-    }
+    .result-inst { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 500; color: #111; margin: 4px 0 2px; }
+    .result-prog { font-size: 14px; color: #888; margin-bottom: 1.5rem; }
+    .price-box { background: #0c3b6e; border-radius: 8px; padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
     .price-label { font-size: 13px; color: #B5D4F4; }
-    .price-val   {
-      font-family: 'Playfair Display', serif;
-      font-size: 32px; font-weight: 600; color: white;
-    }
-    .price-note  { font-size: 11px; color: #85B7EB; margin-top: 4px; }
-    .price-sym   { font-size: 40px; opacity: 0.3; color: white; }
-
-    .warn-note {
-      font-size: 12px; color: #7a5500;
-      background: #fff8e1; border-radius: 8px;
-      padding: 10px 14px; margin-top: 1rem;
-    }
-
-    /* WHATSAPP */
-    .wa-btn {
-      width: 100%; margin-top: 1rem; padding: 13px;
-      background: #25D366; color: white; border: none;
-      border-radius: 8px; font-family: 'DM Sans', sans-serif;
-      font-size: 14px; font-weight: 500; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      transition: background 0.2s;
-    }
+    .price-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 600; color: white; }
+    .price-note { font-size: 11px; color: #85B7EB; margin-top: 4px; }
+    .price-sym { font-size: 40px; opacity: 0.3; color: white; }
+    .warn-price { font-size: 12px; color: #7a5500; background: #fff8e1; border-radius: 8px; padding: 10px 14px; margin-top: 1rem; }
+    .wa-btn { width: 100%; margin-top: 1rem; padding: 13px; background: #25D366; color: white; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.2s; }
     .wa-btn:hover { background: #1ebe5d; }
     .wa-icon { width: 20px; height: 20px; fill: white; flex-shrink: 0; }
-
-    /* WELCOME */
-    .welcome-card {
-      background: white; border: 0.5px solid #e0e2e6;
-      border-radius: 12px; padding: 2rem 1.5rem;
-      text-align: center; margin-bottom: 1.5rem;
-    }
-    .welcome-badge {
-      display: inline-block; background: #E6F1FB; color: #0c3b6e;
-      font-size: 11px; font-weight: 500; letter-spacing: 1.2px;
-      text-transform: uppercase; padding: 5px 14px;
-      border-radius: 20px; margin-bottom: 1.25rem;
-    }
-    .welcome-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 26px; font-weight: 600; color: #0c3b6e;
-      margin-bottom: 1rem; line-height: 1.3;
-    }
-    .welcome-desc {
-      font-size: 14px; color: #666; line-height: 1.7; margin-bottom: 1.75rem;
-    }
-    .welcome-divider { height: 0.5px; background: #e0e2e6; margin: 1.5rem 0; }
-    .welcome-note   { font-size: 12px; color: #888; line-height: 1.6; }
-
-    .continue-btn {
-      width: 100%; padding: 14px;
-      background: #0c3b6e; color: white; border: none;
-      border-radius: 8px; font-family: 'DM Sans', sans-serif;
-      font-size: 15px; font-weight: 500; cursor: pointer;
-      transition: background 0.2s;
-    }
+    .restart-btn { width: 100%; margin-top: 1rem; padding: 12px; border: 0.5px solid #ccc; border-radius: 8px; background: none; color: #888; font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; }
+    .restart-btn:hover { border-color: #1a6cc4; color: #1a6cc4; }
+    .welcome-card { background: white; border: 0.5px solid #e0e2e6; border-radius: 12px; padding: 2rem 1.5rem; text-align: center; margin-bottom: 1.5rem; }
+    .welcome-badge { display: inline-block; background: #E6F1FB; color: #0c3b6e; font-size: 11px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 1.25rem; }
+    .welcome-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 600; color: #0c3b6e; margin-bottom: 1rem; line-height: 1.3; }
+    .welcome-desc { font-size: 14px; color: #666; line-height: 1.7; margin-bottom: 1.5rem; }
+    .welcome-divider { height: 0.5px; background: #e0e2e6; margin: 1.25rem 0; }
+    .welcome-note { font-size: 12px; color: #888; line-height: 1.6; }
+    .continue-btn { width: 100%; padding: 14px; background: #0c3b6e; color: white; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
     .continue-btn:hover { background: #1a6cc4; }
-
-    /* PASSWORD */
-    .pwd-link {
-      display: block; text-align: center; margin-top: 1rem;
-      font-size: 12px; color: #ccc; cursor: pointer;
-      text-decoration: none; letter-spacing: 0.5px;
-    }
+    .blocked-box { background: white; border: 0.5px solid #e0e2e6; border-radius: 12px; padding: 3rem 1.5rem; text-align: center; }
+    .blocked-icon { font-size: 36px; margin-bottom: 1rem; }
+    .blocked-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 500; color: #111; margin-bottom: 0.5rem; }
+    .blocked-sub { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 1.5rem; }
+    .pwd-link { display: block; text-align: center; margin-top: 1rem; font-size: 12px; color: #ccc; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
     .pwd-link:hover { color: #888; }
-    .pwd-box {
-      background: white; border: 0.5px solid #e0e2e6;
-      border-radius: 12px; padding: 2rem 1.5rem; text-align: center;
-    }
-    .pwd-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 20px; font-weight: 500; color: #111; margin-bottom: 0.5rem;
-    }
+    .pwd-card { background: white; border: 0.5px solid #e0e2e6; border-radius: 12px; padding: 2rem 1.5rem; text-align: center; }
+    .pwd-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500; color: #111; margin-bottom: 0.5rem; }
     .pwd-sub { font-size: 13px; color: #888; margin-bottom: 1.5rem; }
     .pwd-err { font-size: 12px; color: #c0392b; margin-bottom: 10px; display: none; }
-
-    /* BLOCKED */
-    .blocked-box {
-      text-align: center; padding: 3rem 1.5rem;
-      background: white; border-radius: 12px;
-      border: 0.5px solid #e0e2e6;
-    }
-    .blocked-icon  { font-size: 36px; margin-bottom: 1rem; }
-    .blocked-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 20px; font-weight: 500; color: #111; margin-bottom: 0.5rem;
-    }
-    .blocked-sub   { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 1.5rem; }
+    .summary-box { background: #f0f4f8; border: 0.5px solid #d0d8e4; border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+    .summary-item { display: flex; flex-direction: column; gap: 2px; }
+    .summary-label { font-size: 11px; color: #888; letter-spacing: 1px; text-transform: uppercase; }
+    .summary-value { font-size: 13px; font-weight: 500; color: #0c3b6e; }
+    .err-msg { font-size: 12px; color: #c0392b; margin-bottom: 10px; }
+    @media (max-width: 500px) { .exam-grid { grid-template-columns: 1fr; } .option-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
 <div class="wiz-wrap">
-
   <div class="logo-area">
     <div class="icon-plane">✈</div>
     <div class="brand-name">Grancolombiana IPS</div>
     <div class="brand-sub">Medicina de Aviación · Tarifas 2026</div>
   </div>
 
-  <!-- CONTRASEÑA EMPLEADOS -->
-  <div id="screenPassword" style="display:none">
-    <div class="pwd-box">
-      <div class="pwd-title">Acceso empleados</div>
-      <div class="pwd-sub">Ingresa la clave para consultar sin restricciones.</div>
-      <p class="pwd-err" id="pwdErr">Clave incorrecta.</p>
-      <input type="password" id="pwdInput" placeholder="Clave" style="width:100%;padding:12px 14px;border:0.5px solid #ccc;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;margin-bottom:12px;outline:none;" />
-      <button class="submit-btn" onclick="checkPassword()">Ingresar</button>
-      <button class="back-btn" onclick="showBlocked()" style="margin-top:1rem;justify-content:center">← Volver</button>
-    </div>
-  </div>
-
-  <!-- BLOQUEADO -->
   <div id="screenBlocked" style="display:none">
     <div class="blocked-box">
       <div class="blocked-icon">📬</div>
@@ -279,65 +107,89 @@
     </div>
   </div>
 
-  <!-- WIZARD -->
-  <div id="screenWizard">
+  <div id="screenPassword" style="display:none">
+    <div class="pwd-card">
+      <div class="pwd-title">Acceso empleados</div>
+      <div class="pwd-sub">Ingresa la clave para consultar sin restricciones.</div>
+      <p class="pwd-err" id="pwdErr">Clave incorrecta.</p>
+      <input type="password" id="pwdInput" placeholder="····" />
+      <button class="submit-btn" onclick="checkPassword()">Ingresar</button>
+      <button class="back-btn" onclick="showBlocked()" style="margin-top:1rem;justify-content:center">← Volver</button>
+    </div>
+  </div>
 
-    <!-- BIENVENIDA -->
+  <div id="screenWizard">
     <div id="stepWelcome">
       <div class="welcome-card">
         <div class="welcome-badge">Exámenes de primera vez</div>
-        <div class="welcome-title">Conoce la tarifa de tu certificación aeromédica</div>
-        <div class="welcome-desc">Esta herramienta te guiará en pocos pasos para conocer el valor exacto de tu examen médico de ingreso, según tu institución y programa.</div>
+        <div class="welcome-title">Conoce tus exámenes y la tarifa de tu certificación</div>
+        <div class="welcome-desc">En pocos pasos te mostramos qué exámenes necesitas según tu licencia y edad, y cuánto cuesta según tu institución.</div>
         <div class="welcome-divider"></div>
         <div class="welcome-note">La tarifa se muestra una sola vez. Ten a la mano tu correo electrónico antes de continuar.</div>
       </div>
-      <button class="continue-btn" onclick="showStep1()">Consultar mi tarifa →</button>
+      <button class="continue-btn" onclick="showStepFlow()">Comenzar →</button>
     </div>
 
-    <!-- PASOS -->
     <div id="stepFlow" style="display:none">
       <div class="step-bar">
-        <div class="step-dot active" id="sd1">1</div>
-        <div class="step-line" id="sl1"></div>
-        <div class="step-dot pending" id="sd2">2</div>
-        <div class="step-line" id="sl2"></div>
-        <div class="step-dot pending" id="sd3">3</div>
-        <div class="step-line" id="sl3"></div>
-        <div class="step-dot pending" id="sd4">✓</div>
+        <div class="step-dot active" id="sd1">1</div><div class="step-line" id="sl1"></div>
+        <div class="step-dot pending" id="sd2">2</div><div class="step-line" id="sl2"></div>
+        <div class="step-dot pending" id="sd3">3</div><div class="step-line" id="sl3"></div>
+        <div class="step-dot pending" id="sd4">4</div><div class="step-line" id="sl4"></div>
+        <div class="step-dot pending" id="sd5">5</div><div class="step-line" id="sl5"></div>
+        <div class="step-dot pending" id="sd6">✓</div>
       </div>
 
       <div id="step1">
-        <div class="question-label">Paso 1 de 3</div>
+        <div class="question-label">Paso 1 de 5</div>
         <div class="question-title">¿Estudiaste en alguna de estas instituciones?</div>
         <div class="option-grid" id="instGrid"></div>
       </div>
-
-      <div id="step2a" style="display:none">
-        <div class="question-label">Paso 2 de 3</div>
+      <div id="step2" style="display:none">
+        <div class="question-label">Paso 2 de 5</div>
         <div class="question-title">¿Cuál es tu programa?</div>
-        <div class="option-grid" id="progGrid"></div>
-        <button class="back-btn" onclick="goStep1()">← Volver</button>
+        <div class="option-grid wide" id="progGrid"></div>
+        <button class="back-btn" onclick="goTo(1)">← Volver</button>
       </div>
-
-      <div id="step2b" style="display:none">
-        <div class="question-label">Paso 2 de 3</div>
-        <div class="question-title">¿Cuál es tu tipo de certificación?</div>
-        <div class="option-grid wide" id="partGrid"></div>
-        <button class="back-btn" onclick="goStep1()">← Volver</button>
+      <div id="step3" style="display:none">
+        <div class="question-label">Paso 3 de 5</div>
+        <div class="question-title">¿Qué tipo de licencia tienes?</div>
+        <div class="option-grid wide" id="licGrid"></div>
+        <button class="back-btn" id="backBtn3" onclick="goTo(2)">← Volver</button>
       </div>
-
-      <div id="step3email" style="display:none">
-        <div class="question-label">Paso 3 de 3</div>
-        <div class="question-title">¿Cuál es tu correo electrónico?</div>
-        <p class="email-note">La tarifa se mostrará una sola vez. Ingresa un correo válido para continuar.</p>
-        <p class="err-msg" id="errMsg" style="display:none">Por favor ingresa un correo válido.</p>
-        <input type="email" id="emailInput" placeholder="ejemplo@correo.com" />
-        <button class="submit-btn" onclick="handleEmail()">Ver mi tarifa</button>
-        <button class="back-btn" onclick="goStep2()" style="margin-top:1rem">← Volver</button>
-      </div>
-
       <div id="step4" style="display:none">
-        <div class="result-card">
+        <div class="question-label">Paso 4 de 5</div>
+        <div class="question-title">¿Es tu primera vez?</div>
+        <div class="option-grid wide">
+          <button class="option-btn" onclick="selectTipo('primera')"><div>Primera vez</div><div class="opt-sub">Primera solicitud del certificado médico aeronáutico</div></button>
+          <button class="option-btn" onclick="selectTipo('renovacion')"><div>Renovación</div><div class="opt-sub">Certificado vigente o vencido menos de 2 años</div></button>
+          <button class="option-btn" onclick="selectTipo('vencido')"><div>Certificado vencido más de 2 años</div><div class="opt-sub">Se realizan todos los exámenes de primera vez</div></button>
+        </div>
+        <button class="back-btn" onclick="goTo(3)">← Volver</button>
+      </div>
+      <div id="step5" style="display:none">
+        <div class="question-label">Paso 5 de 5</div>
+        <div class="question-title">¿Cuántos años tienes?</div>
+        <p class="err-msg" id="ageErr" style="display:none">Ingresa una edad válida entre 16 y 99.</p>
+        <input type="number" id="ageInput" placeholder="Ej: 35" min="16" max="99" />
+        <button class="submit-btn" onclick="confirmAge()">Ver mis exámenes →</button>
+        <button class="back-btn" onclick="goTo(4)">← Volver</button>
+      </div>
+      <div id="step6email" style="display:none">
+        <div class="question-label">Último paso</div>
+        <div class="question-title">¿Cuál es tu correo electrónico?</div>
+        <p style="font-size:12px;color:#888;margin-bottom:1.25rem;line-height:1.6;">La tarifa se mostrará una sola vez. Ingresa un correo válido para continuar.</p>
+        <p class="err-msg" id="emailErr" style="display:none">Por favor ingresa un correo válido.</p>
+        <input type="email" id="emailInput" placeholder="ejemplo@correo.com" />
+        <button class="submit-btn" onclick="handleEmail()">Ver mi tarifa →</button>
+        <button class="back-btn" onclick="goTo(5)">← Volver</button>
+      </div>
+      <div id="stepResults" style="display:none">
+        <div class="summary-box" id="summaryBox"></div>
+        <div class="exam-title">Exámenes requeridos</div>
+        <div class="exam-grid" id="examGrid"></div>
+        <div id="alertsBox"></div>
+        <div class="result-card" id="resultCard">
           <div class="result-label">Tarifa 2026</div>
           <div class="result-inst" id="rInst"></div>
           <div class="result-prog" id="rProg"></div>
@@ -349,12 +201,13 @@
             </div>
             <div class="price-sym">$</div>
           </div>
-          <div class="warn-note" id="rWarn" style="display:none"></div>
+          <div class="warn-price" id="rWarn" style="display:none"></div>
         </div>
         <button class="wa-btn" id="waBtn">
           <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Agendar cita por WhatsApp
         </button>
+        <button class="restart-btn" onclick="restart()">Consultar de nuevo</button>
       </div>
     </div>
   </div>
@@ -363,198 +216,230 @@
 <script>
 const STORAGE_KEY = 'granco_tarifa_vista';
 const WA_NUMBER   = '573012271729';
-const SHEETS_URL  = ''; // Pegar aquí la URL del Google Apps Script Web App
+const ADMIN_KEY   = '7087';
+const SHEETS_URL  = 'https://script.google.com/macros/s/AKfycbz--1OOY79QKeZU0YR3VN-WRi-Tyt4J6xxe9rvJSzLi_gnDmheh8LY-bkaMisiDCYMSvw/exec';
 
-const instituciones = [
-  { key:'DELTA_FORCE', label:'Delta Force', programas:[
-    { label:'Tripulante de Cabina (TCP)', price:420000, note:'', warn:'' },
-    { label:'Alumno Piloto de Avión (APA)', price:450000, note:'', warn:'' }
-  ]},
-  { key:'DREAM_FLY', label:'Dream Fly', programas:[
-    { label:'Alumno Piloto de Avión (APA)', price:420000, note:'', warn:'' }
-  ]},
-  { key:'EIA', label:'EIA', programas:[
-    { label:'TCP — enviado por la escuela', price:440000, note:'', warn:'' },
-    { label:'TCP — no enviado por la escuela', price:360000, note:'', warn:'Si el paciente no es enviado directamente por EIA, la tarifa es $360.000.' }
-  ]},
-  { key:'AEROCLUB', label:'Aeroclub', programas:[
-    { label:'APA (Incluye Toxicología)', price:530000, note:'Incluye toxicología', warn:'' }
-  ]},
-  { key:'AEROANDES', label:'Aeroandes', programas:[
-    { label:'Tripulante de Cabina (TCP)', price:420000, note:'', warn:'' },
-    { label:'Alumno Piloto de Avión (APA)', price:450000, note:'', warn:'' }
-  ]}
+let ST = { instKey:null, instLabel:null, progLabel:null, progPrice:0, progNote:'', progWarn:'', licencia:null, primeraVez:null, vencido:false, edad:null, email:'', isEmpleado:false };
+
+const INSTITUCIONES = [
+  { key:'DELTA_FORCE', label:'Delta Force', programas:[{label:'Tripulante de Cabina (TCP)',price:420000,note:'',warn:''},{label:'Alumno Piloto de Avión (APA)',price:450000,note:'',warn:''}]},
+  { key:'DREAM_FLY',   label:'Dream Fly',   programas:[{label:'Alumno Piloto de Avión (APA)',price:420000,note:'',warn:''}]},
+  { key:'EIA',         label:'EIA',         programas:[{label:'TCP — enviado por la escuela',price:440000,note:'',warn:''},{label:'TCP — no enviado por la escuela',price:360000,note:'',warn:'Si el paciente no es enviado directamente por EIA, la tarifa es $360.000.'}]},
+  { key:'AEROCLUB',    label:'Aeroclub',    programas:[{label:'APA (Incluye Toxicología)',price:530000,note:'Incluye toxicología',warn:''}]},
+  { key:'AEROANDES',   label:'Aeroandes',   programas:[{label:'Tripulante de Cabina (TCP)',price:420000,note:'',warn:''},{label:'Alumno Piloto de Avión (APA)',price:450000,note:'',warn:''}]}
 ];
+const PARTICULARES = [{label:'TCP',sub:'Tripulante de Cabina',price:360000},{label:'APA',sub:'Alumno Piloto de Avión',price:420000}];
 
-const particulares = [
-  { label:'TCP', sub:'Tripulante de Cabina', price:360000, note:'', warn:'' },
-  { label:'APA', sub:'Alumno Piloto de Avión', price:420000, note:'', warn:'' }
-];
+const EXAMS = {
+  medico:      {icon:'🩺',name:'Médico Aeronáutico',        note:'Siempre requerido'},
+  oftalmo_comp:{icon:'👁️',name:'Oftalmología Completa',      note:'Val. completa'},
+  oftalmo_aero:{icon:'👁️',name:'Oftalmología',              note:'Val. aeronáutica'},
+  orl:         {icon:'👂',name:'ORL / Fonoaudiología',       note:'Otorrinolaringología'},
+  cardiologia: {icon:'❤️',name:'Cardiología',                note:'Evaluación cardiovascular'},
+  neurologia:  {icon:'🧠',name:'Neurología',                 note:'Evaluación neurológica'},
+  psiquiatria: {icon:'💬',name:'Psiquiatría',                note:'Salud mental'},
+  psicologia:  {icon:'🧩',name:'Psicología',                 note:'5 procesos mentales superiores'},
+  odontograma: {icon:'🦷',name:'Odontograma / RX Panorámica',note:'Salud dental'},
+  ch:          {icon:'🧪',name:'Cuadro Hemático',            note:'Hemoleucograma'},
+  orina:       {icon:'🔬',name:'Parcial de Orina',           note:'Uroanálisis'},
+  glicemia:    {icon:'💉',name:'Glicemia',                   note:'Glucosa en sangre'},
+  audiometria: {icon:'🔊',name:'Audiometría',                note:'Umbral auditivo'},
+  perfil:      {icon:'🫀',name:'Perfil Lipídico',            note:'Colesterol y triglicéridos'},
+  creatinina:  {icon:'🧫',name:'Creatinina',                 note:'Función renal'},
+  ekg:         {icon:'📈',name:'EKG / Electrocardiograma',   note:'Actividad cardíaca'},
+  esfuerzo:    {icon:'🏃',name:'Prueba de Esfuerzo',         note:'Test cardiovascular'},
+  rayosx:      {icon:'🩻',name:'Rayos X de Tórax',           note:'Solo primera vez'},
+  toxicologia: {icon:'🧬',name:'Toxicología',                note:'Solo Aeroclub'}
+};
 
-let selInst = null, selProg = null, esParticular = false;
+const LIC_NAMES = {
+  clase1:'Clase 1 — PCA · PCH · PTL · IDV',
+  clase2_piloto:'Clase 2 — PPA · PPL · APA · BAE',
+  clase2_tcp:'Clase 2 — TCP Tripulante de Cabina',
+  clase3_cta:'Clase 3 — CTA Controlador de Tránsito',
+  clase3_oea:'Clase 3 — OEA Operador de Estación',
+  clase3_pul:'Clase 3 — PUL Piloto Ultraliviano'
+};
 
-function fmt(n) { return '$ ' + n.toLocaleString('es-CO'); }
+function getExams(lic, pv, e, venc, toxicologia) {
+  let lista = []; const alerts = [];
+  const base = () => lista.push('medico','ch','orina','glicemia','audiometria','oftalmo_aero');
+  const pvExams = () => { lista.push('orl','cardiologia','neurologia','psiquiatria','odontograma','psicologia','rayosx'); if(e>=40) lista.push('esfuerzo'); alerts.push({type:'info',text:'📌 Rayos X de tórax solo en la primera solicitud.'}); if(venc) alerts.push({type:'warning',text:'📋 Certificado vencido > 2 años: se realizan todos los exámenes de primera vez. Las pruebas psicológicas son realizadas por Grancolombiana IPS.'}); else alerts.push({type:'warning',text:'📋 Las pruebas psicológicas de primera vez deben ser subidas al SIGA por el respectivo Centro de Instrucción.'}); };
 
-function openWA(msg) {
-  const text = msg || 'Hola, quiero agendar una cita para mi certificación aeromédica.';
-  window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(text), '_blank');
-}
-
-function enviarSheets(correo, institucion) {
-  if (!SHEETS_URL) return;
-  const url = SHEETS_URL + '?correo=' + encodeURIComponent(correo) + '&institucion=' + encodeURIComponent(institucion);
-  fetch(url, { method: 'GET', mode: 'no-cors' }).catch(() => {});
-}
-
-const ADMIN_KEY = '7087';
-
-function showBlocked() {
-  document.getElementById('screenPassword').style.display = 'none';
-  document.getElementById('screenBlocked').style.display = 'block';
-}
-
-function showPasswordScreen() {
-  document.getElementById('screenBlocked').style.display = 'none';
-  document.getElementById('screenPassword').style.display = 'block';
-  document.getElementById('pwdInput').value = '';
-  document.getElementById('pwdErr').style.display = 'none';
-}
-
-function checkPassword() {
-  const val = document.getElementById('pwdInput').value.trim();
-  if (val === ADMIN_KEY) {
-    document.getElementById('screenPassword').style.display = 'none';
-    document.getElementById('screenWizard').style.display = 'block';
-    renderInst();
-    document.getElementById('stepWelcome').style.display = 'none';
-    document.getElementById('stepFlow').style.display = 'block';
-    setStep(1);
-    document.getElementById('step1').style.display = 'block';
-  } else {
-    document.getElementById('pwdErr').style.display = 'block';
-  }
-}
-
-function init() {
-  try {
-    if (localStorage.getItem(STORAGE_KEY)) {
-      document.getElementById('screenWizard').style.display = 'none';
-      document.getElementById('screenBlocked').style.display = 'block';
-      return;
+  if (lic === 'clase3_oea') {
+    base();
+    if (pv) { lista.push('orl','odontograma','rayosx'); if(e>=40) lista.push('esfuerzo'); alerts.push({type:'info',text:'📌 ORL, Odontograma y Rayos X solo en la primera solicitud.'}); }
+    else {
+      if(e>=30&&e<40) lista.push('oftalmo_comp');
+      if(e>=40) lista.push('oftalmo_comp','perfil','creatinina','ekg');
+      if(e>=50) lista.push('esfuerzo');
+      alerts.push({type:'info',text:'📋 OEA: vigencia fija de 36 meses (3 años).'});
     }
-  } catch(e) {}
+  } else {
+    base();
+    if (pv) { pvExams(); }
+    else {
+      if(lic==='clase1'){ if(e>=25&&e<=34) lista.push('oftalmo_comp'); if(e>=35&&e<=36) lista.push('oftalmo_comp','perfil'); if(e>=37&&e<=38) lista.push('oftalmo_comp','perfil','creatinina'); if(e>=39) lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina'); if(e>=40) lista.push('ekg'); if(e>=40&&e%5===0) lista.push('esfuerzo'); }
+      if(lic==='clase2_piloto'){ if(e>=25&&e<=34) lista.push('orl'); if(e>=35&&e<=39) lista.push('orl','oftalmo_comp'); if(e>=40) lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); if(e>=40&&e%5===0) lista.push('esfuerzo'); }
+      if(lic==='clase2_tcp'){ if(e>=25&&e<=34) lista.push('orl'); if(e>=35&&e<=39) lista.push('orl','oftalmo_comp'); if(e>=40) lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); if(e>=40&&e%5===0) lista.push('esfuerzo'); alerts.push({type:'info',text:'📋 TCP: vigencia fija de 36 meses (3 años).'}); }
+      if(lic==='clase3_cta'){ if(e>=24&&e<=29) lista.push('oftalmo_comp'); if(e>=30&&e<=34) lista.push('oftalmo_comp','orl'); if(e>=35&&e<=39) lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria'); if(e>=40) lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); if(e>=40&&e%5===0) lista.push('esfuerzo'); }
+      if(lic==='clase3_pul'){ if(e>=25&&e<=34) lista.push('orl'); if(e>=35&&e<=39) lista.push('orl','oftalmo_comp'); if(e>=40) lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); if(e>=50) lista.push('esfuerzo'); }
+      if(e>=60){ lista.push('psicologia'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
+      if(e>=65) alerts.push({type:'warning',text:'⚠️ Desde los 65 años: todos los exámenes en cada renovación.'});
+    }
+  }
+  if (toxicologia && !lista.includes('toxicologia')) lista.push('toxicologia');
+  return { lista:[...new Set(lista)], alerts };
 }
 
-function showStep1() {
-  document.getElementById('stepWelcome').style.display = 'none';
-  document.getElementById('stepFlow').style.display = 'block';
+function fmt(n){ return '$ '+n.toLocaleString('es-CO'); }
+function openWA(msg){ window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg||'Hola, quiero agendar una cita para mi certificación aeromédica.'),'_blank'); }
+function enviarSheets(c,i){ if(!SHEETS_URL) return; fetch(SHEETS_URL+'?correo='+encodeURIComponent(c)+'&institucion='+encodeURIComponent(i),{method:'GET',mode:'no-cors'}).catch(()=>{}); }
+
+function allStepIds(){ return ['step1','step2','step3','step4','step5','step6email','stepResults']; }
+function hideAll(){ allStepIds().forEach(id=>document.getElementById(id).style.display='none'); }
+
+function setBar(s){
+  for(let i=1;i<=6;i++){ const d=document.getElementById('sd'+i); d.className='step-dot '+(i<s?'done':i===s?'active':'pending'); }
+  for(let i=1;i<=5;i++){ document.getElementById('sl'+i).className='step-line'+(i<s?' done':''); }
+}
+
+function goTo(s){
+  hideAll(); setBar(s);
+  if(s===1){ document.getElementById('step1').style.display='block'; }
+  if(s===2){ document.getElementById('step2').style.display='block'; }
+  if(s===3){ renderLic(); document.getElementById('step3').style.display='block'; }
+  if(s===4){ document.getElementById('step4').style.display='block'; }
+  if(s===5){ document.getElementById('step5').style.display='block'; }
+}
+
+function init(){
+  try{ if(!ST.isEmpleado && localStorage.getItem(STORAGE_KEY)){ document.getElementById('screenWizard').style.display='none'; document.getElementById('screenBlocked').style.display='block'; return; } }catch(e){}
   renderInst();
-  setStep(1);
-  document.getElementById('step1').style.display = 'block';
 }
 
-function setStep(s) {
-  ['step1','step2a','step2b','step3email','step4'].forEach(id => {
-    document.getElementById(id).style.display = 'none';
+function showStepFlow(){
+  document.getElementById('stepWelcome').style.display='none';
+  document.getElementById('stepFlow').style.display='block';
+  renderInst(); goTo(1);
+}
+
+function renderInst(){
+  const g=document.getElementById('instGrid'); g.innerHTML='';
+  INSTITUCIONES.forEach(inst=>{
+    const b=document.createElement('button'); b.className='option-btn'; b.textContent=inst.label;
+    b.onclick=()=>{ ST.instKey=inst.key; ST.instLabel=inst.label;
+      if(inst.programas.length===1){ ST.progLabel=inst.programas[0].label; ST.progPrice=inst.programas[0].price; ST.progNote=inst.programas[0].note; ST.progWarn=inst.programas[0].warn; goTo(3); }
+      else{ renderProgInst(inst); goTo(2); }
+    }; g.appendChild(b);
   });
-  const states = {
-    1:['active','pending','pending','pending'],
-    2:['done','active','pending','pending'],
-    3:['done','done','active','pending'],
-    4:['done','done','done','done']
-  };
-  const st = states[s];
-  ['sd1','sd2','sd3','sd4'].forEach((id,i) => {
-    document.getElementById(id).className = 'step-dot ' + st[i];
-  });
-  ['sl1','sl2','sl3'].forEach((id,i) => {
-    document.getElementById(id).className = 'step-line' + (st[i]==='done' ? ' done' : '');
-  });
+  const o=document.createElement('button'); o.className='option-btn'; o.textContent='Otras';
+  o.onclick=()=>{ ST.instKey='OTRAS'; ST.instLabel='Particular'; renderProgPart(); goTo(2); };
+  g.appendChild(o);
 }
 
-function renderInst() {
-  const grid = document.getElementById('instGrid');
-  grid.innerHTML = '';
-  instituciones.forEach(inst => {
-    const btn = document.createElement('button');
-    btn.className = 'option-btn';
-    btn.textContent = inst.label;
-    btn.onclick = () => { selInst = inst; esParticular = false; showStep2Inst(); };
-    grid.appendChild(btn);
-  });
-  const noBtn = document.createElement('button');
-  noBtn.className = 'option-btn';
-  noBtn.textContent = 'Otras';
-  noBtn.onclick = () => { selInst = null; esParticular = true; showStep2Part(); };
-  grid.appendChild(noBtn);
+function renderProgInst(inst){
+  const g=document.getElementById('progGrid'); g.innerHTML='';
+  inst.programas.forEach(p=>{ const b=document.createElement('button'); b.className='option-btn'; b.textContent=p.label; b.onclick=()=>{ ST.progLabel=p.label; ST.progPrice=p.price; ST.progNote=p.note; ST.progWarn=p.warn; goTo(3); }; g.appendChild(b); });
 }
 
-function showStep2Inst() {
-  setStep(2);
-  const progs = selInst.programas;
-  if (progs.length === 1) { selProg = progs[0]; showStepEmail(); return; }
-  const grid = document.getElementById('progGrid');
-  grid.innerHTML = '';
-  progs.forEach(p => {
-    const btn = document.createElement('button');
-    btn.className = 'option-btn';
-    btn.textContent = p.label;
-    btn.onclick = () => { selProg = p; showStepEmail(); };
-    grid.appendChild(btn);
-  });
-  document.getElementById('step2a').style.display = 'block';
+function renderProgPart(){
+  const g=document.getElementById('progGrid'); g.innerHTML='';
+  PARTICULARES.forEach(p=>{ const b=document.createElement('button'); b.className='option-btn'; b.innerHTML=`<div>${p.label}</div><div class="opt-sub">${p.sub}</div>`; b.onclick=()=>{ ST.progLabel=p.label; ST.progPrice=p.price; ST.progNote=''; ST.progWarn=''; goTo(3); }; g.appendChild(b); });
 }
 
-function showStep2Part() {
-  setStep(2);
-  const grid = document.getElementById('partGrid');
-  grid.innerHTML = '';
-  particulares.forEach(p => {
-    const btn = document.createElement('button');
-    btn.className = 'option-btn';
-    btn.innerHTML = `<div>${p.label}</div><div class="opt-sub">${p.sub}</div>`;
-    btn.onclick = () => { selProg = p; showStepEmail(); };
-    grid.appendChild(btn);
-  });
-  document.getElementById('step2b').style.display = 'block';
+function renderLic(){
+  const g=document.getElementById('licGrid'); g.innerHTML='';
+  const lics=[
+    {key:'clase1',label:'PCA · PCH · PTL · IDV',sub:'Certificado Clase 1'},
+    {key:'clase2_piloto',label:'PPA · PPL · APA · BAE',sub:'Certificado Clase 2 — Pilotos'},
+    {key:'clase2_tcp',label:'TCP',sub:'Tripulante de Cabina de Pasajeros'},
+    {key:'clase3_cta',label:'CTA',sub:'Controlador de Tránsito Aéreo'},
+    {key:'clase3_oea',label:'OEA',sub:'Operador de Estación Aeronáutica'},
+    {key:'clase3_pul',label:'PUL',sub:'Piloto de Ultraliviano'}
+  ];
+  lics.forEach(l=>{ const b=document.createElement('button'); b.className='option-btn'; b.innerHTML=`<div>${l.label}</div><div class="opt-sub">${l.sub}</div>`; b.onclick=()=>{ ST.licencia=l.key; goTo(4); }; g.appendChild(b); });
 }
 
-function showStepEmail() {
-  setStep(3);
-  document.getElementById('step3email').style.display = 'block';
-  document.getElementById('emailInput').value = '';
-  document.getElementById('errMsg').style.display = 'none';
+function selectTipo(t){
+  if(t==='primera'){ ST.primeraVez=true; ST.vencido=false; }
+  else if(t==='vencido'){ ST.primeraVez=true; ST.vencido=true; }
+  else { ST.primeraVez=false; ST.vencido=false; }
+  goTo(5);
 }
 
-function handleEmail() {
-  const email = document.getElementById('emailInput').value.trim();
-  const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  if (!valid) { document.getElementById('errMsg').style.display = 'block'; return; }
-  try { localStorage.setItem(STORAGE_KEY, email); } catch(e) {}
-  const inst = esParticular ? 'Particular' : selInst.label;
-  enviarSheets(email, inst);
-  showStep4(email);
+function confirmAge(){
+  const v=parseInt(document.getElementById('ageInput').value);
+  if(!v||v<16||v>99){ document.getElementById('ageErr').style.display='block'; return; }
+  ST.edad=v; document.getElementById('ageErr').style.display='none';
+  if(ST.isEmpleado || !ST.primeraVez){ showResults(''); }
+  else { hideAll(); setBar(6); document.getElementById('step6email').style.display='block'; document.getElementById('emailInput').value=''; document.getElementById('emailErr').style.display='none'; }
 }
 
-function showStep4(email) {
-  setStep(4);
-  const inst  = esParticular ? 'Particular' : selInst.label;
-  const prog  = selProg.label;
-  const precio = fmt(selProg.price);
-  document.getElementById('rInst').textContent  = inst;
-  document.getElementById('rProg').textContent  = prog;
-  document.getElementById('rPrice').textContent = precio;
-  document.getElementById('rNote').textContent  = selProg.note || '';
-  const w = document.getElementById('rWarn');
-  if (selProg.warn) { w.textContent = selProg.warn; w.style.display = 'block'; }
-  else w.style.display = 'none';
-  const waMsg = `Hola, quiero agendar una cita para mi certificación aeromédica.\n\nInstitución: ${inst}\nPrograma: ${prog}\nTarifa: ${precio}\nCorreo: ${email}`;
-  document.getElementById('waBtn').onclick = () => openWA(waMsg);
-  document.getElementById('step4').style.display = 'block';
+document.getElementById('ageInput') && document.getElementById('ageInput').addEventListener('keydown',e=>{if(e.key==='Enter') confirmAge();});
+
+function handleEmail(){
+  const em=document.getElementById('emailInput').value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ document.getElementById('emailErr').style.display='block'; return; }
+  ST.email=em;
+  try{ localStorage.setItem(STORAGE_KEY,em); }catch(e){}
+  enviarSheets(em, ST.instLabel||'Particular');
+  showResults(em);
 }
 
-function goStep1() { setStep(1); document.getElementById('step1').style.display = 'block'; }
-function goStep2() { esParticular ? showStep2Part() : showStep2Inst(); }
+function showResults(email){
+  hideAll(); setBar(6);
+  const tox = ST.instKey==='AEROCLUB';
+  const {lista,alerts} = getExams(ST.licencia,ST.primeraVez,ST.edad,ST.vencido,tox);
+  const tipoLabel = ST.vencido?'Vencido >2 años':ST.primeraVez?'Primera vez':'Renovación';
+  const esRenovacion = !ST.primeraVez;
+
+  document.getElementById('summaryBox').innerHTML=`
+    <div class="summary-item"><span class="summary-label">Institución</span><span class="summary-value">${ST.instLabel}</span></div>
+    <div class="summary-item"><span class="summary-label">Programa</span><span class="summary-value">${ST.progLabel}</span></div>
+    <div class="summary-item"><span class="summary-label">Licencia</span><span class="summary-value">${LIC_NAMES[ST.licencia]||ST.licencia}</span></div>
+    <div class="summary-item"><span class="summary-label">Tipo</span><span class="summary-value">${tipoLabel}</span></div>
+    <div class="summary-item"><span class="summary-label">Edad</span><span class="summary-value">${ST.edad} años</span></div>
+    <div class="summary-item"><span class="summary-label">Exámenes</span><span class="summary-value">${lista.length}</span></div>`;
+
+  document.getElementById('examGrid').innerHTML=lista.map(k=>{const ex=EXAMS[k]; return `<div class="exam-item"><span class="exam-icon">${ex.icon}</span><div><div class="exam-name">${ex.name}</div><div class="exam-note">${ex.note}</div></div></div>`; }).join('');
+  document.getElementById('alertsBox').innerHTML=alerts.map(a=>`<div class="alert-box alert-${a.type}">${a.text}</div>`).join('');
+
+  // Mostrar tarifa solo para primera vez y vencido
+  if (esRenovacion) {
+    document.getElementById('resultCard').style.display='none';
+  } else {
+    document.getElementById('resultCard').style.display='block';
+    const precioFinal = ST.vencido ? ST.progPrice + 150000 : ST.progPrice;
+    document.getElementById('rInst').textContent=ST.instLabel;
+    document.getElementById('rProg').textContent=ST.progLabel;
+    document.getElementById('rPrice').textContent=fmt(precioFinal);
+    document.getElementById('rNote').textContent=ST.vencido ? 'Incluye $150.000 pruebas psicotécnicas' : (ST.progNote||'');
+    const w=document.getElementById('rWarn');
+    if(ST.progWarn){ w.textContent=ST.progWarn; w.style.display='block'; } else w.style.display='none';
+  }
+
+  const precioWA = ST.vencido ? ST.progPrice + 150000 : ST.progPrice;
+  const examStr=lista.map(k=>EXAMS[k]?.name||k).join(', ');
+  const waMsg=`Hola, quiero agendar una cita para mi certificación aeromédica.\n\nInstitución: ${ST.instLabel}\nPrograma: ${ST.progLabel}\nLicencia: ${LIC_NAMES[ST.licencia]||ST.licencia}\nTipo: ${tipoLabel}\nEdad: ${ST.edad} años\n`+(esRenovacion?'':`Tarifa: ${fmt(precioWA)}\n`)+`Exámenes (${lista.length}): ${examStr}`+(email?`\nCorreo: ${email}`:'');
+  document.getElementById('waBtn').onclick=()=>openWA(waMsg);
+  document.getElementById('stepResults').style.display='block';
+}
+
+function showBlocked(){ document.getElementById('screenPassword').style.display='none'; document.getElementById('screenBlocked').style.display='block'; }
+function showPasswordScreen(){ document.getElementById('screenBlocked').style.display='none'; document.getElementById('screenPassword').style.display='block'; document.getElementById('pwdInput').value=''; document.getElementById('pwdErr').style.display='none'; }
+function checkPassword(){
+  const v=document.getElementById('pwdInput').value.trim();
+  if(v===ADMIN_KEY){ ST.isEmpleado=true; document.getElementById('screenPassword').style.display='none'; document.getElementById('screenWizard').style.display='block'; document.getElementById('stepWelcome').style.display='none'; document.getElementById('stepFlow').style.display='block'; renderInst(); goTo(1); }
+  else document.getElementById('pwdErr').style.display='block';
+}
+document.getElementById('pwdInput').addEventListener('keydown',e=>{if(e.key==='Enter') checkPassword();});
+
+function restart(){
+  const emp=ST.isEmpleado;
+  ST={instKey:null,instLabel:null,progLabel:null,progPrice:0,progNote:'',progWarn:'',licencia:null,primeraVez:null,vencido:false,edad:null,email:'',isEmpleado:emp};
+  hideAll(); renderInst(); goTo(1);
+}
 
 init();
 </script>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grancolombiana IPS · Tarifas Empleados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #f5f6f8;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+    .wiz-wrap { width: 100%; max-width: 560px; }
+    .logo-area { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-bottom: 2rem; }
+    .icon-plane { font-size: 28px; }
+    .brand-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; color: #0c3b6e; letter-spacing: 0.5px; text-align: center; }
+    .brand-sub { font-size: 11px; color: #888; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; }
+    .emp-badge { display: inline-block; background: #fff3cd; color: #7a5500; font-size: 11px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 1.5rem; }
+
+    .step-bar { display: flex; align-items: center; margin-bottom: 2rem; }
+    .step-dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; flex-shrink: 0; transition: all 0.3s; }
+    .step-dot.done   { background: #0c3b6e; color: white; }
+    .step-dot.active { background: #1a6cc4; color: white; }
+    .step-dot.pending { background: #e8eaed; color: #999; border: 0.5px solid #d0d3d8; }
+    .step-line       { flex: 1; height: 1px; background: #d0d3d8; transition: background 0.3s; }
+    .step-line.done  { background: #0c3b6e; }
+
+    .question-label { font-size: 12px; font-weight: 500; color: #888; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 8px; }
+    .question-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500; color: #111; margin-bottom: 1.5rem; line-height: 1.3; }
+
+    .option-grid      { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .option-grid.wide { grid-template-columns: 1fr; }
+    .option-btn { background: white; border: 0.5px solid #ccc; border-radius: 12px; padding: 14px 16px; cursor: pointer; text-align: left; transition: all 0.2s; color: #111; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; line-height: 1.3; }
+    .option-btn:hover { border-color: #1a6cc4; background: #E6F1FB; color: #0c3b6e; }
+    .option-btn .opt-sub { font-size: 11px; font-weight: 400; color: #888; margin-top: 4px; }
+    .option-btn:hover .opt-sub { color: #185FA5; }
+
+    .back-btn { background: none; border: none; color: #888; cursor: pointer; font-size: 13px; font-family: 'DM Sans', sans-serif; padding: 0; margin-top: 1.5rem; display: flex; align-items: center; gap: 6px; }
+    .back-btn:hover { color: #333; }
+
+    .result-card { background: white; border: 0.5px solid #e0e2e6; border-radius: 12px; padding: 1.5rem; }
+    .result-label { font-size: 11px; color: #888; letter-spacing: 1px; text-transform: uppercase; }
+    .result-inst  { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 500; color: #111; margin: 4px 0 2px; }
+    .result-prog  { font-size: 14px; color: #888; margin-bottom: 1.5rem; }
+    .price-box { background: #0c3b6e; border-radius: 8px; padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+    .price-label { font-size: 13px; color: #B5D4F4; }
+    .price-val   { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 600; color: white; }
+    .price-note  { font-size: 11px; color: #85B7EB; margin-top: 4px; }
+    .price-sym   { font-size: 40px; opacity: 0.3; color: white; }
+    .warn-note   { font-size: 12px; color: #7a5500; background: #fff8e1; border-radius: 8px; padding: 10px 14px; margin-top: 1rem; }
+
+    .restart-btn { width: 100%; margin-top: 1rem; padding: 13px; border: 0.5px solid #1a6cc4; border-radius: 8px; background: none; color: #1a6cc4; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; }
+    .restart-btn:hover { background: #E6F1FB; }
+
+    .wa-btn { width: 100%; margin-top: 1rem; padding: 13px; background: #25D366; color: white; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.2s; }
+    .wa-btn:hover { background: #1ebe5d; }
+    .wa-icon { width: 20px; height: 20px; fill: white; flex-shrink: 0; }
+
+    /* PASSWORD */
+    .pwd-card { background: white; border: 0.5px solid #e0e2e6; border-radius: 12px; padding: 2rem 1.5rem; text-align: center; }
+    .pwd-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500; color: #111; margin-bottom: 0.5rem; }
+    .pwd-sub   { font-size: 13px; color: #888; margin-bottom: 1.5rem; }
+    .pwd-err   { font-size: 12px; color: #c0392b; margin-bottom: 10px; display: none; }
+    input[type="password"] { width: 100%; padding: 12px 14px; border: 0.5px solid #ccc; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: #111; background: white; margin-bottom: 12px; outline: none; transition: border-color 0.2s; text-align: center; letter-spacing: 4px; font-size: 18px; }
+    input[type="password"]:focus { border-color: #1a6cc4; }
+    .submit-btn { width: 100%; padding: 13px; background: #0c3b6e; color: white; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+    .submit-btn:hover { background: #1a6cc4; }
+  </style>
+</head>
+<body>
+<div class="wiz-wrap">
+
+  <div class="logo-area">
+    <div class="icon-plane">✈</div>
+    <div class="brand-name">Grancolombiana IPS</div>
+    <div class="brand-sub">Medicina de Aviación · Tarifas 2026</div>
+  </div>
+
+  <!-- CONTRASEÑA -->
+  <div id="screenPassword">
+    <div class="pwd-card">
+      <div class="pwd-title">Acceso empleados</div>
+      <div class="pwd-sub">Ingresa la clave para consultar tarifas.</div>
+      <p class="pwd-err" id="pwdErr">Clave incorrecta.</p>
+      <input type="password" id="pwdInput" placeholder="····" />
+      <button class="submit-btn" onclick="checkPassword()">Ingresar</button>
+    </div>
+  </div>
+
+  <!-- WIZARD EMPLEADOS -->
+  <div id="screenWizard" style="display:none">
+    <div style="text-align:center; margin-bottom:1.5rem;">
+      <span class="emp-badge">Modo empleado</span>
+    </div>
+
+    <div class="step-bar">
+      <div class="step-dot active" id="sd1">1</div>
+      <div class="step-line" id="sl1"></div>
+      <div class="step-dot pending" id="sd2">2</div>
+      <div class="step-line" id="sl2"></div>
+      <div class="step-dot pending" id="sd3">✓</div>
+    </div>
+
+    <div id="step1">
+      <div class="question-label">Paso 1 de 2</div>
+      <div class="question-title">¿Estudiaste en alguna de estas instituciones?</div>
+      <div class="option-grid" id="instGrid"></div>
+    </div>
+
+    <div id="step2a" style="display:none">
+      <div class="question-label">Paso 2 de 2</div>
+      <div class="question-title">¿Cuál es tu programa?</div>
+      <div class="option-grid" id="progGrid"></div>
+      <button class="back-btn" onclick="goStep1()">← Volver</button>
+    </div>
+
+    <div id="step2b" style="display:none">
+      <div class="question-label">Paso 2 de 2</div>
+      <div class="question-title">¿Cuál es tu tipo de certificación?</div>
+      <div class="option-grid wide" id="partGrid"></div>
+      <button class="back-btn" onclick="goStep1()">← Volver</button>
+    </div>
+
+    <div id="step3" style="display:none">
+      <div class="result-card">
+        <div class="result-label">Tarifa 2026</div>
+        <div class="result-inst" id="rInst"></div>
+        <div class="result-prog" id="rProg"></div>
+        <div class="price-box">
+          <div>
+            <div class="price-label">Valor a pagar</div>
+            <div class="price-val" id="rPrice"></div>
+            <div class="price-note" id="rNote"></div>
+          </div>
+          <div class="price-sym">$</div>
+        </div>
+        <div class="warn-note" id="rWarn" style="display:none"></div>
+      </div>
+      <button class="wa-btn" id="waBtn">
+        <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Agendar cita por WhatsApp
+      </button>
+      <button class="restart-btn" onclick="restart()">Consultar otra tarifa</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const ADMIN_KEY  = '7087';
+const WA_NUMBER  = '573012271729';
+
+const instituciones = [
+  { key:'DELTA_FORCE', label:'Delta Force', programas:[
+    { label:'Tripulante de Cabina (TCP)', price:420000, note:'', warn:'' },
+    { label:'Alumno Piloto de Avión (APA)', price:450000, note:'', warn:'' }
+  ]},
+  { key:'DREAM_FLY', label:'Dream Fly', programas:[
+    { label:'Alumno Piloto de Avión (APA)', price:420000, note:'', warn:'' }
+  ]},
+  { key:'EIA', label:'EIA', programas:[
+    { label:'TCP — enviado por la escuela', price:440000, note:'', warn:'' },
+    { label:'TCP — no enviado por la escuela', price:360000, note:'', warn:'Si el paciente no es enviado directamente por EIA, la tarifa es $360.000.' }
+  ]},
+  { key:'AEROCLUB', label:'Aeroclub', programas:[
+    { label:'APA (Incluye Toxicología)', price:530000, note:'Incluye toxicología', warn:'' }
+  ]},
+  { key:'AEROANDES', label:'Aeroandes', programas:[
+    { label:'Tripulante de Cabina (TCP)', price:420000, note:'', warn:'' },
+    { label:'Alumno Piloto de Avión (APA)', price:450000, note:'', warn:'' }
+  ]}
+];
+
+const particulares = [
+  { label:'TCP', sub:'Tripulante de Cabina', price:360000, note:'', warn:'' },
+  { label:'APA', sub:'Alumno Piloto de Avión', price:420000, note:'', warn:'' }
+];
+
+let selInst = null, selProg = null, esParticular = false;
+
+function fmt(n) { return '$ ' + n.toLocaleString('es-CO'); }
+
+function openWA(msg) {
+  const text = msg || 'Hola, quiero agendar una cita para mi certificación aeromédica.';
+  window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(text), '_blank');
+}
+
+function checkPassword() {
+  const val = document.getElementById('pwdInput').value.trim();
+  if (val === ADMIN_KEY) {
+    document.getElementById('screenPassword').style.display = 'none';
+    document.getElementById('screenWizard').style.display = 'block';
+    renderInst();
+    setStep(1);
+    document.getElementById('step1').style.display = 'block';
+  } else {
+    document.getElementById('pwdErr').style.display = 'block';
+  }
+}
+
+document.getElementById('pwdInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') checkPassword();
+});
+
+function setStep(s) {
+  ['step1','step2a','step2b','step3'].forEach(id => document.getElementById(id).style.display = 'none');
+  const states = { 1:['active','pending','pending'], 2:['done','active','pending'], 3:['done','done','done'] };
+  const st = states[s];
+  ['sd1','sd2','sd3'].forEach((id,i) => document.getElementById(id).className = 'step-dot ' + st[i]);
+  ['sl1','sl2'].forEach((id,i) => document.getElementById(id).className = 'step-line' + (st[i]==='done' ? ' done' : ''));
+}
+
+function renderInst() {
+  const grid = document.getElementById('instGrid');
+  grid.innerHTML = '';
+  instituciones.forEach(inst => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = inst.label;
+    btn.onclick = () => { selInst = inst; esParticular = false; showStep2Inst(); };
+    grid.appendChild(btn);
+  });
+  const otras = document.createElement('button');
+  otras.className = 'option-btn';
+  otras.textContent = 'Otras';
+  otras.onclick = () => { selInst = null; esParticular = true; showStep2Part(); };
+  grid.appendChild(otras);
+}
+
+function showStep2Inst() {
+  setStep(2);
+  const progs = selInst.programas;
+  if (progs.length === 1) { selProg = progs[0]; showStep3(); return; }
+  const grid = document.getElementById('progGrid');
+  grid.innerHTML = '';
+  progs.forEach(p => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = p.label;
+    btn.onclick = () => { selProg = p; showStep3(); };
+    grid.appendChild(btn);
+  });
+  document.getElementById('step2a').style.display = 'block';
+}
+
+function showStep2Part() {
+  setStep(2);
+  const grid = document.getElementById('partGrid');
+  grid.innerHTML = '';
+  particulares.forEach(p => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<div>${p.label}</div><div class="opt-sub">${p.sub}</div>`;
+    btn.onclick = () => { selProg = p; showStep3(); };
+    grid.appendChild(btn);
+  });
+  document.getElementById('step2b').style.display = 'block';
+}
+
+function showStep3() {
+  setStep(3);
+  const inst  = esParticular ? 'Particular' : selInst.label;
+  const prog  = selProg.label;
+  const precio = fmt(selProg.price);
+  document.getElementById('rInst').textContent  = inst;
+  document.getElementById('rProg').textContent  = prog;
+  document.getElementById('rPrice').textContent = precio;
+  document.getElementById('rNote').textContent  = selProg.note || '';
+  const w = document.getElementById('rWarn');
+  if (selProg.warn) { w.textContent = selProg.warn; w.style.display = 'block'; }
+  else w.style.display = 'none';
+  const waMsg = `Hola, quiero agendar una cita para certificación aeromédica.\n\nInstitución: ${inst}\nPrograma: ${prog}\nTarifa: ${precio}`;
+  document.getElementById('waBtn').onclick = () => openWA(waMsg);
+  document.getElementById('step3').style.display = 'block';
+}
+
+function goStep1() { setStep(1); document.getElementById('step1').style.display = 'block'; }
+
+function restart() {
+  selInst = null; selProg = null; esParticular = false;
+  setStep(1);
+  document.getElementById('step1').style.display = 'block';
+}
+</script>
+</body>
+</html>

@@ -402,11 +402,8 @@ function openWA(msg) {
 
 function enviarSheets(correo, institucion) {
   if (!SHEETS_URL) return;
-  fetch(SHEETS_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ correo, institucion })
-  }).catch(() => {});
+  const url = SHEETS_URL + '?correo=' + encodeURIComponent(correo) + '&institucion=' + encodeURIComponent(institucion);
+  fetch(url, { method: 'GET', mode: 'no-cors' }).catch(() => {});
 }
 
 const ADMIN_KEY = '7087';
@@ -486,8 +483,8 @@ function renderInst() {
     grid.appendChild(btn);
   });
   const noBtn = document.createElement('button');
-  noBtn.className = 'no-btn';
-  noBtn.textContent = 'No';
+  noBtn.className = 'option-btn';
+  noBtn.textContent = 'Otras';
   noBtn.onclick = () => { selInst = null; esParticular = true; showStep2Part(); };
   grid.appendChild(noBtn);
 }

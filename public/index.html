@@ -410,16 +410,21 @@ function showResults(email){
     document.getElementById('resultCard').style.display='none';
   } else {
     document.getElementById('resultCard').style.display='block';
-    const precioFinal = ST.vencido ? ST.progPrice + 150000 : ST.progPrice;
+    let precioFinal = ST.progPrice;
+    const notas = [];
+    if (ST.vencido) { precioFinal += 150000; notas.push('$150.000 pruebas psicotécnicas'); }
+    if (ST.edad >= 40 && lista.includes('esfuerzo')) { precioFinal += 220000; notas.push('$220.000 prueba de esfuerzo'); }
     document.getElementById('rInst').textContent=ST.instLabel;
     document.getElementById('rProg').textContent=ST.progLabel;
     document.getElementById('rPrice').textContent=fmt(precioFinal);
-    document.getElementById('rNote').textContent=ST.vencido ? 'Incluye $150.000 pruebas psicotécnicas' : (ST.progNote||'');
+    document.getElementById('rNote').textContent=notas.length>0 ? 'Incluye: '+notas.join(' + ') : (ST.progNote||'');
     const w=document.getElementById('rWarn');
     if(ST.progWarn){ w.textContent=ST.progWarn; w.style.display='block'; } else w.style.display='none';
   }
 
-  const precioWA = ST.vencido ? ST.progPrice + 150000 : ST.progPrice;
+  let precioWA = ST.progPrice;
+  if (ST.vencido) precioWA += 150000;
+  if (ST.edad >= 40 && lista.includes('esfuerzo')) precioWA += 220000;
   const examStr=lista.map(k=>EXAMS[k]?.name||k).join(', ');
   const waMsg=`Hola, quiero agendar una cita para mi certificación aeromédica.\n\nInstitución: ${ST.instLabel}\nPrograma: ${ST.progLabel}\nLicencia: ${LIC_NAMES[ST.licencia]||ST.licencia}\nTipo: ${tipoLabel}\nEdad: ${ST.edad} años\n`+(esRenovacion?'':`Tarifa: ${fmt(precioWA)}\n`)+`Exámenes (${lista.length}): ${examStr}`+(email?`\nCorreo: ${email}`:'');
   document.getElementById('waBtn').onclick=()=>openWA(waMsg);

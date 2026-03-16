@@ -319,6 +319,9 @@ function init(){
 }
 
 function showStepFlow(){
+  if (!ST.isEmpleado) {
+    try { localStorage.setItem(STORAGE_KEY, 'iniciado'); } catch(e) {}
+  }
   document.getElementById('stepWelcome').style.display='none';
   document.getElementById('stepFlow').style.display='block';
   renderInst(); goTo(1);

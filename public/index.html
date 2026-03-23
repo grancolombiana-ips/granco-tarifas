@@ -181,10 +181,11 @@
       </div>
       <div id="step6email" style="display:none">
         <div class="question-label">Último paso</div>
-        <div class="question-title">¿Cuál es tu correo electrónico?</div>
-        <p style="font-size:12px;color:#888;margin-bottom:1.25rem;line-height:1.6;">La tarifa se mostrará una sola vez. Ingresa un correo válido para continuar.</p>
-        <p class="err-msg" id="emailErr" style="display:none">Por favor ingresa un correo válido.</p>
-        <input type="email" id="emailInput" placeholder="ejemplo@correo.com" />
+        <div class="question-title">Tus datos de contacto</div>
+        <p style="font-size:12px;color:#888;margin-bottom:1.25rem;line-height:1.6;">Ingresa tu correo y celular para continuar.</p>
+        <p class="err-msg" id="emailErr" style="display:none">Por favor ingresa un correo válido y un celular.</p>
+        <input type="email" id="emailInput" placeholder="Correo electrónico" />
+        <input type="tel" id="celularInput" placeholder="Celular (Ej: 3001234567)" />
         <button class="submit-btn" onclick="handleEmail()">Ver mi tarifa →</button>
         <button class="back-btn" onclick="goTo(5)">← Volver</button>
       </div>
@@ -336,7 +337,7 @@ function getExams(lic, pv, e, venc, toxicologia) {
 
 function fmt(n){ return '$ '+n.toLocaleString('es-CO'); }
 function openWA(msg){ window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg||'Hola, quiero agendar una cita para mi certificación aeromédica.'),'_blank'); }
-function enviarSheets(c,i){ if(!SHEETS_URL) return; fetch(SHEETS_URL+'?correo='+encodeURIComponent(c)+'&institucion='+encodeURIComponent(i),{method:'GET',mode:'no-cors'}).catch(()=>{}); }
+function enviarSheets(correo, celular, institucion, programa, licencia, tipo, edad){ if(!SHEETS_URL) return; const url=SHEETS_URL+'?correo='+encodeURIComponent(correo)+'&celular='+encodeURIComponent(celular)+'&institucion='+encodeURIComponent(institucion)+'&programa='+encodeURIComponent(programa)+'&licencia='+encodeURIComponent(licencia)+'&tipo='+encodeURIComponent(tipo)+'&edad='+encodeURIComponent(edad); fetch(url,{method:'GET',mode:'no-cors'}).catch(()=>{}); }
 
 function allStepIds(){ return ['step1','step2','step3','step4','step5','step6email','stepResults']; }
 function hideAll(){ allStepIds().forEach(id=>document.getElementById(id).style.display='none'); }
@@ -421,9 +422,11 @@ document.getElementById('ageInput') && document.getElementById('ageInput').addEv
 
 function handleEmail(){
   const em=document.getElementById('emailInput').value.trim();
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ document.getElementById('emailErr').style.display='block'; return; }
-  ST.email=em;
-  enviarSheets(em, ST.instLabel||'Particular');
+  const cel=document.getElementById('celularInput').value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)||!cel){ document.getElementById('emailErr').style.display='block'; return; }
+  ST.email=em; ST.celular=cel;
+  const tipoLabel=ST.vencido?'Vencido >2 años':ST.primeraVez?'Primera vez':'Renovación';
+  enviarSheets(em, cel, ST.instLabel||'Particular', ST.progLabel||'', LIC_NAMES[ST.licencia]||ST.licencia||'', tipoLabel, ST.edad||'');
   showResults(em);
 }
 

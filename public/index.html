@@ -201,17 +201,18 @@
       <div class="step-dot active" id="rv1">1</div><div class="step-line" id="rl1"></div>
       <div class="step-dot pending" id="rv2">2</div><div class="step-line" id="rl2"></div>
       <div class="step-dot pending" id="rv3">3</div><div class="step-line" id="rl3"></div>
-      <div class="step-dot pending" id="rv4">✓</div>
+      <div class="step-dot pending" id="rv4">4</div><div class="step-line" id="rl4"></div>
+      <div class="step-dot pending" id="rv5">✓</div>
     </div>
 
     <div id="rvStep1">
-      <div class="question-label">Paso 1 de 3</div>
+      <div class="question-label">Paso 1 de 4</div>
       <div class="question-title">¿Qué tipo de licencia solicitas?</div>
       <div class="option-grid wide" id="rvLicGrid"></div>
       <button class="back-btn" onclick="showHome()">← Volver al inicio</button>
     </div>
     <div id="rvStep2" style="display:none">
-      <div class="question-label">Paso 2 de 3</div>
+      <div class="question-label">Paso 2 de 4</div>
       <div class="question-title">¿Cuál es tu fecha de nacimiento?</div>
       <p class="err-msg" id="rvFechaErr" style="display:none">Por favor ingresa una fecha válida.</p>
       <input type="date" id="rvFecha" max="" />
@@ -219,13 +220,19 @@
       <button class="back-btn" onclick="rvGoTo(1)">← Volver</button>
     </div>
     <div id="rvStep3" style="display:none">
-      <div class="question-label">Paso 3 de 3 — Datos de contacto</div>
+      <div class="question-label">Paso 3 de 4</div>
+      <div class="question-title">¿Con qué empresa trabajas?</div>
+      <div class="option-grid" id="rvEmpresaGrid"></div>
+      <button class="back-btn" onclick="rvGoTo(2)">← Volver</button>
+    </div>
+    <div id="rvStep4" style="display:none">
+      <div class="question-label">Paso 4 de 4 — Datos de contacto</div>
       <div class="question-title">¿Cuál es tu información de contacto?</div>
       <p class="err-msg" id="rvContactErr" style="display:none">Por favor ingresa un correo válido y tu celular.</p>
       <input type="email" id="rvEmail" placeholder="Correo electrónico" />
       <input type="tel" id="rvCelular" placeholder="Celular (Ej: 3001234567)" />
       <button class="submit-btn" onclick="rvConfirmContact()">Ver mis exámenes →</button>
-      <button class="back-btn" onclick="rvGoTo(2)">← Volver</button>
+      <button class="back-btn" onclick="rvGoTo(3)">← Volver</button>
     </div>
     <div id="rvResults" style="display:none">
       <div class="summary-box" id="rvSummary"></div>
@@ -246,7 +253,7 @@ const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbz--1OOY79QKeZU0YR3V
 
 // ── STATE ──
 let PV = { instKey:null, instLabel:null, progLabel:null, progPrice:0, progNote:'', progWarn:'', licencia:null, edad:null, email:'', celular:'' };
-let RV = { licencia:null, edad:null, email:'', celular:'' };
+let RV = { licencia:null, edad:null, empresa:'', email:'', celular:'' };
 let isEmpleado = false;
 
 // ── CATALOGOS ──
@@ -322,82 +329,68 @@ function getExamsRV(lic, e) {
   let lista = []; const alerts = [];
   lista.push('medico','ch','orina','glicemia','audiometria');
 
+  // Prueba de esfuerzo: 40-59 cada 5 años, 60+ cada año
+  function needsEsfuerzo(e) { return (e >= 60) || (e >= 40 && e % 5 === 0); }
+
   if (lic === 'clase1') {
     lista.push('oftalmo_aero');
-    if (e <= 24) { /* solo base */ }
-    else if (e <= 24) { lista.push('optometria'); }
-    else if (e === 25) { lista.push('oftalmo_comp'); }
-    else if (e >= 26 && e <= 29) { lista.push('oftalmo_comp'); }
-    else if (e >= 30 && e <= 34) { lista.push('oftalmo_comp'); }
-    else if (e === 35) { lista.push('oftalmo_comp','perfil'); }
-    else if (e === 36) { lista.push('oftalmo_comp','perfil','creatinina'); }
-    else if (e >= 37 && e <= 38) { lista.push('oftalmo_comp','perfil','creatinina'); }
-    else if (e === 39) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina'); }
-    else if (e >= 40 && e <= 44) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
-    else if (e >= 45 && e <= 49) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
-    else if (e >= 50 && e <= 59) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
+    if (e >= 25 && e <= 34) lista.push('oftalmo_comp');
+    else if (e === 35) lista.push('oftalmo_comp','perfil');
+    else if (e === 36) lista.push('oftalmo_comp','perfil','creatinina');
+    else if (e >= 37 && e <= 38) lista.push('oftalmo_comp','perfil','creatinina');
+    else if (e === 39) lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina');
+    else if (e >= 40 && e <= 59) lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg');
     else if (e >= 60 && e <= 64) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg','psicologia'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
     else if (e >= 65) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg','psicologia'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); alerts.push({type:'warning',text:'⚠️ Desde los 65 años: todos los exámenes en cada renovación.'}); }
-    if (e >= 40 && e % 5 === 0) lista.push('esfuerzo');
+    if (needsEsfuerzo(e)) lista.push('esfuerzo');
   }
 
   else if (lic === 'clase2_piloto') {
     lista.push('oftalmo_aero');
-    if (e >= 25 && e <= 27) { lista.push('orl'); }
-    else if (e >= 28 && e <= 29) { lista.push('orl'); }
-    else if (e >= 30 && e <= 34) { lista.push('orl'); }
-    else if (e >= 35 && e <= 37) { lista.push('orl','oftalmo_comp'); }
-    else if (e >= 38 && e <= 39) { lista.push('orl','oftalmo_comp'); }
-    else if (e >= 40 && e <= 44) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
-    else if (e >= 45 && e <= 49) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
-    else if (e >= 50 && e <= 59) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
+    if (e >= 25 && e <= 34) lista.push('orl');
+    else if (e >= 35 && e <= 39) lista.push('orl','oftalmo_comp');
+    else if (e >= 40 && e <= 59) lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg');
     else if (e >= 60 && e <= 64) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg','psicologia'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
     else if (e >= 65) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg','psicologia'); alerts.push({type:'warning',text:'⚠️ Desde los 65 años: todos los exámenes.'}); }
-    if (e >= 40 && e % 5 === 0) lista.push('esfuerzo');
+    if (needsEsfuerzo(e)) lista.push('esfuerzo');
     alerts.push({type:'info',text:'📋 Clase 2 Pilotos: vigencia fija de 36 meses.'});
   }
 
   else if (lic === 'clase2_tcp') {
     lista.push('oftalmo_aero');
-    if (e >= 25 && e <= 34) { lista.push('orl'); }
-    else if (e >= 35 && e <= 39) { lista.push('orl','oftalmo_comp'); }
-    else if (e >= 40 && e <= 42) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
-    else if (e >= 43 && e <= 47) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
-    else if (e >= 48 && e <= 52) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
-    else if (e >= 53 && e <= 59) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
+    if (e >= 25 && e <= 34) lista.push('orl');
+    else if (e >= 35 && e <= 39) lista.push('orl','oftalmo_comp');
+    else if (e >= 40 && e <= 59) lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg');
     else if (e >= 60 && e <= 64) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg','psicologia'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
     else if (e >= 65) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg','psicologia'); alerts.push({type:'warning',text:'⚠️ Desde los 65 años: todos los exámenes.'}); }
-    if (e >= 40 && e % 5 === 0) lista.push('esfuerzo');
+    if (needsEsfuerzo(e)) lista.push('esfuerzo');
     alerts.push({type:'info',text:'📋 TCP: vigencia fija de 36 meses (3 años).'});
   }
 
   else if (lic === 'clase3_cta') {
     lista.push('oftalmo_aero');
-    if (e >= 24 && e <= 25) { lista.push('oftalmo_comp'); }
-    else if (e >= 26 && e <= 29) { lista.push('oftalmo_comp'); }
-    else if (e >= 30 && e <= 34) { lista.push('oftalmo_comp','orl'); }
-    else if (e >= 35 && e <= 39) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria'); }
-    else if (e >= 40 && e <= 49) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
-    else if (e >= 50 && e <= 59) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
+    if (e >= 24 && e <= 29) lista.push('oftalmo_comp');
+    else if (e >= 30 && e <= 34) lista.push('oftalmo_comp','orl');
+    else if (e >= 35 && e <= 39) lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria');
+    else if (e >= 40 && e <= 59) lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg');
     else if (e >= 60 && e <= 64) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg','psicologia'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
     else if (e >= 65) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg','psicologia'); alerts.push({type:'warning',text:'⚠️ Desde los 65 años: todos los exámenes.'}); }
-    if (e >= 40 && e % 5 === 0) lista.push('esfuerzo');
+    if (needsEsfuerzo(e)) lista.push('esfuerzo');
   }
 
   else if (lic === 'clase3_oea') {
-    if (e < 30) { /* solo base */ }
-    else if (e >= 30 && e <= 39) { lista.push('oftalmo_comp'); }
-    else if (e >= 40) { lista.push('oftalmo_comp','perfil','creatinina','ekg'); }
-    if (e >= 50) lista.push('esfuerzo');
+    if (e >= 30 && e <= 39) lista.push('oftalmo_comp');
+    else if (e >= 40) lista.push('oftalmo_comp','perfil','creatinina','ekg');
+    if (needsEsfuerzo(e)) lista.push('esfuerzo');
     alerts.push({type:'info',text:'📋 OEA: vigencia fija de 36 meses (3 años).'});
   }
 
   else if (lic === 'clase3_pul') {
     lista.push('oftalmo_aero');
-    if (e >= 25 && e <= 34) { lista.push('orl'); }
-    else if (e >= 35 && e <= 39) { lista.push('orl','oftalmo_comp'); }
-    else if (e >= 40) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
-    if (e >= 50) lista.push('esfuerzo');
+    if (e >= 25 && e <= 34) lista.push('orl');
+    else if (e >= 35 && e <= 39) lista.push('orl','oftalmo_comp');
+    else if (e >= 40) lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg');
+    if (needsEsfuerzo(e)) lista.push('esfuerzo');
     if (e >= 60) { lista.push('psicologia'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
     if (e >= 65) alerts.push({type:'warning',text:'⚠️ Desde los 65 años: todos los exámenes.'});
   }
@@ -639,18 +632,30 @@ function startRenovacion() {
   document.getElementById('rvFecha').max = hoy;
 }
 
-function rvAllSteps(){ return ['rvStep1','rvStep2','rvStep3','rvResults']; }
+function rvAllSteps(){ return ['rvStep1','rvStep2','rvStep3','rvStep4','rvResults']; }
 function rvHideAll(){ rvAllSteps().forEach(id => document.getElementById(id).style.display='none'); }
 
 function rvSetBar(s) {
-  for(let i=1;i<=4;i++){ const d=document.getElementById('rv'+i); d.className='step-dot '+(i<s?'done':i===s?'active':'pending'); }
-  for(let i=1;i<=3;i++){ document.getElementById('rl'+i).className='step-line'+(i<s?' done':''); }
+  for(let i=1;i<=5;i++){ const d=document.getElementById('rv'+i); d.className='step-dot '+(i<s?'done':i===s?'active':'pending'); }
+  for(let i=1;i<=4;i++){ document.getElementById('rl'+i).className='step-line'+(i<s?' done':''); }
 }
 
 function rvGoTo(s) {
   rvHideAll(); rvSetBar(s);
-  const ids={1:'rvStep1',2:'rvStep2',3:'rvStep3',4:'rvResults'};
+  const ids={1:'rvStep1',2:'rvStep2',3:'rvStep3',4:'rvStep4',5:'rvResults'};
+  if(s===3) renderRVEmpresa();
   if(ids[s]) document.getElementById(ids[s]).style.display='block';
+}
+
+function renderRVEmpresa() {
+  const empresas = ['Particular','Avianca','Latam','Clic','Lanco','Avianca Express','Avianca Cargo','Aeroclub','Copa/Wingo','Aeronáutica Civil','Otros'];
+  const g = document.getElementById('rvEmpresaGrid'); g.innerHTML = '';
+  empresas.forEach(emp => {
+    const b = document.createElement('button'); b.className = 'option-btn';
+    b.textContent = emp;
+    b.onclick = () => { RV.empresa = emp; rvGoTo(4); };
+    g.appendChild(b);
+  });
 }
 
 function renderRVLic() {
@@ -680,10 +685,11 @@ function rvConfirmContact() {
   RV.email = em; RV.celular = cel;
   const {lista, alerts} = getExamsRV(RV.licencia, RV.edad);
 
-  enviarSheets(em, cel, 'N/A', 'N/A', LIC_NAMES[RV.licencia]||RV.licencia, 'Renovación', RV.edad);
+  enviarSheets(em, cel, RV.empresa, 'N/A', LIC_NAMES[RV.licencia]||RV.licencia, 'Renovación', RV.edad);
 
   document.getElementById('rvSummary').innerHTML = `
     <div class="summary-item"><span class="summary-label">Licencia</span><span class="summary-value">${LIC_NAMES[RV.licencia]||RV.licencia}</span></div>
+    <div class="summary-item"><span class="summary-label">Empresa</span><span class="summary-value">${RV.empresa}</span></div>
     <div class="summary-item"><span class="summary-label">Edad</span><span class="summary-value">${RV.edad} años</span></div>
     <div class="summary-item"><span class="summary-label">Tipo</span><span class="summary-value">Renovación</span></div>
     <div class="summary-item"><span class="summary-label">Exámenes</span><span class="summary-value">${lista.length}</span></div>`;
@@ -691,7 +697,7 @@ function rvConfirmContact() {
   renderExams(lista, 'rvExamGrid');
   renderAlerts(alerts, 'rvAlerts');
   document.getElementById('rvAvisoInfo').innerHTML = avisoHTML();
-  rvGoTo(4);
+  rvGoTo(5);
 }
 
 // ── INIT ──

@@ -623,7 +623,7 @@ function pvConfirmContact() {
 
 // ── FLUJO RENOVACIÓN ──
 function startRenovacion() {
-  RV = { licencia:null, edad:null, email:'', celular:'' };
+  RV = { licencia:null, edad:null, empresa:'', email:'', celular:'' };
   ['screenHome','screenPassword','screenPV'].forEach(id => document.getElementById(id).style.display = 'none');
   document.getElementById('screenRV').style.display = 'block';
   renderRVLic();
@@ -643,8 +643,8 @@ function rvSetBar(s) {
 function rvGoTo(s) {
   rvHideAll(); rvSetBar(s);
   const ids={1:'rvStep1',2:'rvStep2',3:'rvStep3',4:'rvStep4',5:'rvResults'};
-  if(s===3) renderRVEmpresa();
   if(ids[s]) document.getElementById(ids[s]).style.display='block';
+  if(s===3) renderRVEmpresa();
 }
 
 function renderRVEmpresa() {

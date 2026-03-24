@@ -423,8 +423,8 @@ function getExamsRV(lic, e) {
   else if (lic === 'clase3_oea') {
     // Tabla 5 — OEA / BAE
     if (e <= 24)          lista.push('optometria');
-    else if (e >= 25 && e <= 29) lista.push('oftalmo_comp','orl','psiquiatria');
-    else if (e >= 30 && e <= 34) lista.push('optometria','orl','cardiologia','neurologia','psiquiatria');
+    else if (e >= 25 && e <= 29) lista.push('oftalmo_comp','psiquiatria');
+    else if (e >= 30 && e <= 34) lista.push('optometria','orl','cardiologia','neurologia','psiquiatria','ekg');
     else if (e >= 35 && e <= 39) lista.push('optometria','orl','cardiologia','neurologia','psiquiatria','perfil','creatinina','ekg');
     else if (e >= 40)     lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','perfil','creatinina','ekg','esfuerzo');
     if (e >= 60) { lista.push('psicologia'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }

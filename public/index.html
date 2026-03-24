@@ -266,21 +266,19 @@ const INSTITUCIONES = [
 const PARTICULARES = [{label:'TCP',sub:'Tripulante de Cabina',price:360000},{label:'APA',sub:'Alumno Piloto de Avión',price:420000}];
 
 const LIC_NAMES = {
-  clase1:'Clase 1 — PCA · PCH · PTL · IDV',
-  clase2_piloto:'Clase 2 — PPA · PPL · APA · BAE',
+  clase1:'Clase 1 — PCA · PTL · PCH',
+  clase2_piloto:'Clase 2 — PPA · PPL · APA',
   clase2_tcp:'Clase 2 — TCP Tripulante de Cabina',
   clase3_cta:'Clase 3 — CTA Controlador de Tránsito',
-  clase3_oea:'Clase 3 — OEA Operador de Estación',
-  clase3_pul:'Clase 3 — PUL Piloto Ultraliviano'
+  clase3_oea:'Clase 3 — OEA · BAE'
 };
 
 const LIC_OPTIONS = [
-  {key:'clase1',      label:'Clase 1',           sub:'PCA: Piloto Comercial de Avión · PCH: Piloto Comercial de Helicóptero · PTL: Piloto de Transporte de Línea · IDV: Ingeniero de Vuelo'},
-  {key:'clase2_piloto',label:'Clase 2 — Pilotos',sub:'PPA: Piloto Privado de Avión · PPL: Piloto Privado de Planeador · APA: Alumno Piloto de Aeronave · BAE: Bombero Aeronáutico'},
-  {key:'clase2_tcp',  label:'Clase 2 — TCP',     sub:'TCP: Tripulante de Cabina de Pasajeros · Vigencia fija: 3 años'},
-  {key:'clase3_cta',  label:'Clase 3 — CTA',     sub:'CTA: Controlador de Tránsito Aéreo'},
-  {key:'clase3_oea',  label:'Clase 3 — OEA',     sub:'OEA: Operador de Estación Aeronáutica · Vigencia fija: 3 años'},
-  {key:'clase3_pul',  label:'Clase 3 — PUL',     sub:'PUL: Piloto de Aeronave Ultraliviana'}
+  {key:'clase1',       label:'Clase 1',           sub:'PCA: Piloto Comercial de Avión · PTL: Piloto de Transporte de Línea · PCH: Piloto Comercial de Helicóptero'},
+  {key:'clase2_piloto',label:'Clase 2 — Pilotos', sub:'PPA: Piloto Privado de Avión · PPL: Piloto Privado de Planeador · APA: Alumno Piloto de Aeronave'},
+  {key:'clase2_tcp',   label:'Clase 2 — TCP',     sub:'TCP: Tripulante de Cabina de Pasajeros · Vigencia fija: 3 años'},
+  {key:'clase3_cta',   label:'Clase 3 — CTA',     sub:'CTA: Controlador de Tránsito Aéreo'},
+  {key:'clase3_oea',   label:'Clase 3 — OEA · BAE', sub:'OEA: Operador de Estación Aeronáutica · BAE: Bombero Aeronáutico'}
 ];
 
 const EXAMS = {
@@ -379,20 +377,16 @@ function getExamsRV(lic, e) {
   }
 
   else if (lic === 'clase3_oea') {
-    if (e >= 30 && e <= 39) lista.push('oftalmo_comp');
-    else if (e >= 40) lista.push('oftalmo_comp','perfil','creatinina','ekg');
-    if (needsEsfuerzo(e)) lista.push('esfuerzo');
-    alerts.push({type:'info',text:'📋 OEA: vigencia fija de 36 meses (3 años).'});
-  }
-
-  else if (lic === 'clase3_pul') {
     lista.push('oftalmo_aero');
-    if (e >= 25 && e <= 34) lista.push('orl');
-    else if (e >= 35 && e <= 39) lista.push('orl','oftalmo_comp');
-    else if (e >= 40) lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg');
+    if (e < 25) { /* solo base */ }
+    else if (e >= 25 && e <= 28) lista.push('oftalmo_comp');
+    else if (e >= 29 && e <= 34) lista.push('oftalmo_comp');
+    else if (e >= 35 && e <= 39) lista.push('oftalmo_comp');
+    else if (e >= 40) lista.push('oftalmo_comp','perfil','creatinina','ekg');
     if (needsEsfuerzo(e)) lista.push('esfuerzo');
     if (e >= 60) { lista.push('psicologia'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
     if (e >= 65) alerts.push({type:'warning',text:'⚠️ Desde los 65 años: todos los exámenes.'});
+    alerts.push({type:'info',text:'📋 OEA / BAE: vigencia fija de 36 meses (3 años).'});
   }
 
   return { lista:[...new Set(lista)], alerts };

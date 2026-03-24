@@ -16,7 +16,7 @@
     .brand-sub { font-size: 11px; color: #888; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; }
     .step-bar { display: flex; align-items: center; margin-bottom: 2rem; }
     .step-dot { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; flex-shrink: 0; transition: all 0.3s; }
-    .step-dot.done   { background: #0c3b6e; color: white; }
+    .step-dot.done { background: #0c3b6e; color: white; }
     .step-dot.active { background: #1a6cc4; color: white; }
     .step-dot.pending { background: #e8eaed; color: #999; border: 0.5px solid #d0d3d8; }
     .step-line { flex: 1; height: 1px; background: #d0d3d8; transition: background 0.3s; }
@@ -31,7 +31,7 @@
     .option-btn:hover .opt-sub { color: #185FA5; }
     .back-btn { background: none; border: none; color: #888; cursor: pointer; font-size: 13px; font-family: 'DM Sans', sans-serif; padding: 0; margin-top: 1.5rem; display: flex; align-items: center; gap: 6px; }
     .back-btn:hover { color: #333; }
-    input[type="number"], input[type="email"], input[type="text"] { width: 100%; padding: 12px 14px; border: 0.5px solid #ccc; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: #111; background: white; margin-bottom: 12px; outline: none; transition: border-color 0.2s; }
+    input[type="number"], input[type="email"], input[type="text"], input[type="tel"], input[type="date"] { width: 100%; padding: 12px 14px; border: 0.5px solid #ccc; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: #111; background: white; margin-bottom: 12px; outline: none; transition: border-color 0.2s; }
     input:focus { border-color: #1a6cc4; }
     input[type="password"] { width: 100%; padding: 12px 14px; border: 0.5px solid #ccc; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 18px; color: #111; background: white; margin-bottom: 12px; outline: none; text-align: center; letter-spacing: 4px; }
     .submit-btn { width: 100%; padding: 13px; background: #0c3b6e; color: white; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
@@ -44,7 +44,7 @@
     .exam-note { font-size: 11px; color: #888; margin-top: 2px; }
     .alert-box { border-radius: 10px; padding: 12px 16px; font-size: 13px; line-height: 1.5; margin-bottom: 8px; }
     .alert-warning { background: #fff8e1; border: 0.5px solid #f0c040; color: #7a5500; }
-    .alert-info    { background: #E6F1FB; border: 0.5px solid #B5D4F4; color: #185FA5; }
+    .alert-info { background: #E6F1FB; border: 0.5px solid #B5D4F4; color: #185FA5; }
     .result-card { background: white; border: 0.5px solid #e0e2e6; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; margin-top: 1rem; }
     .result-label { font-size: 11px; color: #888; letter-spacing: 1px; text-transform: uppercase; }
     .result-inst { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 500; color: #111; margin: 4px 0 2px; }
@@ -55,38 +55,31 @@
     .price-note { font-size: 11px; color: #85B7EB; margin-top: 4px; }
     .price-sym { font-size: 40px; opacity: 0.3; color: white; }
     .warn-price { font-size: 12px; color: #7a5500; background: #fff8e1; border-radius: 8px; padding: 10px 14px; margin-top: 1rem; }
-    .wa-btn { width: 100%; margin-top: 1rem; padding: 13px; background: #25D366; color: white; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.2s; }
-    .wa-btn:hover { background: #1ebe5d; }
-    .wa-icon { width: 20px; height: 20px; fill: white; flex-shrink: 0; }
-    .aviso-box { background: #0c3b6e; border-radius: 12px; padding: 1.25rem 1.5rem; margin-top: 1rem; }
-    .aviso-title { font-size: 14px; font-weight: 500; color: white; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .aviso-box { border-radius: 12px; padding: 1.25rem 1.5rem; margin-top: 1rem; }
+    .aviso-title { font-size: 14px; font-weight: 500; color: white; margin-bottom: 10px; }
     .aviso-body { font-size: 13px; color: #B5D4F4; line-height: 1.7; }
     .aviso-body b { color: white; }
     .restart-btn { width: 100%; margin-top: 1rem; padding: 12px; border: 0.5px solid #ccc; border-radius: 8px; background: none; color: #888; font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; }
     .restart-btn:hover { border-color: #1a6cc4; color: #1a6cc4; }
-    .welcome-card { background: white; border: 0.5px solid #e0e2e6; border-radius: 12px; padding: 2rem 1.5rem; text-align: center; margin-bottom: 1.5rem; }
-    .welcome-badge { display: inline-block; background: #E6F1FB; color: #0c3b6e; font-size: 11px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 1.25rem; }
-    .welcome-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 600; color: #0c3b6e; margin-bottom: 1rem; line-height: 1.3; }
-    .welcome-desc { font-size: 14px; color: #666; line-height: 1.7; margin-bottom: 1.5rem; }
-    .welcome-divider { height: 0.5px; background: #e0e2e6; margin: 1.25rem 0; }
-    .welcome-note { font-size: 12px; color: #888; line-height: 1.6; }
-    .continue-btn { width: 100%; padding: 14px; background: #0c3b6e; color: white; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
-    .continue-btn:hover { background: #1a6cc4; }
-    .blocked-box { background: white; border: 0.5px solid #e0e2e6; border-radius: 12px; padding: 3rem 1.5rem; text-align: center; }
-    .blocked-icon { font-size: 36px; margin-bottom: 1rem; }
-    .blocked-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 500; color: #111; margin-bottom: 0.5rem; }
-    .blocked-sub { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 1.5rem; }
-    .pwd-link { display: block; text-align: center; margin-top: 1rem; font-size: 12px; color: #ccc; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
-    .pwd-link:hover { color: #888; }
     .pwd-card { background: white; border: 0.5px solid #e0e2e6; border-radius: 12px; padding: 2rem 1.5rem; text-align: center; }
     .pwd-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500; color: #111; margin-bottom: 0.5rem; }
     .pwd-sub { font-size: 13px; color: #888; margin-bottom: 1.5rem; }
     .pwd-err { font-size: 12px; color: #c0392b; margin-bottom: 10px; display: none; }
+    .pwd-link { display: block; text-align: center; margin-top: 1rem; font-size: 12px; color: #ccc; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
     .summary-box { background: #f0f4f8; border: 0.5px solid #d0d8e4; border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1rem; display: flex; flex-wrap: wrap; gap: 1rem; }
     .summary-item { display: flex; flex-direction: column; gap: 2px; }
     .summary-label { font-size: 11px; color: #888; letter-spacing: 1px; text-transform: uppercase; }
     .summary-value { font-size: 13px; font-weight: 500; color: #0c3b6e; }
     .err-msg { font-size: 12px; color: #c0392b; margin-bottom: 10px; }
+    .home-btn-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 1rem; }
+    .home-btn { background: white; border: 2px solid #0c3b6e; border-radius: 14px; padding: 20px 20px; cursor: pointer; text-align: left; transition: all 0.2s; color: #0c3b6e; font-family: 'DM Sans', sans-serif; }
+    .home-btn:hover { background: #0c3b6e; color: white; }
+    .home-btn:hover .home-btn-sub { color: #B5D4F4; }
+    .home-btn-icon { font-size: 28px; margin-bottom: 8px; }
+    .home-btn-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 500; margin-bottom: 6px; }
+    .home-btn-sub { font-size: 13px; color: #666; line-height: 1.5; }
+    .home-btn.renovacion { border-color: #1a5c2a; color: #1a5c2a; }
+    .home-btn.renovacion:hover { background: #1a5c2a; color: white; }
     @media (max-width: 500px) { .exam-grid { grid-template-columns: 1fr; } .option-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -98,19 +91,30 @@
     <div class="brand-sub">Medicina de Aviación · Tarifas 2026</div>
   </div>
 
-  <div id="screenBlocked" style="display:none">
-    <div class="blocked-box">
-      <div class="blocked-icon">📬</div>
-      <div class="blocked-title">Ya consultaste tu tarifa.</div>
-      <div class="blocked-sub">Revisa tu correo electrónico con la información de tu cita.</div>
-      <button class="wa-btn" onclick="openWA('')">
-        <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Agendar cita por WhatsApp
+  <!-- PANTALLA INICIO -->
+  <div id="screenHome">
+    <div style="text-align:center;margin-bottom:1.5rem;">
+      <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:600;color:#0c3b6e;margin-bottom:8px;">Consulta de Exámenes</div>
+      <div style="font-size:13px;color:#888;">Selecciona el tipo de consulta</div>
+    </div>
+    <div class="home-btn-grid">
+      <button class="home-btn" onclick="startPrimeraVez()">
+        <div class="home-btn-icon">✈</div>
+        <div class="home-btn-title">Primera vez o Vencido hace más de 2 años</div>
+        <div class="home-btn-sub">Para quienes obtienen su certificado médico aeronáutico por primera vez, o cuyo certificado lleva más de 2 años vencido.</div>
       </button>
+      <button class="home-btn renovacion" onclick="startRenovacion()">
+        <div class="home-btn-icon">🔄</div>
+        <div class="home-btn-title">Exámenes de Renovación</div>
+        <div class="home-btn-sub">Para quienes renuevan su certificado médico aeronáutico vigente o vencido hace menos de 2 años.</div>
+      </button>
+    </div>
+    <div style="text-align:center;margin-top:1.5rem;">
       <a class="pwd-link" onclick="showPasswordScreen()">Acceso empleados</a>
     </div>
   </div>
 
+  <!-- PANTALLA PASSWORD -->
   <div id="screenPassword" style="display:none">
     <div class="pwd-card">
       <div class="pwd-title">Acceso empleados</div>
@@ -118,182 +122,141 @@
       <p class="pwd-err" id="pwdErr">Clave incorrecta.</p>
       <input type="password" id="pwdInput" placeholder="····" />
       <button class="submit-btn" onclick="checkPassword()">Ingresar</button>
-      <button class="back-btn" onclick="showBlocked()" style="margin-top:1rem;justify-content:center">← Volver</button>
+      <button class="back-btn" onclick="showHome()" style="margin-top:1rem;justify-content:center">← Volver</button>
     </div>
   </div>
 
-  <div id="screenWizard">
-    <div id="stepWelcome">
-      <div class="welcome-card">
-        <div class="welcome-badge">Exámenes de primera vez</div>
-        <div class="welcome-title">Conoce tus exámenes y la tarifa de tu certificación</div>
-        <div class="welcome-desc">En pocos pasos te mostramos qué exámenes necesitas según tu licencia y edad, y cuánto cuesta según tu institución.</div>
-        <div class="welcome-divider"></div>
-        <div class="welcome-note">La tarifa se muestra una sola vez. Ten a la mano tu correo electrónico antes de continuar.</div>
-      </div>
-      <button class="continue-btn" onclick="showStepFlow()">Comenzar →</button>
+  <!-- FLUJO PRIMERA VEZ -->
+  <div id="screenPV" style="display:none">
+    <div class="step-bar" id="pvBar">
+      <div class="step-dot active" id="pv1">1</div><div class="step-line" id="pl1"></div>
+      <div class="step-dot pending" id="pv2">2</div><div class="step-line" id="pl2"></div>
+      <div class="step-dot pending" id="pv3">3</div><div class="step-line" id="pl3"></div>
+      <div class="step-dot pending" id="pv4">4</div><div class="step-line" id="pl4"></div>
+      <div class="step-dot pending" id="pv5">5</div><div class="step-line" id="pl5"></div>
+      <div class="step-dot pending" id="pv6">✓</div>
     </div>
 
-    <div id="stepFlow" style="display:none">
-      <div class="step-bar">
-        <div class="step-dot active" id="sd1">1</div><div class="step-line" id="sl1"></div>
-        <div class="step-dot pending" id="sd2">2</div><div class="step-line" id="sl2"></div>
-        <div class="step-dot pending" id="sd3">3</div><div class="step-line" id="sl3"></div>
-        <div class="step-dot pending" id="sd4">4</div><div class="step-line" id="sl4"></div>
-        <div class="step-dot pending" id="sd5">5</div><div class="step-line" id="sl5"></div>
-        <div class="step-dot pending" id="sd6">✓</div>
-      </div>
-
-      <div id="step1">
-        <div class="question-label">Paso 1 de 5</div>
-        <div class="question-title">¿Estudiaste en alguna de estas instituciones?</div>
-        <div class="option-grid" id="instGrid"></div>
-      </div>
-      <div id="step2" style="display:none">
-        <div class="question-label">Paso 2 de 5</div>
-        <div class="question-title">¿Cuál es tu programa?</div>
-        <div class="option-grid wide" id="progGrid"></div>
-        <button class="back-btn" onclick="goTo(1)">← Volver</button>
-      </div>
-      <div id="step3" style="display:none">
-        <div class="question-label">Paso 3 de 5</div>
-        <div class="question-title">¿Qué tipo de licencia solicitas?</div>
-        <div class="option-grid wide" id="licGrid"></div>
-        <button class="back-btn" id="backBtn3" onclick="goTo(2)">← Volver</button>
-      </div>
-      <div id="step4" style="display:none">
-        <div class="question-label">Paso 4 de 5</div>
-        <div class="question-title">¿Es tu primera vez?</div>
-        <div class="option-grid wide">
-          <button class="option-btn" onclick="selectTipo('primera')"><div>Primera vez</div><div class="opt-sub">Primera solicitud del certificado médico aeronáutico</div></button>
-          <button class="option-btn" onclick="selectTipo('renovacion')"><div>Renovación</div><div class="opt-sub">Certificado vigente o vencido menos de 2 años</div></button>
-          <button class="option-btn" onclick="selectTipo('vencido')"><div>Certificado vencido más de 2 años</div><div class="opt-sub">Se realizan todos los exámenes de primera vez</div></button>
-        </div>
-        <button class="back-btn" onclick="goTo(3)">← Volver</button>
-      </div>
-      <div id="step5" style="display:none">
-        <div class="question-label">Paso 5 de 5</div>
-        <div class="question-title">¿Cuántos años tienes?</div>
-        <p class="err-msg" id="ageErr" style="display:none">Ingresa una edad válida entre 16 y 99.</p>
-        <input type="number" id="ageInput" placeholder="Ej: 35" min="16" max="99" />
-        <button class="submit-btn" onclick="confirmAge()">Ver mis exámenes →</button>
-        <button class="back-btn" onclick="goTo(4)">← Volver</button>
-      </div>
-      <div id="step6email" style="display:none">
-        <div class="question-label">Último paso</div>
-        <div class="question-title">Tus datos de contacto</div>
-        <p style="font-size:12px;color:#888;margin-bottom:1.25rem;line-height:1.6;">Ingresa tu correo y celular para continuar.</p>
-        <p class="err-msg" id="emailErr" style="display:none">Por favor ingresa un correo válido y un celular.</p>
-        <input type="email" id="emailInput" placeholder="Correo electrónico" />
-        <input type="tel" id="celularInput" placeholder="Celular (Ej: 3001234567)" />
-        <button class="submit-btn" onclick="handleEmail()">Ver mi tarifa →</button>
-        <button class="back-btn" onclick="goTo(5)">← Volver</button>
-      </div>
-      <div id="stepResults" style="display:none">
-        <div class="summary-box" id="summaryBox"></div>
-        <div class="exam-title">Exámenes requeridos</div>
-        <div class="exam-grid" id="examGrid"></div>
-        <div id="alertsBox"></div>
-        <div class="result-card" id="resultCard">
-          <div class="result-label">Tarifa 2026</div>
-          <div class="result-inst" id="rInst"></div>
-          <div class="result-prog" id="rProg"></div>
-          <div class="price-box">
-            <div>
-              <div class="price-label">Valor a pagar</div>
-              <div class="price-val" id="rPrice"></div>
-              <div class="price-note" id="rNote"></div>
-            </div>
-            <div class="price-sym">$</div>
+    <div id="pvStep1">
+      <div class="question-label">Paso 1 de 5</div>
+      <div class="question-title">¿Estudiaste en alguna de estas instituciones?</div>
+      <div class="option-grid" id="pvInstGrid"></div>
+    </div>
+    <div id="pvStep2" style="display:none">
+      <div class="question-label">Paso 2 de 5</div>
+      <div class="question-title">¿Cuál es tu programa?</div>
+      <div class="option-grid wide" id="pvProgGrid"></div>
+      <button class="back-btn" onclick="pvGoTo(1)">← Volver</button>
+    </div>
+    <div id="pvStep3" style="display:none">
+      <div class="question-label">Paso 3 de 5</div>
+      <div class="question-title">¿Qué tipo de licencia solicitas?</div>
+      <div class="option-grid wide" id="pvLicGrid"></div>
+      <button class="back-btn" onclick="pvGoTo(2)">← Volver</button>
+    </div>
+    <div id="pvStep4" style="display:none">
+      <div class="question-label">Paso 4 de 5</div>
+      <div class="question-title">¿Cuántos años tienes?</div>
+      <p class="err-msg" id="pvAgeErr" style="display:none">Ingresa una edad válida entre 16 y 99.</p>
+      <input type="number" id="pvAgeInput" placeholder="Ej: 35" min="16" max="99" />
+      <button class="submit-btn" onclick="pvConfirmAge()">Continuar →</button>
+      <button class="back-btn" onclick="pvGoTo(3)">← Volver</button>
+    </div>
+    <div id="pvStep5" style="display:none">
+      <div class="question-label">Paso 5 de 5 — Datos de contacto</div>
+      <div class="question-title">¿Cuál es tu información de contacto?</div>
+      <p class="err-msg" id="pvContactErr" style="display:none">Por favor ingresa un correo válido y tu celular.</p>
+      <input type="email" id="pvEmail" placeholder="Correo electrónico" />
+      <input type="tel" id="pvCelular" placeholder="Celular (Ej: 3001234567)" />
+      <button class="submit-btn" onclick="pvConfirmContact()">Ver mis exámenes y tarifa →</button>
+      <button class="back-btn" onclick="pvGoTo(4)">← Volver</button>
+    </div>
+    <div id="pvResults" style="display:none">
+      <div class="summary-box" id="pvSummary"></div>
+      <div class="exam-title">Exámenes requeridos</div>
+      <div class="exam-grid" id="pvExamGrid"></div>
+      <div id="pvAlerts"></div>
+      <div class="result-card" id="pvResultCard">
+        <div class="result-label">Tarifa 2026</div>
+        <div class="result-inst" id="pvRInst"></div>
+        <div class="result-prog" id="pvRProg"></div>
+        <div class="price-box">
+          <div>
+            <div class="price-label">Valor a pagar</div>
+            <div class="price-val" id="pvRPrice"></div>
+            <div class="price-note" id="pvRNote"></div>
           </div>
-          <div class="warn-price" id="rWarn" style="display:none"></div>
+          <div class="price-sym">$</div>
         </div>
-        <div class="aviso-box" style="background:#1a5c2a;">
-          <div class="aviso-title">📋 Información importante para tu visita</div>
-          <div class="aviso-body">
-            Puedes llegar <b>SIN CITA PREVIA</b> directamente a nuestra IPS de <b>lunes a viernes desde las 6:00 a.m. hasta las 8:00 a.m.</b><br><br>
-            · Debes venir en <b>ayunas</b><br>
-            · Si usas <b>gafas</b>, tráelas<br>
-            · Si en tu listado aparece <b>Prueba de Esfuerzo</b>, trae <b>ropa cómoda para caminar en trotadora</b>
-          </div>
-        </div>
-
-        <div style="background:white;border:0.5px solid #e0e2e6;border-radius:12px;padding:1.25rem 1.5rem;margin-top:1rem;">
-          <div style="font-size:12px;font-weight:500;color:#888;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:10px;">📍 Nuestra ubicación</div>
-          <div style="font-size:14px;color:#111;line-height:1.7;margin-bottom:12px;">
-            Calle 134 # 7-38, Torre 4, Piso 2, Consultorio 421<br>
-            <span style="color:#888;">Edificio Altos del Bosque · Bogotá</span>
-          </div>
-          <a href="https://maps.google.com/?q=Calle+134+%237-38+Torre+4+Piso+2+Bogota+Colombia" target="_blank"
-             style="display:flex;align-items:center;justify-content:center;gap:8px;background:#E6F1FB;border:0.5px solid #B5D4F4;border-radius:8px;padding:10px;color:#0c3b6e;font-size:13px;font-weight:500;text-decoration:none;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0c3b6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-            Ver en Google Maps
-          </a>
-        </div>
-
-        <div style="background:white;border:0.5px solid #e0e2e6;border-radius:12px;padding:1.25rem 1.5rem;margin-top:1rem;">
-          <div style="font-size:12px;font-weight:500;color:#888;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:12px;">💬 Si requieres más información</div>
-          <div style="display:flex;flex-direction:column;gap:8px;">
-            <a href="https://wa.me/573187083260" target="_blank" style="display:flex;align-items:center;gap:12px;background:#f0faf4;border:0.5px solid #b7e4c7;border-radius:10px;padding:12px 14px;text-decoration:none;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              <span style="font-size:14px;font-weight:500;color:#1a5c2a;">+57 318 708 3260</span>
-            </a>
-            <a href="https://wa.me/573012271729" target="_blank" style="display:flex;align-items:center;gap:12px;background:#f0faf4;border:0.5px solid #b7e4c7;border-radius:10px;padding:12px 14px;text-decoration:none;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              <span style="font-size:14px;font-weight:500;color:#1a5c2a;">+57 301 227 1729</span>
-            </a>
-            <a href="https://wa.me/573246860333" target="_blank" style="display:flex;align-items:center;gap:12px;background:#f0faf4;border:0.5px solid #b7e4c7;border-radius:10px;padding:12px 14px;text-decoration:none;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              <span style="font-size:14px;font-weight:500;color:#1a5c2a;">+57 324 686 0333</span>
-            </a>
-          </div>
-        </div>
-
-        <button class="wa-btn" id="waBtn" style="display:none"></button>
-        <button class="restart-btn" onclick="restart()">Consultar de nuevo</button>
+        <div class="warn-price" id="pvRWarn" style="display:none"></div>
       </div>
+      <div id="pvAvisoInfo"></div>
+      <button class="restart-btn" onclick="showHome()">← Volver al inicio</button>
     </div>
   </div>
+
+  <!-- FLUJO RENOVACION -->
+  <div id="screenRV" style="display:none">
+    <div class="step-bar">
+      <div class="step-dot active" id="rv1">1</div><div class="step-line" id="rl1"></div>
+      <div class="step-dot pending" id="rv2">2</div><div class="step-line" id="rl2"></div>
+      <div class="step-dot pending" id="rv3">3</div><div class="step-line" id="rl3"></div>
+      <div class="step-dot pending" id="rv4">✓</div>
+    </div>
+
+    <div id="rvStep1">
+      <div class="question-label">Paso 1 de 3</div>
+      <div class="question-title">¿Qué tipo de licencia solicitas?</div>
+      <div class="option-grid wide" id="rvLicGrid"></div>
+      <button class="back-btn" onclick="showHome()">← Volver al inicio</button>
+    </div>
+    <div id="rvStep2" style="display:none">
+      <div class="question-label">Paso 2 de 3</div>
+      <div class="question-title">¿Cuál es tu fecha de nacimiento?</div>
+      <p class="err-msg" id="rvFechaErr" style="display:none">Por favor ingresa una fecha válida.</p>
+      <input type="date" id="rvFecha" max="" />
+      <button class="submit-btn" onclick="rvConfirmFecha()">Continuar →</button>
+      <button class="back-btn" onclick="rvGoTo(1)">← Volver</button>
+    </div>
+    <div id="rvStep3" style="display:none">
+      <div class="question-label">Paso 3 de 3 — Datos de contacto</div>
+      <div class="question-title">¿Cuál es tu información de contacto?</div>
+      <p class="err-msg" id="rvContactErr" style="display:none">Por favor ingresa un correo válido y tu celular.</p>
+      <input type="email" id="rvEmail" placeholder="Correo electrónico" />
+      <input type="tel" id="rvCelular" placeholder="Celular (Ej: 3001234567)" />
+      <button class="submit-btn" onclick="rvConfirmContact()">Ver mis exámenes →</button>
+      <button class="back-btn" onclick="rvGoTo(2)">← Volver</button>
+    </div>
+    <div id="rvResults" style="display:none">
+      <div class="summary-box" id="rvSummary"></div>
+      <div class="exam-title">Exámenes requeridos</div>
+      <div class="exam-grid" id="rvExamGrid"></div>
+      <div id="rvAlerts"></div>
+      <div id="rvAvisoInfo"></div>
+      <button class="restart-btn" onclick="showHome()">← Volver al inicio</button>
+    </div>
+  </div>
+
 </div>
 
 <script>
-const STORAGE_KEY = 'granco_tarifa_vista';
-const WA_NUMBER   = '573012271729';
-const ADMIN_KEY   = '7087';
-const SHEETS_URL  = 'https://script.google.com/macros/s/AKfycbz--1OOY79QKeZU0YR3VN-WRi-Tyt4J6xxe9rvJSzLi_gnDmheh8LY-bkaMisiDCYMSvw/exec';
+const WA_NUMBER  = '573012271729';
+const ADMIN_KEY  = '7087';
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbz--1OOY79QKeZU0YR3VN-WRi-Tyt4J6xxe9rvJSzLi_gnDmheh8LY-bkaMisiDCYMSvw/exec';
 
-let ST = { instKey:null, instLabel:null, progLabel:null, progPrice:0, progNote:'', progWarn:'', licencia:null, primeraVez:null, vencido:false, edad:null, email:'', isEmpleado:false };
+// ── STATE ──
+let PV = { instKey:null, instLabel:null, progLabel:null, progPrice:0, progNote:'', progWarn:'', licencia:null, edad:null, email:'', celular:'' };
+let RV = { licencia:null, edad:null, email:'', celular:'' };
+let isEmpleado = false;
 
+// ── CATALOGOS ──
 const INSTITUCIONES = [
   { key:'DELTA_FORCE', label:'Delta Force', programas:[{label:'Tripulante de Cabina (TCP)',price:420000,note:'',warn:''},{label:'Alumno Piloto de Avión (APA)',price:450000,note:'',warn:''}]},
   { key:'DREAM_FLY',   label:'Dream Fly',   programas:[{label:'Alumno Piloto de Avión (APA)',price:420000,note:'',warn:''}]},
-
   { key:'AEROCLUB',    label:'Aeroclub',    programas:[{label:'APA (Incluye Toxicología)',price:530000,note:'Incluye toxicología',warn:''}]},
   { key:'AEROANDES',   label:'Aeroandes',   programas:[{label:'Tripulante de Cabina (TCP)',price:420000,note:'',warn:''},{label:'Alumno Piloto de Avión (APA)',price:450000,note:'',warn:''}]}
 ];
 const PARTICULARES = [{label:'TCP',sub:'Tripulante de Cabina',price:360000},{label:'APA',sub:'Alumno Piloto de Avión',price:420000}];
-
-const EXAMS = {
-  medico:      {icon:'🩺',name:'Médico Aeronáutico',        note:'Siempre requerido'},
-  oftalmo_comp:{icon:'👁️',name:'Oftalmología Completa',      note:'Val. completa'},
-  oftalmo_aero:{icon:'👁️',name:'Oftalmología',              note:'Val. aeronáutica'},
-  orl:         {icon:'👂',name:'ORL / Fonoaudiología',       note:'Otorrinolaringología'},
-  cardiologia: {icon:'❤️',name:'Cardiología',                note:'Evaluación cardiovascular'},
-  neurologia:  {icon:'🧠',name:'Neurología',                 note:'Evaluación neurológica'},
-  psiquiatria: {icon:'💬',name:'Psiquiatría',                note:'Salud mental'},
-  psicologia:  {icon:'🧩',name:'Psicología',                 note:'5 procesos mentales superiores'},
-  odontograma: {icon:'🦷',name:'Odontograma / RX Panorámica',note:'Salud dental'},
-  ch:          {icon:'🧪',name:'Cuadro Hemático',            note:'Hemoleucograma'},
-  orina:       {icon:'🔬',name:'Parcial de Orina',           note:'Uroanálisis'},
-  glicemia:    {icon:'💉',name:'Glicemia',                   note:'Glucosa en sangre'},
-  audiometria: {icon:'🔊',name:'Audiometría',                note:'Umbral auditivo'},
-  perfil:      {icon:'🫀',name:'Perfil Lipídico',            note:'Colesterol y triglicéridos'},
-  creatinina:  {icon:'🧫',name:'Creatinina',                 note:'Función renal'},
-  ekg:         {icon:'📈',name:'EKG / Electrocardiograma',   note:'Actividad cardíaca'},
-  esfuerzo:    {icon:'🏃',name:'Prueba de Esfuerzo',         note:'Test cardiovascular'},
-  rayosx:      {icon:'🩻',name:'Rayos X de Tórax',           note:'Solo primera vez'},
-  toxicologia: {icon:'🧬',name:'Toxicología',                note:'Solo Aeroclub'}
-};
 
 const LIC_NAMES = {
   clase1:'Clase 1 — PCA · PCH · PTL · IDV',
@@ -304,192 +267,435 @@ const LIC_NAMES = {
   clase3_pul:'Clase 3 — PUL Piloto Ultraliviano'
 };
 
-function getExams(lic, pv, e, venc, toxicologia) {
-  let lista = []; const alerts = [];
-  const base = () => lista.push('medico','ch','orina','glicemia','audiometria','oftalmo_aero');
-  const pvExams = () => { lista.push('orl','cardiologia','neurologia','psiquiatria','odontograma','psicologia','rayosx'); if(e>=40) lista.push('esfuerzo'); alerts.push({type:'info',text:'📌 Rayos X de tórax solo en la primera solicitud.'}); if(venc) alerts.push({type:'warning',text:'📋 Certificado vencido > 2 años: se realizan todos los exámenes de primera vez. Las pruebas psicológicas son realizadas por Grancolombiana IPS.'}); else alerts.push({type:'warning',text:'📋 Las pruebas psicológicas de primera vez deben ser subidas al SIGA por el respectivo Centro de Instrucción.'}); };
+const LIC_OPTIONS = [
+  {key:'clase1',      label:'Clase 1',           sub:'PCA: Piloto Comercial de Avión · PCH: Piloto Comercial de Helicóptero · PTL: Piloto de Transporte de Línea · IDV: Ingeniero de Vuelo'},
+  {key:'clase2_piloto',label:'Clase 2 — Pilotos',sub:'PPA: Piloto Privado de Avión · PPL: Piloto Privado de Planeador · APA: Alumno Piloto de Aeronave · BAE: Bombero Aeronáutico'},
+  {key:'clase2_tcp',  label:'Clase 2 — TCP',     sub:'TCP: Tripulante de Cabina de Pasajeros · Vigencia fija: 3 años'},
+  {key:'clase3_cta',  label:'Clase 3 — CTA',     sub:'CTA: Controlador de Tránsito Aéreo'},
+  {key:'clase3_oea',  label:'Clase 3 — OEA',     sub:'OEA: Operador de Estación Aeronáutica · Vigencia fija: 3 años'},
+  {key:'clase3_pul',  label:'Clase 3 — PUL',     sub:'PUL: Piloto de Aeronave Ultraliviana'}
+];
 
+const EXAMS = {
+  medico:      {icon:'🩺',name:'Médico Aeronáutico',         note:'Siempre requerido'},
+  oftalmo_comp:{icon:'👁️',name:'Oftalmología Completa',       note:'Val. completa'},
+  oftalmo_aero:{icon:'👁️',name:'Oftalmología',               note:'Val. aeronáutica'},
+  orl:         {icon:'👂',name:'ORL / Fonoaudiología',        note:'Otorrinolaringología'},
+  cardiologia: {icon:'❤️',name:'Cardiología',                 note:'Evaluación cardiovascular'},
+  neurologia:  {icon:'🧠',name:'Neurología',                  note:'Evaluación neurológica'},
+  psiquiatria: {icon:'💬',name:'Psiquiatría',                 note:'Salud mental'},
+  psicologia:  {icon:'🧩',name:'Psicología',                  note:'5 procesos mentales superiores'},
+  odontograma: {icon:'🦷',name:'Odontograma / RX Panorámica', note:'Salud dental'},
+  ch:          {icon:'🧪',name:'Cuadro Hemático',             note:'Hemoleucograma'},
+  orina:       {icon:'🔬',name:'Parcial de Orina',            note:'Uroanálisis'},
+  glicemia:    {icon:'💉',name:'Glicemia',                    note:'Glucosa en sangre'},
+  audiometria: {icon:'🔊',name:'Audiometría',                 note:'Umbral auditivo'},
+  perfil:      {icon:'🫀',name:'Perfil Lipídico',             note:'Colesterol y triglicéridos'},
+  creatinina:  {icon:'🧫',name:'Creatinina',                  note:'Función renal'},
+  ekg:         {icon:'📈',name:'EKG / Electrocardiograma',    note:'Actividad cardíaca'},
+  esfuerzo:    {icon:'🏃',name:'Prueba de Esfuerzo',          note:'Test cardiovascular'},
+  rayosx:      {icon:'🩻',name:'Rayos X de Tórax',            note:'Solo primera vez'},
+  toxicologia: {icon:'🧬',name:'Toxicología',                 note:'Solo Aeroclub'}
+};
+
+// ── LÓGICA DE EXÁMENES PRIMERA VEZ ──
+function getExamsPV(lic, e, tox) {
+  let lista = []; const alerts = [];
+  lista.push('medico','ch','orina','glicemia','audiometria','oftalmo_aero');
   if (lic === 'clase3_oea') {
-    base();
-    if (pv) { lista.push('orl','odontograma','rayosx'); if(e>=40) lista.push('esfuerzo'); alerts.push({type:'info',text:'📌 ORL, Odontograma y Rayos X solo en la primera solicitud.'}); }
-    else {
-      if(e>=30&&e<40) lista.push('oftalmo_comp');
-      if(e>=40) lista.push('oftalmo_comp','perfil','creatinina','ekg');
-      if(e>=50) lista.push('esfuerzo');
-      alerts.push({type:'info',text:'📋 OEA: vigencia fija de 36 meses (3 años).'});
-    }
+    lista.push('orl','odontograma','rayosx');
+    if (e >= 40) lista.push('esfuerzo');
+    alerts.push({type:'info', text:'📌 ORL, Odontograma y Rayos X solo en la primera solicitud.'});
   } else {
-    base();
-    if (pv) { pvExams(); }
-    else {
-      if(lic==='clase1'){ if(e>=25&&e<=34) lista.push('oftalmo_comp'); if(e>=35&&e<=36) lista.push('oftalmo_comp','perfil'); if(e>=37&&e<=38) lista.push('oftalmo_comp','perfil','creatinina'); if(e>=39) lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina'); if(e>=40) lista.push('ekg'); if(e>=40&&e%5===0) lista.push('esfuerzo'); }
-      if(lic==='clase2_piloto'){ if(e>=25&&e<=34) lista.push('orl'); if(e>=35&&e<=39) lista.push('orl','oftalmo_comp'); if(e>=40) lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); if(e>=40&&e%5===0) lista.push('esfuerzo'); }
-      if(lic==='clase2_tcp'){ if(e>=25&&e<=34) lista.push('orl'); if(e>=35&&e<=39) lista.push('orl','oftalmo_comp'); if(e>=40) lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); if(e>=40&&e%5===0) lista.push('esfuerzo'); alerts.push({type:'info',text:'📋 TCP: vigencia fija de 36 meses (3 años).'}); }
-      if(lic==='clase3_cta'){ if(e>=24&&e<=29) lista.push('oftalmo_comp'); if(e>=30&&e<=34) lista.push('oftalmo_comp','orl'); if(e>=35&&e<=39) lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria'); if(e>=40) lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); if(e>=40&&e%5===0) lista.push('esfuerzo'); }
-      if(lic==='clase3_pul'){ if(e>=25&&e<=34) lista.push('orl'); if(e>=35&&e<=39) lista.push('orl','oftalmo_comp'); if(e>=40) lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); if(e>=50) lista.push('esfuerzo'); }
-      if(e>=60){ lista.push('psicologia'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
-      if(e>=65) alerts.push({type:'warning',text:'⚠️ Desde los 65 años: todos los exámenes en cada renovación.'});
-    }
+    lista.push('orl','cardiologia','neurologia','psiquiatria','odontograma','psicologia','rayosx');
+    if (e >= 40) lista.push('esfuerzo');
+    alerts.push({type:'info', text:'📌 Rayos X de tórax solo en la primera solicitud.'});
+    alerts.push({type:'warning', text:'📋 Las pruebas psicológicas de primera vez deben ser subidas al SIGA por el respectivo Centro de Instrucción.'});
   }
-  if (toxicologia && !lista.includes('toxicologia')) lista.push('toxicologia');
+  if (lic === 'clase2_tcp') alerts.push({type:'info', text:'📋 TCP: vigencia fija de 36 meses (3 años).'});
+  if (tox) lista.push('toxicologia');
   return { lista:[...new Set(lista)], alerts };
 }
 
-function fmt(n){ return '$ '+n.toLocaleString('es-CO'); }
-function openWA(msg){ window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg||'Hola, quiero agendar una cita para mi certificación aeromédica.'),'_blank'); }
-function enviarSheets(correo, celular, institucion, programa, licencia, tipo, edad){ if(!SHEETS_URL) return; const url=SHEETS_URL+'?correo='+encodeURIComponent(correo)+'&celular='+encodeURIComponent(celular)+'&institucion='+encodeURIComponent(institucion)+'&programa='+encodeURIComponent(programa)+'&licencia='+encodeURIComponent(licencia)+'&tipo='+encodeURIComponent(tipo)+'&edad='+encodeURIComponent(edad); fetch(url,{method:'GET',mode:'no-cors'}).catch(()=>{}); }
+// ── LÓGICA DE EXÁMENES RENOVACIÓN (tablas RAC 67) ──
+function getExamsRV(lic, e) {
+  let lista = []; const alerts = [];
+  lista.push('medico','ch','orina','glicemia','audiometria');
 
-function allStepIds(){ return ['step1','step2','step3','step4','step5','step6email','stepResults']; }
-function hideAll(){ allStepIds().forEach(id=>document.getElementById(id).style.display='none'); }
-
-function setBar(s){
-  for(let i=1;i<=6;i++){ const d=document.getElementById('sd'+i); d.className='step-dot '+(i<s?'done':i===s?'active':'pending'); }
-  for(let i=1;i<=5;i++){ document.getElementById('sl'+i).className='step-line'+(i<s?' done':''); }
-}
-
-function goTo(s){
-  hideAll(); setBar(s);
-  if(s===1){ document.getElementById('step1').style.display='block'; }
-  if(s===2){ document.getElementById('step2').style.display='block'; }
-  if(s===3){ renderLic(); document.getElementById('step3').style.display='block'; }
-  if(s===4){ document.getElementById('step4').style.display='block'; }
-  if(s===5){ document.getElementById('step5').style.display='block'; }
-}
-
-function init(){
-  renderInst();
-}
-
-function showStepFlow(){
-  document.getElementById('stepWelcome').style.display='none';
-  document.getElementById('stepFlow').style.display='block';
-  renderInst(); goTo(1);
-}
-
-function renderInst(){
-  const g=document.getElementById('instGrid'); g.innerHTML='';
-  INSTITUCIONES.forEach(inst=>{
-    const b=document.createElement('button'); b.className='option-btn'; b.textContent=inst.label;
-    b.onclick=()=>{ ST.instKey=inst.key; ST.instLabel=inst.label;
-      if(inst.programas.length===1){ ST.progLabel=inst.programas[0].label; ST.progPrice=inst.programas[0].price; ST.progNote=inst.programas[0].note; ST.progWarn=inst.programas[0].warn; goTo(3); }
-      else{ renderProgInst(inst); goTo(2); }
-    }; g.appendChild(b);
-  });
-  const o=document.createElement('button'); o.className='option-btn'; o.textContent='Otras';
-  o.onclick=()=>{ ST.instKey='OTRAS'; ST.instLabel='Particular'; renderProgPart(); goTo(2); };
-  g.appendChild(o);
-}
-
-function renderProgInst(inst){
-  const g=document.getElementById('progGrid'); g.innerHTML='';
-  inst.programas.forEach(p=>{ const b=document.createElement('button'); b.className='option-btn'; b.textContent=p.label; b.onclick=()=>{ ST.progLabel=p.label; ST.progPrice=p.price; ST.progNote=p.note; ST.progWarn=p.warn; goTo(3); }; g.appendChild(b); });
-}
-
-function renderProgPart(){
-  const g=document.getElementById('progGrid'); g.innerHTML='';
-  PARTICULARES.forEach(p=>{ const b=document.createElement('button'); b.className='option-btn'; b.innerHTML=`<div>${p.label}</div><div class="opt-sub">${p.sub}</div>`; b.onclick=()=>{ ST.progLabel=p.label; ST.progPrice=p.price; ST.progNote=''; ST.progWarn=''; goTo(3); }; g.appendChild(b); });
-}
-
-function renderLic(){
-  const g=document.getElementById('licGrid'); g.innerHTML='';
-  const lics=[
-    {key:'clase1',label:'Clase 1',sub:'PCA: Piloto Comercial de Avión · PCH: Piloto Comercial de Helicóptero · PTL: Piloto de Transporte de Línea · IDV: Ingeniero de Vuelo'},
-    {key:'clase2_piloto',label:'Clase 2 — Pilotos',sub:'PPA: Piloto Privado de Avión · PPL: Piloto Privado de Planeador · APA: Alumno Piloto de Aeronave · BAE: Bombero Aeronáutico'},
-    {key:'clase2_tcp',label:'Clase 2 — TCP',sub:'TCP: Tripulante de Cabina de Pasajeros · Vigencia fija: 3 años'},
-    {key:'clase3_cta',label:'Clase 3 — CTA',sub:'CTA: Controlador de Tránsito Aéreo'},
-    {key:'clase3_oea',label:'Clase 3 — OEA',sub:'OEA: Operador de Estación Aeronáutica · Vigencia fija: 3 años'},
-    {key:'clase3_pul',label:'Clase 3 — PUL',sub:'PUL: Piloto de Aeronave Ultraliviana'}
-  ];
-  lics.forEach(l=>{ const b=document.createElement('button'); b.className='option-btn'; b.innerHTML=`<div>${l.label}</div><div class="opt-sub">${l.sub}</div>`; b.onclick=()=>{ ST.licencia=l.key; goTo(4); }; g.appendChild(b); });
-}
-
-function selectTipo(t){
-  if(t==='primera'){ ST.primeraVez=true; ST.vencido=false; }
-  else if(t==='vencido'){ ST.primeraVez=true; ST.vencido=true; }
-  else { ST.primeraVez=false; ST.vencido=false; }
-  goTo(5);
-}
-
-function confirmAge(){
-  const v=parseInt(document.getElementById('ageInput').value);
-  if(!v||v<16||v>99){ document.getElementById('ageErr').style.display='block'; return; }
-  ST.edad=v; document.getElementById('ageErr').style.display='none';
-  if(ST.isEmpleado || !ST.primeraVez){ showResults(''); }
-  else { hideAll(); setBar(6); document.getElementById('step6email').style.display='block'; document.getElementById('emailInput').value=''; document.getElementById('emailErr').style.display='none'; }
-}
-
-document.getElementById('ageInput') && document.getElementById('ageInput').addEventListener('keydown',e=>{if(e.key==='Enter') confirmAge();});
-
-function handleEmail(){
-  const em=document.getElementById('emailInput').value.trim();
-  const cel=document.getElementById('celularInput').value.trim();
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)||!cel){ document.getElementById('emailErr').style.display='block'; return; }
-  ST.email=em; ST.celular=cel;
-  const tipoLabel=ST.vencido?'Vencido >2 años':ST.primeraVez?'Primera vez':'Renovación';
-  enviarSheets(em, cel, ST.instLabel||'Particular', ST.progLabel||'', LIC_NAMES[ST.licencia]||ST.licencia||'', tipoLabel, ST.edad||'');
-  showResults(em);
-}
-
-function showResults(email){
-  hideAll(); setBar(6);
-  const tox = ST.instKey==='AEROCLUB';
-  const {lista,alerts} = getExams(ST.licencia,ST.primeraVez,ST.edad,ST.vencido,tox);
-  const tipoLabel = ST.vencido?'Vencido >2 años':ST.primeraVez?'Primera vez':'Renovación';
-  const esRenovacion = !ST.primeraVez;
-
-  document.getElementById('summaryBox').innerHTML=`
-    <div class="summary-item"><span class="summary-label">Institución</span><span class="summary-value">${ST.instLabel}</span></div>
-    <div class="summary-item"><span class="summary-label">Programa</span><span class="summary-value">${ST.progLabel}</span></div>
-    <div class="summary-item"><span class="summary-label">Licencia</span><span class="summary-value">${LIC_NAMES[ST.licencia]||ST.licencia}</span></div>
-    <div class="summary-item"><span class="summary-label">Tipo</span><span class="summary-value">${tipoLabel}</span></div>
-    <div class="summary-item"><span class="summary-label">Edad</span><span class="summary-value">${ST.edad} años</span></div>
-    <div class="summary-item"><span class="summary-label">Exámenes</span><span class="summary-value">${lista.length}</span></div>`;
-
-  document.getElementById('examGrid').innerHTML=lista.map(k=>{const ex=EXAMS[k]; return `<div class="exam-item"><span class="exam-icon">${ex.icon}</span><div><div class="exam-name">${ex.name}</div><div class="exam-note">${ex.note}</div></div></div>`; }).join('');
-  document.getElementById('alertsBox').innerHTML=alerts.map(a=>`<div class="alert-box alert-${a.type}">${a.text}</div>`).join('');
-
-  // Mostrar tarifa solo para primera vez y vencido
-  if (esRenovacion) {
-    document.getElementById('resultCard').style.display='none';
-  } else {
-    document.getElementById('resultCard').style.display='block';
-    let precioFinal = ST.progPrice;
-    const notas = [];
-    if (ST.vencido) { precioFinal += 150000; notas.push('$150.000 pruebas psicotécnicas'); }
-    if (ST.edad >= 40 && lista.includes('esfuerzo')) { precioFinal += 220000; notas.push('$220.000 prueba de esfuerzo'); }
-    document.getElementById('rInst').textContent=ST.instLabel;
-    document.getElementById('rProg').textContent=ST.progLabel;
-    document.getElementById('rPrice').textContent=fmt(precioFinal);
-    document.getElementById('rNote').textContent=notas.length>0 ? 'Incluye: '+notas.join(' + ') : (ST.progNote||'');
-    const w=document.getElementById('rWarn');
-    if(ST.progWarn){ w.textContent=ST.progWarn; w.style.display='block'; } else w.style.display='none';
+  if (lic === 'clase1') {
+    lista.push('oftalmo_aero');
+    if (e <= 24) { /* solo base */ }
+    else if (e <= 24) { lista.push('optometria'); }
+    else if (e === 25) { lista.push('oftalmo_comp'); }
+    else if (e >= 26 && e <= 29) { lista.push('oftalmo_comp'); }
+    else if (e >= 30 && e <= 34) { lista.push('oftalmo_comp'); }
+    else if (e === 35) { lista.push('oftalmo_comp','perfil'); }
+    else if (e === 36) { lista.push('oftalmo_comp','perfil','creatinina'); }
+    else if (e >= 37 && e <= 38) { lista.push('oftalmo_comp','perfil','creatinina'); }
+    else if (e === 39) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina'); }
+    else if (e >= 40 && e <= 44) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
+    else if (e >= 45 && e <= 49) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
+    else if (e >= 50 && e <= 59) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
+    else if (e >= 60 && e <= 64) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg','psicologia'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
+    else if (e >= 65) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg','psicologia'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); alerts.push({type:'warning',text:'⚠️ Desde los 65 años: todos los exámenes en cada renovación.'}); }
+    if (e >= 40 && e % 5 === 0) lista.push('esfuerzo');
   }
 
-  let precioWA = ST.progPrice;
-  if (ST.vencido) precioWA += 150000;
-  if (ST.edad >= 40 && lista.includes('esfuerzo')) precioWA += 220000;
-  const examStr=lista.map(k=>EXAMS[k]?.name||k).join(', ');
-  const waMsg=`Hola, quiero agendar una cita para mi certificación aeromédica.\n\nInstitución: ${ST.instLabel}\nPrograma: ${ST.progLabel}\nLicencia: ${LIC_NAMES[ST.licencia]||ST.licencia}\nTipo: ${tipoLabel}\nEdad: ${ST.edad} años\n`+(esRenovacion?'':`Tarifa: ${fmt(precioWA)}\n`)+`Exámenes (${lista.length}): ${examStr}`+(email?`\nCorreo: ${email}`:'');
-  document.getElementById('waBtn').onclick=()=>openWA(waMsg);
-  document.getElementById('stepResults').style.display='block';
+  else if (lic === 'clase2_piloto') {
+    lista.push('oftalmo_aero');
+    if (e >= 25 && e <= 27) { lista.push('orl'); }
+    else if (e >= 28 && e <= 29) { lista.push('orl'); }
+    else if (e >= 30 && e <= 34) { lista.push('orl'); }
+    else if (e >= 35 && e <= 37) { lista.push('orl','oftalmo_comp'); }
+    else if (e >= 38 && e <= 39) { lista.push('orl','oftalmo_comp'); }
+    else if (e >= 40 && e <= 44) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
+    else if (e >= 45 && e <= 49) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
+    else if (e >= 50 && e <= 59) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
+    else if (e >= 60 && e <= 64) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg','psicologia'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
+    else if (e >= 65) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg','psicologia'); alerts.push({type:'warning',text:'⚠️ Desde los 65 años: todos los exámenes.'}); }
+    if (e >= 40 && e % 5 === 0) lista.push('esfuerzo');
+    alerts.push({type:'info',text:'📋 Clase 2 Pilotos: vigencia fija de 36 meses.'});
+  }
+
+  else if (lic === 'clase2_tcp') {
+    lista.push('oftalmo_aero');
+    if (e >= 25 && e <= 34) { lista.push('orl'); }
+    else if (e >= 35 && e <= 39) { lista.push('orl','oftalmo_comp'); }
+    else if (e >= 40 && e <= 42) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
+    else if (e >= 43 && e <= 47) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
+    else if (e >= 48 && e <= 52) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
+    else if (e >= 53 && e <= 59) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
+    else if (e >= 60 && e <= 64) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg','psicologia'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
+    else if (e >= 65) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg','psicologia'); alerts.push({type:'warning',text:'⚠️ Desde los 65 años: todos los exámenes.'}); }
+    if (e >= 40 && e % 5 === 0) lista.push('esfuerzo');
+    alerts.push({type:'info',text:'📋 TCP: vigencia fija de 36 meses (3 años).'});
+  }
+
+  else if (lic === 'clase3_cta') {
+    lista.push('oftalmo_aero');
+    if (e >= 24 && e <= 25) { lista.push('oftalmo_comp'); }
+    else if (e >= 26 && e <= 29) { lista.push('oftalmo_comp'); }
+    else if (e >= 30 && e <= 34) { lista.push('oftalmo_comp','orl'); }
+    else if (e >= 35 && e <= 39) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria'); }
+    else if (e >= 40 && e <= 49) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
+    else if (e >= 50 && e <= 59) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
+    else if (e >= 60 && e <= 64) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg','psicologia'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
+    else if (e >= 65) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg','psicologia'); alerts.push({type:'warning',text:'⚠️ Desde los 65 años: todos los exámenes.'}); }
+    if (e >= 40 && e % 5 === 0) lista.push('esfuerzo');
+  }
+
+  else if (lic === 'clase3_oea') {
+    if (e < 30) { /* solo base */ }
+    else if (e >= 30 && e <= 39) { lista.push('oftalmo_comp'); }
+    else if (e >= 40) { lista.push('oftalmo_comp','perfil','creatinina','ekg'); }
+    if (e >= 50) lista.push('esfuerzo');
+    alerts.push({type:'info',text:'📋 OEA: vigencia fija de 36 meses (3 años).'});
+  }
+
+  else if (lic === 'clase3_pul') {
+    lista.push('oftalmo_aero');
+    if (e >= 25 && e <= 34) { lista.push('orl'); }
+    else if (e >= 35 && e <= 39) { lista.push('orl','oftalmo_comp'); }
+    else if (e >= 40) { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','ekg'); }
+    if (e >= 50) lista.push('esfuerzo');
+    if (e >= 60) { lista.push('psicologia'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
+    if (e >= 65) alerts.push({type:'warning',text:'⚠️ Desde los 65 años: todos los exámenes.'});
+  }
+
+  return { lista:[...new Set(lista)], alerts };
 }
 
-function showBlocked(){ document.getElementById('screenPassword').style.display='none'; document.getElementById('screenBlocked').style.display='block'; }
-function showPasswordScreen(){ document.getElementById('screenBlocked').style.display='none'; document.getElementById('screenPassword').style.display='block'; document.getElementById('pwdInput').value=''; document.getElementById('pwdErr').style.display='none'; }
-function checkPassword(){
-  const v=document.getElementById('pwdInput').value.trim();
-  if(v===ADMIN_KEY){ ST.isEmpleado=true; document.getElementById('screenPassword').style.display='none'; document.getElementById('screenWizard').style.display='block'; document.getElementById('stepWelcome').style.display='none'; document.getElementById('stepFlow').style.display='block'; renderInst(); goTo(1); }
-  else document.getElementById('pwdErr').style.display='block';
-}
-document.getElementById('pwdInput').addEventListener('keydown',e=>{if(e.key==='Enter') checkPassword();});
+// ── HELPERS ──
+function fmt(n){ return '$ '+n.toLocaleString('es-CO'); }
 
-function restart(){
-  const emp=ST.isEmpleado;
-  ST={instKey:null,instLabel:null,progLabel:null,progPrice:0,progNote:'',progWarn:'',licencia:null,primeraVez:null,vencido:false,edad:null,email:'',isEmpleado:emp};
-  hideAll(); renderInst(); goTo(1);
+function calcEdad(fechaNac) {
+  const hoy = new Date();
+  const nac = new Date(fechaNac);
+  let edad = hoy.getFullYear() - nac.getFullYear();
+  const m = hoy.getMonth() - nac.getMonth();
+  if (m < 0 || (m === 0 && hoy.getDate() < nac.getDate())) edad--;
+  return edad;
 }
 
-init();
+function enviarSheets(correo, celular, institucion, programa, licencia, tipo, edad) {
+  if (!SHEETS_URL) return;
+  const url = SHEETS_URL
+    + '?correo=' + encodeURIComponent(correo)
+    + '&celular=' + encodeURIComponent(celular)
+    + '&institucion=' + encodeURIComponent(institucion)
+    + '&programa=' + encodeURIComponent(programa)
+    + '&licencia=' + encodeURIComponent(licencia)
+    + '&tipo=' + encodeURIComponent(tipo)
+    + '&edad=' + encodeURIComponent(edad);
+  fetch(url, {method:'GET', mode:'no-cors'}).catch(()=>{});
+}
+
+function renderExams(lista, gridId) {
+  document.getElementById(gridId).innerHTML = lista.map(k => {
+    const ex = EXAMS[k];
+    return `<div class="exam-item"><span class="exam-icon">${ex.icon}</span><div><div class="exam-name">${ex.name}</div><div class="exam-note">${ex.note}</div></div></div>`;
+  }).join('');
+}
+
+function renderAlerts(alerts, boxId) {
+  document.getElementById(boxId).innerHTML = alerts.map(a =>
+    `<div class="alert-box alert-${a.type}">${a.text}</div>`
+  ).join('');
+}
+
+function avisoHTML() {
+  return `
+    <div class="aviso-box" style="background:#1a5c2a;margin-top:1rem;">
+      <div class="aviso-title">📋 Información importante para tu visita</div>
+      <div class="aviso-body">
+        Puedes llegar <b>SIN CITA PREVIA</b> directamente a nuestra IPS de <b>lunes a viernes desde las 6:00 a.m. hasta las 8:00 a.m.</b><br><br>
+        · Debes venir en <b>ayunas</b><br>
+        · Si usas <b>gafas</b>, tráelas<br>
+        · Si en tu listado aparece <b>Prueba de Esfuerzo</b>, trae <b>ropa cómoda para caminar en trotadora</b>
+      </div>
+    </div>
+    <div style="background:white;border:0.5px solid #e0e2e6;border-radius:12px;padding:1.25rem 1.5rem;margin-top:1rem;">
+      <div style="font-size:12px;font-weight:500;color:#888;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:10px;">📍 Nuestra ubicación</div>
+      <div style="font-size:14px;color:#111;line-height:1.7;margin-bottom:12px;">
+        Calle 134 # 7-38, Torre 4, Piso 2, Consultorio 421<br>
+        <span style="color:#888;">Edificio Altos del Bosque · Bogotá</span>
+      </div>
+      <a href="https://maps.google.com/?q=Calle+134+%237-38+Torre+4+Piso+2+Bogota+Colombia" target="_blank"
+         style="display:flex;align-items:center;justify-content:center;gap:8px;background:#E6F1FB;border:0.5px solid #B5D4F4;border-radius:8px;padding:10px;color:#0c3b6e;font-size:13px;font-weight:500;text-decoration:none;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0c3b6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        Ver en Google Maps
+      </a>
+    </div>
+    <div style="background:white;border:0.5px solid #e0e2e6;border-radius:12px;padding:1.25rem 1.5rem;margin-top:1rem;">
+      <div style="font-size:12px;font-weight:500;color:#888;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:12px;">💬 Si requieres más información</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        ${waLink('573187083260','+57 318 708 3260')}
+        ${waLink('573012271729','+57 301 227 1729')}
+        ${waLink('573246860333','+57 324 686 0333')}
+      </div>
+    </div>`;
+}
+
+function waLink(num, label) {
+  const svg = `<svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
+  return `<a href="https://wa.me/${num}" target="_blank" style="display:flex;align-items:center;gap:12px;background:#f0faf4;border:0.5px solid #b7e4c7;border-radius:10px;padding:12px 14px;text-decoration:none;">${svg}<span style="font-size:14px;font-weight:500;color:#1a5c2a;">${label}</span></a>`;
+}
+
+// ── NAVEGACIÓN GENERAL ──
+function showHome() {
+  ['screenHome','screenPassword','screenPV','screenRV'].forEach(id => document.getElementById(id).style.display = 'none');
+  document.getElementById('screenHome').style.display = 'block';
+}
+
+function showPasswordScreen() {
+  document.getElementById('screenHome').style.display = 'none';
+  document.getElementById('screenPassword').style.display = 'block';
+  document.getElementById('pwdInput').value = '';
+  document.getElementById('pwdErr').style.display = 'none';
+}
+
+function checkPassword() {
+  if (document.getElementById('pwdInput').value.trim() === ADMIN_KEY) {
+    isEmpleado = true;
+    document.getElementById('screenPassword').style.display = 'none';
+    startPrimeraVez();
+  } else {
+    document.getElementById('pwdErr').style.display = 'block';
+  }
+}
+document.getElementById('pwdInput').addEventListener('keydown', e => { if(e.key==='Enter') checkPassword(); });
+
+// ── FLUJO PRIMERA VEZ ──
+function startPrimeraVez() {
+  PV = { instKey:null, instLabel:null, progLabel:null, progPrice:0, progNote:'', progWarn:'', licencia:null, edad:null, email:'', celular:'' };
+  ['screenHome','screenPassword','screenRV'].forEach(id => document.getElementById(id).style.display = 'none');
+  document.getElementById('screenPV').style.display = 'block';
+  renderPVInst();
+  pvGoTo(1);
+}
+
+function pvAllSteps(){ return ['pvStep1','pvStep2','pvStep3','pvStep4','pvStep5','pvResults']; }
+function pvHideAll(){ pvAllSteps().forEach(id => document.getElementById(id).style.display = 'none'); }
+
+function pvSetBar(s) {
+  for(let i=1;i<=6;i++){ const d=document.getElementById('pv'+i); d.className='step-dot '+(i<s?'done':i===s?'active':'pending'); }
+  for(let i=1;i<=5;i++){ document.getElementById('pl'+i).className='step-line'+(i<s?' done':''); }
+}
+
+function pvGoTo(s) {
+  pvHideAll(); pvSetBar(s);
+  const ids = {1:'pvStep1',2:'pvStep2',3:'pvStep3',4:'pvStep4',5:'pvStep5',6:'pvResults'};
+  if(ids[s]) document.getElementById(ids[s]).style.display = 'block';
+}
+
+function renderPVInst() {
+  const g = document.getElementById('pvInstGrid'); g.innerHTML = '';
+  INSTITUCIONES.forEach(inst => {
+    const b = document.createElement('button'); b.className = 'option-btn'; b.textContent = inst.label;
+    b.onclick = () => {
+      PV.instKey = inst.key; PV.instLabel = inst.label;
+      if(inst.programas.length === 1) {
+        PV.progLabel = inst.programas[0].label; PV.progPrice = inst.programas[0].price;
+        PV.progNote = inst.programas[0].note; PV.progWarn = inst.programas[0].warn;
+        pvGoTo(3);
+      } else { renderPVProg(inst); pvGoTo(2); }
+    };
+    g.appendChild(b);
+  });
+  const otras = document.createElement('button'); otras.className = 'option-btn'; otras.textContent = 'Otras';
+  otras.onclick = () => { PV.instKey='OTRAS'; PV.instLabel='Particular'; renderPVPart(); pvGoTo(2); };
+  g.appendChild(otras);
+}
+
+function renderPVProg(inst) {
+  const g = document.getElementById('pvProgGrid'); g.innerHTML = '';
+  inst.programas.forEach(p => {
+    const b = document.createElement('button'); b.className = 'option-btn'; b.textContent = p.label;
+    b.onclick = () => { PV.progLabel=p.label; PV.progPrice=p.price; PV.progNote=p.note; PV.progWarn=p.warn; pvGoTo(3); };
+    g.appendChild(b);
+  });
+}
+
+function renderPVPart() {
+  const g = document.getElementById('pvProgGrid'); g.innerHTML = '';
+  PARTICULARES.forEach(p => {
+    const b = document.createElement('button'); b.className = 'option-btn';
+    b.innerHTML = `<div>${p.label}</div><div class="opt-sub">${p.sub}</div>`;
+    b.onclick = () => { PV.progLabel=p.label; PV.progPrice=p.price; PV.progNote=''; PV.progWarn=''; pvGoTo(3); };
+    g.appendChild(b);
+  });
+}
+
+function renderPVLic() {
+  const g = document.getElementById('pvLicGrid'); g.innerHTML = '';
+  LIC_OPTIONS.forEach(l => {
+    const b = document.createElement('button'); b.className = 'option-btn';
+    b.innerHTML = `<div>${l.label}</div><div class="opt-sub">${l.sub}</div>`;
+    b.onclick = () => { PV.licencia = l.key; pvGoTo(4); };
+    g.appendChild(b);
+  });
+}
+
+document.getElementById('pvStep3').addEventListener('shown', renderPVLic);
+
+function pvGoTo(s) {
+  pvHideAll(); pvSetBar(s);
+  const ids = {1:'pvStep1',2:'pvStep2',3:'pvStep3',4:'pvStep4',5:'pvStep5',6:'pvResults'};
+  if(s === 3) renderPVLic();
+  if(ids[s]) document.getElementById(ids[s]).style.display = 'block';
+}
+
+function pvConfirmAge() {
+  const v = parseInt(document.getElementById('pvAgeInput').value);
+  if(!v || v<16 || v>99) { document.getElementById('pvAgeErr').style.display='block'; return; }
+  PV.edad = v; document.getElementById('pvAgeErr').style.display='none';
+  pvGoTo(5);
+}
+
+function pvConfirmContact() {
+  const em = document.getElementById('pvEmail').value.trim();
+  const cel = document.getElementById('pvCelular').value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em) || !cel) { document.getElementById('pvContactErr').style.display='block'; return; }
+  PV.email = em; PV.celular = cel;
+  const tox = PV.instKey === 'AEROCLUB';
+  const {lista, alerts} = getExamsPV(PV.licencia, PV.edad, tox);
+
+  let precio = PV.progPrice;
+  const notas = [];
+  if (PV.edad >= 40 && lista.includes('esfuerzo')) { precio += 220000; notas.push('$220.000 prueba de esfuerzo'); }
+
+  enviarSheets(em, cel, PV.instLabel, PV.progLabel, LIC_NAMES[PV.licencia]||PV.licencia, 'Primera vez / Vencido >2 años', PV.edad);
+
+  document.getElementById('pvSummary').innerHTML = `
+    <div class="summary-item"><span class="summary-label">Institución</span><span class="summary-value">${PV.instLabel}</span></div>
+    <div class="summary-item"><span class="summary-label">Programa</span><span class="summary-value">${PV.progLabel}</span></div>
+    <div class="summary-item"><span class="summary-label">Licencia</span><span class="summary-value">${LIC_NAMES[PV.licencia]||PV.licencia}</span></div>
+    <div class="summary-item"><span class="summary-label">Edad</span><span class="summary-value">${PV.edad} años</span></div>
+    <div class="summary-item"><span class="summary-label">Tipo</span><span class="summary-value">Primera vez / Vencido</span></div>
+    <div class="summary-item"><span class="summary-label">Exámenes</span><span class="summary-value">${lista.length}</span></div>`;
+
+  renderExams(lista, 'pvExamGrid');
+  renderAlerts(alerts, 'pvAlerts');
+
+  document.getElementById('pvRInst').textContent = PV.instLabel;
+  document.getElementById('pvRProg').textContent = PV.progLabel;
+  document.getElementById('pvRPrice').textContent = fmt(precio);
+  document.getElementById('pvRNote').textContent = notas.length ? 'Incluye: '+notas.join(' + ') : (PV.progNote||'');
+  const w = document.getElementById('pvRWarn');
+  if(PV.progWarn) { w.textContent=PV.progWarn; w.style.display='block'; } else w.style.display='none';
+
+  document.getElementById('pvAvisoInfo').innerHTML = avisoHTML();
+  pvGoTo(6);
+}
+
+// ── FLUJO RENOVACIÓN ──
+function startRenovacion() {
+  RV = { licencia:null, edad:null, email:'', celular:'' };
+  ['screenHome','screenPassword','screenPV'].forEach(id => document.getElementById(id).style.display = 'none');
+  document.getElementById('screenRV').style.display = 'block';
+  renderRVLic();
+  rvGoTo(1);
+  const hoy = new Date().toISOString().split('T')[0];
+  document.getElementById('rvFecha').max = hoy;
+}
+
+function rvAllSteps(){ return ['rvStep1','rvStep2','rvStep3','rvResults']; }
+function rvHideAll(){ rvAllSteps().forEach(id => document.getElementById(id).style.display='none'); }
+
+function rvSetBar(s) {
+  for(let i=1;i<=4;i++){ const d=document.getElementById('rv'+i); d.className='step-dot '+(i<s?'done':i===s?'active':'pending'); }
+  for(let i=1;i<=3;i++){ document.getElementById('rl'+i).className='step-line'+(i<s?' done':''); }
+}
+
+function rvGoTo(s) {
+  rvHideAll(); rvSetBar(s);
+  const ids={1:'rvStep1',2:'rvStep2',3:'rvStep3',4:'rvResults'};
+  if(ids[s]) document.getElementById(ids[s]).style.display='block';
+}
+
+function renderRVLic() {
+  const g = document.getElementById('rvLicGrid'); g.innerHTML = '';
+  LIC_OPTIONS.forEach(l => {
+    const b = document.createElement('button'); b.className = 'option-btn';
+    b.innerHTML = `<div>${l.label}</div><div class="opt-sub">${l.sub}</div>`;
+    b.onclick = () => { RV.licencia = l.key; rvGoTo(2); };
+    g.appendChild(b);
+  });
+}
+
+function rvConfirmFecha() {
+  const fecha = document.getElementById('rvFecha').value;
+  if(!fecha) { document.getElementById('rvFechaErr').style.display='block'; return; }
+  const edad = calcEdad(fecha);
+  if(edad < 16 || edad > 99) { document.getElementById('rvFechaErr').style.display='block'; return; }
+  RV.edad = edad;
+  document.getElementById('rvFechaErr').style.display='none';
+  rvGoTo(3);
+}
+
+function rvConfirmContact() {
+  const em = document.getElementById('rvEmail').value.trim();
+  const cel = document.getElementById('rvCelular').value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em) || !cel) { document.getElementById('rvContactErr').style.display='block'; return; }
+  RV.email = em; RV.celular = cel;
+  const {lista, alerts} = getExamsRV(RV.licencia, RV.edad);
+
+  enviarSheets(em, cel, 'N/A', 'N/A', LIC_NAMES[RV.licencia]||RV.licencia, 'Renovación', RV.edad);
+
+  document.getElementById('rvSummary').innerHTML = `
+    <div class="summary-item"><span class="summary-label">Licencia</span><span class="summary-value">${LIC_NAMES[RV.licencia]||RV.licencia}</span></div>
+    <div class="summary-item"><span class="summary-label">Edad</span><span class="summary-value">${RV.edad} años</span></div>
+    <div class="summary-item"><span class="summary-label">Tipo</span><span class="summary-value">Renovación</span></div>
+    <div class="summary-item"><span class="summary-label">Exámenes</span><span class="summary-value">${lista.length}</span></div>`;
+
+  renderExams(lista, 'rvExamGrid');
+  renderAlerts(alerts, 'rvAlerts');
+  document.getElementById('rvAvisoInfo').innerHTML = avisoHTML();
+  rvGoTo(4);
+}
+
+// ── INIT ──
+showHome();
 </script>
 </body>
 </html>

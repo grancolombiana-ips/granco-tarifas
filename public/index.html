@@ -533,7 +533,7 @@ function getExams(licencia, primeraVez, edad) {
     if (e >= 35) lista.push('oftalmo_comp', 'perfil');
     if (e >= 36) lista.push('creatinina');
     if (e >= 40) lista.push('ekg', 'perfil', 'creatinina');
-    if (e >= 50) lista.push('esfuerzo');
+    if (e >= 40) lista.push('esfuerzo');
     if (e >= 60) {
       lista.push('psicologia');
       alerts.push({ type: 'warning', text: '⚠️ Psicología obligatoria cada 2 años desde los 60.' });
@@ -553,7 +553,7 @@ function getExams(licencia, primeraVez, edad) {
     }
     if (e >= 40) lista.push('oftalmo_comp', 'perfil', 'creatinina', 'ekg');
     if (e >= 45) lista.push('oftalmo_comp');
-    if (e >= 50) lista.push('esfuerzo');
+    if (e >= 40) lista.push('esfuerzo');
     if (e >= 55) lista.push('ekg');
     if (e >= 60) {
       lista.push('psicologia', 'perfil', 'creatinina', 'ekg');
@@ -576,7 +576,7 @@ function getExams(licencia, primeraVez, edad) {
       lista.push('orl', 'cardiologia', 'neurologia', 'psiquiatria', 'odontograma');
     }
     if (e >= 40) lista.push('oftalmo_comp', 'perfil', 'creatinina', 'ekg');
-    if (e >= 50) lista.push('esfuerzo');
+    if (e >= 40) lista.push('esfuerzo');
     if (e >= 60) {
       lista.push('psicologia');
       alerts.push({ type: 'warning', text: '⚠️ Psicología obligatoria cada 2 años desde los 60.' });
@@ -597,7 +597,7 @@ function getExams(licencia, primeraVez, edad) {
     }
     if (e >= 40) lista.push('oftalmo_comp', 'perfil', 'creatinina', 'ekg');
     if (e >= 45) lista.push('oftalmo_comp');
-    if (e >= 50) lista.push('esfuerzo');
+    if (e >= 40) lista.push('esfuerzo');
     if (e >= 55) lista.push('ekg');
     if (e >= 60) {
       lista.push('psicologia', 'perfil', 'creatinina', 'ekg');
@@ -618,7 +618,7 @@ function getExams(licencia, primeraVez, edad) {
       alerts.push({ type: 'info', text: '📌 ORL, Odontograma y Rayos X solo en la primera solicitud.' });
     }
     if (e >= 40) lista.push('ekg', 'perfil', 'creatinina');
-    if (e >= 50) lista.push('esfuerzo');
+    if (e >= 40) lista.push('esfuerzo');
     alerts.push({ type: 'info', text: '📋 OEA Operador de Estación Aeronáutica: vigencia fija de 36 meses (3 años).' });
   }
 
@@ -630,7 +630,7 @@ function getExams(licencia, primeraVez, edad) {
       lista.push('orl', 'cardiologia', 'neurologia', 'psiquiatria', 'odontograma');
     }
     if (e >= 40) lista.push('oftalmo_comp', 'perfil', 'creatinina', 'ekg');
-    if (e >= 50) lista.push('esfuerzo');
+    if (e >= 40) lista.push('esfuerzo');
     if (e >= 60) {
       lista.push('psicologia');
       alerts.push({ type: 'warning', text: '⚠️ Psicología obligatoria cada 2 años desde los 60.' });

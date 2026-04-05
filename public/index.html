@@ -1,1254 +1,535 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Requisitos Aeromédicos</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap');
-
-  :root {
-    --navy: #0a1628;
-    --blue: #0d3b6e;
-    --sky: #1a6eb5;
-    --cyan: #00c2e0;
-    --gold: #f0a500;
-    --white: #f0f4ff;
-    --gray: #8a9bb0;
-    --card: #0f2040;
-    --success: #00d97e;
-    --warning: #f0a500;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--navy);
-    color: var(--white);
-    font-family: 'Source Sans 3', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* Background grid */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(0,194,224,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,194,224,0.04) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .container {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 40px 20px;
-    position: relative;
-    z-index: 1;
-  }
-
-  /* Header */
-  .header {
-    text-align: center;
-    margin-bottom: 48px;
-    animation: fadeDown 0.8s ease;
-  }
-
-  .clinic-logo {
-    height: 80px;
-    max-width: 260px;
-    object-fit: contain;
-    margin: 0 auto 20px;
-    display: block;
-    filter: drop-shadow(0 2px 8px rgba(0,194,224,0.15));
-  }
-
-  h1 {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--white);
-  }
-
-  h1 span { color: var(--cyan); }
-
-  .subtitle {
-    font-size: 0.9rem;
-    color: var(--gray);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-top: 8px;
-  }
-
-  /* Progress */
-  .progress-bar {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 40px;
-    animation: fadeIn 1s ease 0.3s both;
-  }
-
-  .step-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--blue);
-    border: 1px solid var(--sky);
-    transition: all 0.4s ease;
-  }
-
-  .step-dot.active {
-    background: var(--cyan);
-    box-shadow: 0 0 12px var(--cyan);
-    transform: scale(1.3);
-  }
-
-  .step-dot.done {
-    background: var(--success);
-    border-color: var(--success);
-  }
-
-  /* Card */
-  .card {
-    background: var(--card);
-    border: 1px solid rgba(0,194,224,0.15);
-    border-radius: 16px;
-    padding: 36px;
-    position: relative;
-    overflow: hidden;
-    animation: fadeUp 0.5s ease;
-  }
-
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-  }
-
-  .step-label {
-    font-size: 0.75rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--cyan);
-    margin-bottom: 12px;
-    font-family: 'Rajdhani', sans-serif;
-  }
-
-  .question {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: var(--white);
-    margin-bottom: 28px;
-    line-height: 1.3;
-  }
-
-  /* Options grid */
-  .options {
-    display: grid;
-    gap: 12px;
-  }
-
-  .options.two-col { grid-template-columns: 1fr 1fr; }
-
-  .option-btn {
-    background: rgba(13,59,110,0.5);
-    border: 1px solid rgba(0,194,224,0.2);
-    border-radius: 10px;
-    padding: 16px 20px;
-    color: var(--white);
-    cursor: pointer;
-    text-align: left;
-    transition: all 0.25s ease;
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.95rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .option-btn:hover {
-    background: rgba(0,194,224,0.1);
-    border-color: var(--cyan);
-    transform: translateX(4px);
-  }
-
-  .option-btn::after {
-    content: '→';
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 0;
-    transition: opacity 0.2s;
-    color: var(--cyan);
-  }
-
-  .option-btn:hover::after { opacity: 1; }
-
-  .option-title {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--cyan);
-    display: block;
-    margin-bottom: 3px;
-  }
-
-  .option-desc {
-    font-size: 0.82rem;
-    color: var(--gray);
-    line-height: 1.5;
-  }
-
-  .option-desc b {
-    color: var(--cyan);
-    font-weight: 600;
-  }
-
-  /* Age input */
-  .age-input-wrap {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    margin-top: 8px;
-  }
-
-  .age-input {
-    background: rgba(13,59,110,0.5);
-    border: 1px solid rgba(0,194,224,0.3);
-    border-radius: 10px;
-    padding: 14px 20px;
-    color: var(--white);
-    font-size: 1.4rem;
-    font-family: 'Rajdhani', sans-serif;
-    width: 140px;
-    text-align: center;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .age-input:focus { border-color: var(--cyan); }
-
-  .confirm-btn {
-    background: var(--cyan);
-    color: var(--navy);
-    border: none;
-    border-radius: 10px;
-    padding: 14px 28px;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .confirm-btn:hover {
-    background: var(--white);
-    transform: scale(1.04);
-  }
-
-  /* Audio button */
-  .audio-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(0,194,224,0.08);
-    border: 1px solid rgba(0,194,224,0.25);
-    border-radius: 8px;
-    padding: 8px 16px;
-    color: var(--cyan);
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-family: 'Source Sans 3', sans-serif;
-    margin-bottom: 20px;
-    transition: all 0.2s;
-  }
-
-  .audio-btn:hover { background: rgba(0,194,224,0.15); }
-
-  .audio-btn .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--cyan);
-    animation: pulse 1.5s infinite;
-  }
-
-  /* Results */
-  .results {
-    animation: fadeUp 0.6s ease;
-  }
-
-  .patient-summary {
-    background: rgba(0,194,224,0.06);
-    border: 1px solid rgba(0,194,224,0.2);
-    border-radius: 10px;
-    padding: 16px 20px;
-    margin-bottom: 24px;
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-
-  .summary-item {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .summary-label {
-    font-size: 0.72rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gray);
-  }
-
-  .summary-value {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--cyan);
-  }
-
-  .results-title {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--white);
-    margin-bottom: 16px;
-  }
-
-  .exam-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-
-  .exam-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    background: rgba(13,59,110,0.4);
-    border: 1px solid rgba(0,194,224,0.12);
-    border-radius: 8px;
-    padding: 12px 14px;
-    animation: fadeUp 0.4s ease both;
-  }
-
-  .exam-icon {
-    font-size: 1.2rem;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .exam-name {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--white);
-    line-height: 1.3;
-  }
-
-  .exam-note {
-    font-size: 0.75rem;
-    color: var(--gray);
-    margin-top: 2px;
-  }
-
-  .alert-box {
-    border-radius: 10px;
-    padding: 14px 18px;
-    font-size: 0.88rem;
-    line-height: 1.5;
-    margin-bottom: 10px;
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-  }
-
-  .alert-warning {
-    background: rgba(240,165,0,0.1);
-    border: 1px solid rgba(240,165,0,0.3);
-    color: var(--warning);
-  }
-
-  .alert-info {
-    background: rgba(0,194,224,0.07);
-    border: 1px solid rgba(0,194,224,0.2);
-    color: var(--cyan);
-  }
-
-  .restart-btn {
-    width: 100%;
-    background: transparent;
-    border: 1px solid rgba(0,194,224,0.3);
-    border-radius: 10px;
-    padding: 14px;
-    color: var(--gray);
-    cursor: pointer;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 1rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-top: 24px;
-    transition: all 0.2s;
-  }
-
-  .restart-btn:hover {
-    border-color: var(--cyan);
-    color: var(--cyan);
-  }
-
-  /* Animations */
-  @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.7); }
-  }
-
-  .option-group-label {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 0.72rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--cyan);
-    padding: 8px 4px 4px;
-    border-bottom: 1px solid rgba(0,194,224,0.15);
-    margin-bottom: 4px;
-    margin-top: 8px;
-  }
-
-  .option-group-label:first-child { margin-top: 0; }
-
-  @media (max-width: 520px) {
-    .exam-grid { grid-template-columns: 1fr; }
-    .options.two-col { grid-template-columns: 1fr; }
-    h1 { font-size: 1.4rem; }
-    .question { font-size: 1.3rem; }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grancolombiana IPS · Certificación Aeromédica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: #f5f6f8; min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 2rem 1rem 4rem; }
+    .wiz-wrap { width: 100%; max-width: 600px; }
+    .logo-area { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-bottom: 2rem; }
+    .icon-plane { font-size: 28px; }
+    .brand-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; color: #0c3b6e; text-align: center; }
+    .brand-sub { font-size: 11px; color: #888; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; }
+    .step-bar { display: flex; align-items: center; margin-bottom: 2rem; }
+    .step-dot { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; flex-shrink: 0; transition: all 0.3s; }
+    .step-dot.done { background: #0c3b6e; color: white; }
+    .step-dot.active { background: #1a6cc4; color: white; }
+    .step-dot.pending { background: #e8eaed; color: #999; border: 0.5px solid #d0d3d8; }
+    .step-line { flex: 1; height: 1px; background: #d0d3d8; transition: background 0.3s; }
+    .step-line.done { background: #0c3b6e; }
+    .question-label { font-size: 12px; font-weight: 500; color: #888; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 8px; }
+    .question-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500; color: #111; margin-bottom: 1.5rem; line-height: 1.3; }
+    .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .option-grid.wide { grid-template-columns: 1fr; }
+    .option-btn { background: white; border: 0.5px solid #ccc; border-radius: 12px; padding: 14px 16px; cursor: pointer; text-align: left; transition: all 0.2s; color: #111; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; line-height: 1.3; }
+    .option-btn:hover { border-color: #1a6cc4; background: #E6F1FB; color: #0c3b6e; }
+    .opt-sub { font-size: 11px; font-weight: 400; color: #888; margin-top: 4px; }
+    .option-btn:hover .opt-sub { color: #185FA5; }
+    .back-btn { background: none; border: none; color: #888; cursor: pointer; font-size: 13px; font-family: 'DM Sans', sans-serif; padding: 0; margin-top: 1.5rem; display: flex; align-items: center; gap: 6px; }
+    .back-btn:hover { color: #333; }
+    input[type="number"], input[type="email"], input[type="text"], input[type="tel"], input[type="date"] { width: 100%; padding: 12px 14px; border: 0.5px solid #ccc; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: #111; background: white; margin-bottom: 12px; outline: none; transition: border-color 0.2s; }
+    input:focus { border-color: #1a6cc4; }
+    input[type="password"] { width: 100%; padding: 12px 14px; border: 0.5px solid #ccc; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 18px; color: #111; background: white; margin-bottom: 12px; outline: none; text-align: center; letter-spacing: 4px; }
+    .submit-btn { width: 100%; padding: 13px; background: #0c3b6e; color: white; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+    .submit-btn:hover { background: #1a6cc4; }
+    .exam-title { font-size: 12px; font-weight: 500; color: #888; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 10px; margin-top: 1.5rem; }
+    .exam-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1rem; }
+    .exam-item { background: white; border: 0.5px solid #e0e2e6; border-radius: 10px; padding: 10px 12px; display: flex; align-items: flex-start; gap: 8px; }
+    .exam-icon { font-size: 16px; flex-shrink: 0; }
+    .exam-name { font-size: 13px; font-weight: 500; color: #111; line-height: 1.3; }
+    .exam-note { font-size: 11px; color: #888; margin-top: 2px; }
+    .alert-box { border-radius: 10px; padding: 12px 16px; font-size: 13px; line-height: 1.5; margin-bottom: 8px; }
+    .alert-warning { background: #fff8e1; border: 0.5px solid #f0c040; color: #7a5500; }
+    .alert-info { background: #E6F1FB; border: 0.5px solid #B5D4F4; color: #185FA5; }
+    .result-card { background: white; border: 0.5px solid #e0e2e6; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; margin-top: 1rem; }
+    .result-label { font-size: 11px; color: #888; letter-spacing: 1px; text-transform: uppercase; }
+    .result-inst { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 500; color: #111; margin: 4px 0 2px; }
+    .result-prog { font-size: 14px; color: #888; margin-bottom: 1.5rem; }
+    .price-box { background: #0c3b6e; border-radius: 8px; padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+    .price-label { font-size: 13px; color: #B5D4F4; }
+    .price-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 600; color: white; }
+    .price-note { font-size: 11px; color: #85B7EB; margin-top: 4px; }
+    .price-sym { font-size: 40px; opacity: 0.3; color: white; }
+    .warn-price { font-size: 12px; color: #7a5500; background: #fff8e1; border-radius: 8px; padding: 10px 14px; margin-top: 1rem; }
+    .restart-btn { width: 100%; margin-top: 1rem; padding: 12px; border: 0.5px solid #ccc; border-radius: 8px; background: none; color: #888; font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; }
+    .restart-btn:hover { border-color: #1a6cc4; color: #1a6cc4; }
+    .pwd-card { background: white; border: 0.5px solid #e0e2e6; border-radius: 12px; padding: 2rem 1.5rem; text-align: center; }
+    .pwd-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500; color: #111; margin-bottom: 0.5rem; }
+    .pwd-sub { font-size: 13px; color: #888; margin-bottom: 1.5rem; }
+    .pwd-err { font-size: 12px; color: #c0392b; margin-bottom: 10px; display: none; }
+    .pwd-link { display: block; text-align: center; margin-top: 1rem; font-size: 12px; color: #ccc; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+    .summary-box { background: #f0f4f8; border: 0.5px solid #d0d8e4; border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+    .summary-item { display: flex; flex-direction: column; gap: 2px; }
+    .summary-label { font-size: 11px; color: #888; letter-spacing: 1px; text-transform: uppercase; }
+    .summary-value { font-size: 13px; font-weight: 500; color: #0c3b6e; }
+    .err-msg { font-size: 12px; color: #c0392b; margin-bottom: 10px; }
+    .home-btn-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 1rem; }
+    .home-btn { background: white; border: 2px solid #0c3b6e; border-radius: 14px; padding: 20px; cursor: pointer; text-align: left; transition: all 0.2s; color: #0c3b6e; font-family: 'DM Sans', sans-serif; }
+    .home-btn:hover { background: #0c3b6e; color: white; }
+    .home-btn:hover .home-btn-sub { color: #B5D4F4; }
+    .home-btn-icon { font-size: 28px; margin-bottom: 8px; }
+    .home-btn-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 500; margin-bottom: 6px; }
+    .home-btn-sub { font-size: 13px; color: #666; line-height: 1.5; }
+    .home-btn.renovacion { border-color: #1a5c2a; color: #1a5c2a; }
+    .home-btn.renovacion:hover { background: #1a5c2a; color: white; }
+    @media (max-width: 500px) { .exam-grid { grid-template-columns: 1fr; } .option-grid { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
-<div class="container">
-
-  <div class="header">
-    <img src="data:image/jpeg;base64,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" alt="Grancolombiana IPS" class="clinic-logo" />
-    <h1>Requisitos <span>Aeromédicos</span></h1>
-    <p class="subtitle">Aeronáutica Civil · Colombia · Circular GCEP-1.0-22-23</p>
+<div class="wiz-wrap">
+  <div class="logo-area">
+    <div class="icon-plane">✈</div>
+    <div class="brand-name">Grancolombiana IPS</div>
+    <div class="brand-sub">Medicina de Aviación · Tarifas 2026</div>
   </div>
 
-  <div class="progress-bar" id="progressBar">
-    <div class="step-dot active" id="dot0"></div>
-    <div class="step-dot" id="dot1"></div>
-    <div class="step-dot" id="dot2"></div>
-    <div class="step-dot" id="dot3"></div>
+  <!-- INICIO -->
+  <div id="screenHome">
+    <div style="text-align:center;margin-bottom:1.5rem;">
+      <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:600;color:#0c3b6e;margin-bottom:8px;">Consulta de Exámenes</div>
+      <div style="font-size:13px;color:#888;">Selecciona el tipo de consulta</div>
+    </div>
+    <div class="home-btn-grid">
+      <button class="home-btn" onclick="startPrimeraVez()">
+        <div class="home-btn-icon">✈</div>
+        <div class="home-btn-title">Primera vez o Vencido hace más de 2 años</div>
+        <div class="home-btn-sub">Para quienes obtienen su certificado médico por primera vez o lleva más de 2 años vencido.</div>
+      </button>
+      <button class="home-btn renovacion" onclick="startRenovacion()">
+        <div class="home-btn-icon">🔄</div>
+        <div class="home-btn-title">Exámenes de Renovación</div>
+        <div class="home-btn-sub">Para quienes renuevan su certificado médico vigente o vencido hace menos de 2 años.</div>
+      </button>
+    </div>
+    <div style="text-align:center;margin-top:1.5rem;">
+      <a class="pwd-link" onclick="showPasswordScreen()">Acceso empleados</a>
+    </div>
   </div>
 
-  <div id="app"></div>
+  <!-- PASSWORD -->
+  <div id="screenPassword" style="display:none">
+    <div class="pwd-card">
+      <div class="pwd-title">Acceso empleados</div>
+      <div class="pwd-sub">Ingresa la clave para consultar sin restricciones.</div>
+      <p class="pwd-err" id="pwdErr">Clave incorrecta.</p>
+      <input type="password" id="pwdInput" placeholder="····" />
+      <button class="submit-btn" onclick="checkPassword()">Ingresar</button>
+      <button class="back-btn" onclick="showHome()" style="margin-top:1rem;justify-content:center">← Volver</button>
+    </div>
+  </div>
 
+  <!-- FLUJO PRIMERA VEZ -->
+  <div id="screenPV" style="display:none">
+    <div class="step-bar">
+      <div class="step-dot active" id="pv1">1</div><div class="step-line" id="pl1"></div>
+      <div class="step-dot pending" id="pv2">2</div><div class="step-line" id="pl2"></div>
+      <div class="step-dot pending" id="pv3">3</div><div class="step-line" id="pl3"></div>
+      <div class="step-dot pending" id="pv4">4</div><div class="step-line" id="pl4"></div>
+      <div class="step-dot pending" id="pv5">5</div><div class="step-line" id="pl5"></div>
+      <div class="step-dot pending" id="pv6">6</div><div class="step-line" id="pl6"></div>
+      <div class="step-dot pending" id="pv7">✓</div>
+    </div>
+    <div id="pvStep1">
+      <div class="question-label">Paso 1 de 6</div>
+      <div class="question-title">¿Estudiaste en alguna de estas instituciones?</div>
+      <div class="option-grid" id="pvInstGrid"></div>
+    </div>
+    <div id="pvStep2" style="display:none">
+      <div class="question-label">Paso 2 de 6</div>
+      <div class="question-title">¿Cuál es tu programa?</div>
+      <div class="option-grid wide" id="pvProgGrid"></div>
+      <button class="back-btn" onclick="pvGoTo(1)">← Volver</button>
+    </div>
+    <div id="pvStep3" style="display:none">
+      <div class="question-label">Paso 3 de 6</div>
+      <div class="question-title">¿Qué tipo de licencia solicitas?</div>
+      <div class="option-grid wide" id="pvLicGrid"></div>
+      <button class="back-btn" onclick="pvGoTo(2)">← Volver</button>
+    </div>
+    <div id="pvStep4" style="display:none">
+      <div class="question-label">Paso 4 de 6</div>
+      <div class="question-title">¿Cuántos años tienes?</div>
+      <p class="err-msg" id="pvAgeErr" style="display:none">Ingresa una edad válida entre 16 y 99.</p>
+      <input type="number" id="pvAgeInput" placeholder="Ej: 35" min="16" max="99" />
+      <button class="submit-btn" onclick="pvConfirmAge()">Continuar →</button>
+      <button class="back-btn" onclick="pvGoTo(3)">← Volver</button>
+    </div>
+    <div id="pvStep5" style="display:none">
+      <div class="question-label">Paso 5 de 6 — Datos de contacto</div>
+      <div class="question-title">¿Cuál es tu información de contacto?</div>
+      <p class="err-msg" id="pvContactErr" style="display:none">Por favor completa todos los campos.</p>
+      <input type="text" id="pvNombre" placeholder="Nombre completo" />
+      <input type="text" id="pvCC" placeholder="Número de cédula" />
+      <input type="tel" id="pvCelular" placeholder="Celular (Ej: 3001234567)" />
+      <input type="email" id="pvEmail" placeholder="Correo electrónico" />
+      <button class="submit-btn" onclick="pvConfirmContact()">Ver mis exámenes y tarifa →</button>
+      <button class="back-btn" onclick="pvGoTo(4)">← Volver</button>
+    </div>
+    <div id="pvResults" style="display:none">
+      <div class="summary-box" id="pvSummary"></div>
+      <div class="exam-title">Exámenes requeridos</div>
+      <div class="exam-grid" id="pvExamGrid"></div>
+      <div id="pvAlerts"></div>
+      <div class="result-card">
+        <div class="result-label">Tarifa 2026</div>
+        <div class="result-inst" id="pvRInst"></div>
+        <div class="result-prog" id="pvRProg"></div>
+        <div class="price-box">
+          <div>
+            <div class="price-label">Valor a pagar</div>
+            <div class="price-val" id="pvRPrice"></div>
+            <div class="price-note" id="pvRNote"></div>
+          </div>
+          <div class="price-sym">$</div>
+        </div>
+        <div class="warn-price" id="pvRWarn" style="display:none"></div>
+      </div>
+      <div id="pvAvisoInfo"></div>
+      <button class="restart-btn" onclick="showHome()">← Volver al inicio</button>
+    </div>
+  </div>
+
+  <!-- FLUJO RENOVACION -->
+  <div id="screenRV" style="display:none">
+    <div class="step-bar">
+      <div class="step-dot active" id="rv1">1</div><div class="step-line" id="rl1"></div>
+      <div class="step-dot pending" id="rv2">2</div><div class="step-line" id="rl2"></div>
+      <div class="step-dot pending" id="rv3">3</div><div class="step-line" id="rl3"></div>
+      <div class="step-dot pending" id="rv4">4</div><div class="step-line" id="rl4"></div>
+      <div class="step-dot pending" id="rv5">✓</div>
+    </div>
+    <div id="rvStep1">
+      <div class="question-label">Paso 1 de 4</div>
+      <div class="question-title">¿Qué tipo de licencia solicitas?</div>
+      <div class="option-grid wide" id="rvLicGrid"></div>
+      <button class="back-btn" onclick="showHome()">← Volver al inicio</button>
+    </div>
+    <div id="rvStep2" style="display:none">
+      <div class="question-label">Paso 2 de 4</div>
+      <div class="question-title">¿Cuál es tu fecha de nacimiento?</div>
+      <p class="err-msg" id="rvFechaErr" style="display:none">Por favor ingresa una fecha válida.</p>
+      <input type="date" id="rvFecha" max="" />
+      <button class="submit-btn" onclick="rvConfirmFecha()">Continuar →</button>
+      <button class="back-btn" onclick="rvGoTo(1)">← Volver</button>
+    </div>
+    <div id="rvStep3" style="display:none">
+      <div class="question-label">Paso 3 de 4</div>
+      <div class="question-title">¿Con qué empresa trabajas?</div>
+      <div class="option-grid" id="rvEmpresaGrid"></div>
+      <button class="back-btn" onclick="rvGoTo(2)">← Volver</button>
+    </div>
+    <div id="rvStep4" style="display:none">
+      <div class="question-label">Paso 4 de 4 — Datos de contacto</div>
+      <div class="question-title">¿Cuál es tu información de contacto?</div>
+      <p class="err-msg" id="rvContactErr" style="display:none">Por favor completa todos los campos.</p>
+      <input type="text" id="rvNombre" placeholder="Nombre completo" />
+      <input type="text" id="rvCC" placeholder="Número de cédula" />
+      <input type="tel" id="rvCelular" placeholder="Celular (Ej: 3001234567)" />
+      <input type="email" id="rvEmail" placeholder="Correo electrónico" />
+      <button class="submit-btn" onclick="rvConfirmContact()">Ver mis exámenes →</button>
+      <button class="back-btn" onclick="rvGoTo(3)">← Volver</button>
+    </div>
+    <div id="rvResults" style="display:none">
+      <div class="summary-box" id="rvSummary"></div>
+      <div class="exam-title">Exámenes requeridos</div>
+      <div class="exam-grid" id="rvExamGrid"></div>
+      <div id="rvAlerts"></div>
+      <div id="rvAvisoInfo"></div>
+      <button class="restart-btn" onclick="showHome()">← Volver al inicio</button>
+    </div>
+  </div>
 </div>
 
 <script>
-// ─── State ───────────────────────────────────────────────
-const state = {
-  step: 0,
-  licencia: null,
-  primeraVez: null,
-  edad: null
+const ADMIN_KEY  = '7087';
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbz--1OOY79QKeZU0YR3VN-WRi-Tyt4J6xxe9rvJSzLi_gnDmheh8LY-bkaMisiDCYMSvw/exec';
+
+let PV = { instKey:null, instLabel:null, progLabel:null, progPrice:0, progNote:'', progWarn:'', licencia:null, edad:null, nombre:'', cc:'', celular:'', email:'' };
+let RV = { licencia:null, edad:null, empresa:'', nombre:'', cc:'', celular:'', email:'' };
+
+const INSTITUCIONES = [
+  { key:'DELTA_FORCE', label:'Delta Force', programas:[{label:'Tripulante de Cabina (TCP)',price:420000,note:'',warn:''},{label:'Alumno Piloto de Avión (APA)',price:450000,note:'',warn:''}]},
+  { key:'DREAM_FLY',   label:'Dream Fly',   programas:[{label:'Alumno Piloto de Avión (APA)',price:420000,note:'',warn:''}]},
+  { key:'AEROCLUB',    label:'Aeroclub',    programas:[{label:'APA (Incluye Toxicología)',price:530000,note:'Incluye toxicología',warn:''}]},
+  { key:'AEROANDES',   label:'Aeroandes',   programas:[{label:'Tripulante de Cabina (TCP)',price:420000,note:'',warn:''},{label:'Alumno Piloto de Avión (APA)',price:450000,note:'',warn:''}]}
+];
+const PARTICULARES = [{label:'TCP',sub:'Tripulante de Cabina',price:360000},{label:'APA',sub:'Alumno Piloto de Avión',price:420000}];
+
+const LIC_NAMES = {
+  clase1:'Clase 1 — PCA · PTL · PCH',
+  clase2_piloto:'Clase 2 — PPA · PPL · APA',
+  clase2_tcp:'Clase 2 — TCP Tripulante de Cabina',
+  clase3_cta:'Clase 3 — CTA Controlador de Tránsito',
+  clase3_oea:'Clase 3 — OEA · BAE'
 };
 
-// ─── Exam Database ────────────────────────────────────────
+const LIC_OPTIONS = [
+  {key:'clase1',       label:'Clase 1',             sub:'PCA · PTL · PCH'},
+  {key:'clase2_piloto',label:'Clase 2 — Pilotos',   sub:'PPA · PPL · APA'},
+  {key:'clase2_tcp',   label:'Clase 2 — TCP',        sub:'Tripulante de Cabina · Vigencia 3 años'},
+  {key:'clase3_cta',   label:'Clase 3 — CTA',        sub:'Controlador de Tránsito Aéreo'},
+  {key:'clase3_oea',   label:'Clase 3 — OEA · BAE',  sub:'Operador de Estación · Bombero Aeronáutico · Vigencia 3 años'}
+];
+
 const EXAMS = {
-  medico:       { icon: '🩺', name: 'Médico Aeronáutico', note: 'Siempre requerido' },
-  oftalmo_comp: { icon: '👁️', name: 'Oftalmología Completa', note: 'Val. completa' },
-  oftalmo_aero: { icon: '👁️', name: 'Oftalmología', note: 'Val. aeronáutica' },
-  optometria:   { icon: '🔭', name: 'Optometría', note: 'Val. optométrica' },
-  orl:          { icon: '👂', name: 'ORL / Fonoaudiología', note: 'Otorrinolaringología' },
-  cardiologia:  { icon: '❤️', name: 'Cardiología', note: 'Evaluación cardiovascular' },
-  neurologia:   { icon: '🧠', name: 'Neurología', note: 'Evaluación neurológica' },
-  psiquiatria:  { icon: '💬', name: 'Psiquiatría', note: 'Salud mental' },
-  psicologia:   { icon: '🧩', name: 'Psicología', note: '5 procesos mentales superiores' },
-  odontograma:  { icon: '🦷', name: 'Odontograma / RX Panorámica', note: 'Salud dental' },
-  ch:           { icon: '🧪', name: 'Cuadro Hemático', note: 'Hemoleucograma' },
-  orina:        { icon: '🔬', name: 'Parcial de Orina', note: 'Uroanálisis' },
-  glicemia:     { icon: '💉', name: 'Glicemia', note: 'Glucosa en sangre' },
-  audiometria:  { icon: '🔊', name: 'Audiometría', note: 'Umbral auditivo' },
-  perfil:       { icon: '🫀', name: 'Perfil Lipídico', note: 'Colesterol y triglicéridos' },
-  creatinina:   { icon: '🧫', name: 'Creatinina', note: 'Función renal' },
-  ekg:          { icon: '📈', name: 'EKG / Electrocardiograma', note: 'Actividad cardíaca' },
-  esfuerzo:     { icon: '🏃', name: 'Prueba de Esfuerzo', note: 'Test cardiovascular' },
-  rayosx:       { icon: '🩻', name: 'Rayos X de Tórax', note: 'Solo primera vez' },
+  medico:      {icon:'🩺',name:'Médico Aeronáutico',          note:'Siempre requerido'},
+  oftalmo_comp:{icon:'👁️',name:'Oftalmología Completa',        note:'Val. completa'},
+  optometria:  {icon:'🔭',name:'Optometría',                   note:'Val. optométrica'},
+  orl:         {icon:'👂',name:'ORL / Fonoaudiología',         note:'Otorrinolaringología'},
+  cardiologia: {icon:'❤️',name:'Cardiología',                  note:'Evaluación cardiovascular'},
+  neurologia:  {icon:'🧠',name:'Neurología',                   note:'Evaluación neurológica'},
+  psiquiatria: {icon:'💬',name:'Psiquiatría',                  note:'Salud mental'},
+  psicologia:  {icon:'🧩',name:'Psicología',                   note:'5 procesos mentales superiores'},
+  odontograma: {icon:'🦷',name:'Odontograma / RX Panorámica',  note:'Salud dental'},
+  ch:          {icon:'🧪',name:'Cuadro Hemático',              note:'Hemoleucograma'},
+  orina:       {icon:'🔬',name:'Parcial de Orina',             note:'Uroanálisis'},
+  glicemia:    {icon:'💉',name:'Glicemia',                     note:'Glucosa en sangre'},
+  audiometria: {icon:'🔊',name:'Audiometría',                  note:'Umbral auditivo'},
+  perfil:      {icon:'🫀',name:'Perfil Lipídico',              note:'Colesterol y triglicéridos'},
+  creatinina:  {icon:'🧫',name:'Creatinina',                   note:'Función renal'},
+  ekg:         {icon:'📈',name:'EKG / Electrocardiograma',     note:'Actividad cardíaca'},
+  esfuerzo:    {icon:'🏃',name:'Prueba de Esfuerzo',           note:'Test cardiovascular'},
+  rayosx:      {icon:'🩻',name:'Rayos X de Tórax',             note:'Solo primera vez'},
+  toxicologia: {icon:'🧬',name:'Toxicología',                  note:'Solo Aeroclub'}
 };
 
-function getExams(licencia, primeraVez, edad) {
-  let lista = [];
-  const alerts = [];
+const BASE = ['medico','ch','orina','glicemia','audiometria'];
 
-  // Siempre
-  lista.push('medico', 'ch', 'orina', 'glicemia', 'audiometria');
+function getExamsPV(lic, e, tox) {
+  let lista = [...BASE]; const alerts = [];
+  lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','psicologia','perfil','creatinina','ekg','rayosx');
+  if (e >= 40) lista.push('esfuerzo');
+  alerts.push({type:'info', text:'📌 Rayos X de tórax solo en la primera solicitud.'});
+  alerts.push({type:'warning', text:'📋 Las pruebas psicológicas de primera vez deben ser subidas al SIGA por el respectivo Centro de Instrucción.'});
+  if (lic === 'clase2_tcp') alerts.push({type:'info', text:'📋 TCP: vigencia fija de 36 meses (3 años).'});
+  if (lic === 'clase3_oea') alerts.push({type:'info', text:'📋 OEA / BAE: vigencia fija de 36 meses (3 años).'});
+  if (tox) lista.push('toxicologia');
+  return { lista:[...new Set(lista)], alerts };
+}
 
-  const lic = licencia;
-  const pv = primeraVez;
-  const e = edad;
+function getExamsRV(lic, e) {
+  let lista = [...BASE]; const alerts = [];
 
-  // ── CLASE 1: PCA · PTL (avión, helicóptero, VTOL) ──
   if (lic === 'clase1') {
-    lista.push('oftalmo_aero');
-
-    if (pv || e >= 40) {
-      lista.push('orl', 'cardiologia', 'neurologia', 'psiquiatria', 'odontograma');
-    }
-    if (e >= 25 && e <= 29) lista.push('oftalmo_comp');
-    if (e >= 30 && e <= 34) lista.push('oftalmo_comp');
-    if (e >= 35) lista.push('oftalmo_comp', 'perfil');
-    if (e >= 36) lista.push('creatinina');
-    if (e >= 40) lista.push('ekg', 'perfil', 'creatinina');
-    if (e >= 40) lista.push('esfuerzo');
-    if (e >= 60) {
-      lista.push('psicologia');
-      alerts.push({ type: 'warning', text: '⚠️ Psicología obligatoria cada 2 años desde los 60.' });
-    }
-    if (pv) {
-      lista.push('rayosx');
-      alerts.push({ type: 'info', text: '📌 Rayos X de tórax solo en la primera solicitud.' });
-    }
+    if (e <= 24)                  lista.push('optometria');
+    else if (e === 25)            lista.push('oftalmo_comp','orl','psiquiatria');
+    else if (e >= 26 && e <= 29)  lista.push('optometria');
+    else if (e === 30)            lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','ekg');
+    else if (e === 31)            lista.push('optometria');
+    else if (e === 32)            lista.push('optometria','ekg');
+    else if (e === 33)            lista.push('optometria');
+    else if (e === 34)            lista.push('optometria','ekg');
+    else if (e === 35)            lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','perfil','creatinina');
+    else if (e === 36)            lista.push('optometria','perfil','ekg');
+    else if (e === 37)            lista.push('optometria','perfil');
+    else if (e === 38)            lista.push('optometria','perfil','ekg');
+    else if (e === 39)            lista.push('optometria','perfil');
+    else if (e === 40)            lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','esfuerzo');
+    else if (e >= 41 && e <= 44)  lista.push('optometria','perfil','ekg');
+    else if (e === 45)            lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','perfil','creatinina','esfuerzo');
+    else if (e >= 46 && e <= 49)  lista.push('optometria','perfil','ekg');
+    else if (e === 50)            lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','esfuerzo');
+    else if (e >= 51 && e <= 54)  lista.push('optometria','perfil','ekg');
+    else if (e === 55)            lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','perfil','creatinina','esfuerzo');
+    else if (e >= 56 && e <= 59)  lista.push('optometria','perfil','ekg');
+    else if (e === 60)            { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','psicologia','esfuerzo'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
+    else if (e >= 61 && e <= 64)  { lista.push('optometria','perfil','creatinina','ekg','esfuerzo'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
+    else if (e >= 65)             { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','psicologia','esfuerzo'); alerts.push({type:'warning',text:'⚠️ Desde los 65 años: todos los exámenes.'}); }
   }
 
-  // ── CLASE 2: PPA · PPL · APA (Pilotos privados) ──
-  if (lic === 'clase2_piloto') {
-    lista.push('oftalmo_aero');
-
-    if (pv || e >= 40) {
-      lista.push('orl', 'cardiologia', 'neurologia', 'psiquiatria', 'odontograma');
-    }
-    if (e >= 40) lista.push('oftalmo_comp', 'perfil', 'creatinina', 'ekg');
-    if (e >= 45) lista.push('oftalmo_comp');
-    if (e >= 40) lista.push('esfuerzo');
-    if (e >= 55) lista.push('ekg');
-    if (e >= 60) {
-      lista.push('psicologia', 'perfil', 'creatinina', 'ekg');
-      alerts.push({ type: 'warning', text: '⚠️ Psicología obligatoria cada 2 años desde los 60.' });
-    }
-    if (e >= 65) {
-      alerts.push({ type: 'warning', text: '⚠️ Desde los 65 años: todos los exámenes en cada renovación.' });
-    }
-    if (pv) {
-      lista.push('rayosx');
-      alerts.push({ type: 'info', text: '📌 Rayos X de tórax solo en la primera solicitud.' });
-    }
+  else if (lic === 'clase2_piloto') {
+    if (e <= 24)                  lista.push('optometria');
+    else if (e >= 25 && e <= 27)  lista.push('oftalmo_comp','orl','psiquiatria');
+    else if (e >= 28 && e <= 29)  lista.push('orl');
+    else if (e >= 30 && e <= 32)  lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','ekg');
+    else if (e >= 33 && e <= 34)  lista.push('optometria','ekg');
+    else if (e >= 35 && e <= 37)  lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','perfil','creatinina','ekg');
+    else if (e >= 38 && e <= 39)  lista.push('optometria','perfil','ekg');
+    else if (e === 40)            lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','esfuerzo');
+    else if (e >= 41 && e <= 44)  lista.push('optometria','perfil','ekg');
+    else if (e === 45)            lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','perfil','creatinina','esfuerzo');
+    else if (e >= 46 && e <= 49)  lista.push('optometria','perfil','ekg');
+    else if (e === 50)            lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','esfuerzo');
+    else if (e >= 51 && e <= 54)  lista.push('optometria','perfil','ekg');
+    else if (e === 55)            lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','perfil','creatinina','esfuerzo');
+    else if (e >= 56 && e <= 59)  lista.push('optometria','perfil','ekg');
+    else if (e === 60)            { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','esfuerzo'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
+    else if (e >= 61 && e <= 64)  { lista.push('optometria','perfil','ekg','esfuerzo'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
+    else if (e >= 65)             { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','esfuerzo'); alerts.push({type:'warning',text:'⚠️ Desde los 65 años: todos los exámenes.'}); }
+    alerts.push({type:'info',text:'📋 Clase 2 Pilotos: vigencia fija de 36 meses.'});
   }
 
-  // ── CLASE 2: TCP — Tripulante de Cabina (vigencia 3 años) ──
-  if (lic === 'clase2_tcp') {
-    lista.push('oftalmo_aero');
-
-    if (pv || e >= 40) {
-      lista.push('orl', 'cardiologia', 'neurologia', 'psiquiatria', 'odontograma');
-    }
-    if (e >= 40) lista.push('oftalmo_comp', 'perfil', 'creatinina', 'ekg');
-    if (e >= 40) lista.push('esfuerzo');
-    if (e >= 60) {
-      lista.push('psicologia');
-      alerts.push({ type: 'warning', text: '⚠️ Psicología obligatoria cada 2 años desde los 60.' });
-    }
-    if (pv) {
-      lista.push('rayosx');
-      alerts.push({ type: 'info', text: '📌 Rayos X de tórax solo en la primera solicitud.' });
-    }
-    alerts.push({ type: 'info', text: '📋 TCP Tripulante de Cabina: vigencia fija de 36 meses (3 años).' });
+  else if (lic === 'clase2_tcp') {
+    if (e <= 24)                  lista.push('optometria','psiquiatria');
+    else if (e >= 25 && e <= 27)  lista.push('oftalmo_comp','orl','psiquiatria');
+    else if (e >= 28 && e <= 29)  lista.push('optometria','psiquiatria');
+    else if (e >= 30 && e <= 32)  lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','ekg');
+    else if (e >= 33 && e <= 34)  lista.push('optometria','psiquiatria','ekg');
+    else if (e >= 35 && e <= 37)  lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','perfil','creatinina','ekg');
+    else if (e >= 38 && e <= 39)  lista.push('optometria','psiquiatria','perfil','ekg');
+    else if (e >= 40 && e <= 42)  lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','esfuerzo');
+    else if (e >= 43 && e <= 44)  lista.push('optometria','psiquiatria','perfil','ekg');
+    else if (e >= 45 && e <= 47)  lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','perfil','creatinina','esfuerzo');
+    else if (e >= 48 && e <= 49)  lista.push('optometria','psiquiatria','perfil','ekg');
+    else if (e >= 50 && e <= 52)  lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','esfuerzo');
+    else if (e >= 53 && e <= 54)  lista.push('optometria','psiquiatria','perfil','creatinina','ekg');
+    else if (e >= 55 && e <= 57)  lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','perfil','creatinina','esfuerzo');
+    else if (e >= 58 && e <= 59)  lista.push('optometria','psiquiatria','perfil','ekg');
+    else if (e >= 60 && e <= 62)  { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','esfuerzo'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
+    else if (e >= 63 && e <= 64)  { lista.push('optometria','psiquiatria','perfil','creatinina','esfuerzo'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
+    else if (e >= 65)             { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','odontograma','perfil','creatinina','esfuerzo'); alerts.push({type:'warning',text:'⚠️ Desde los 65 años: todos los exámenes.'}); }
+    alerts.push({type:'info',text:'📋 TCP: vigencia fija de 36 meses (3 años).'});
   }
 
-  // ── CLASE 3: CTA — Controlador de Tránsito Aéreo ──
-  if (lic === 'clase3_cta') {
-    lista.push('oftalmo_aero');
-
-    if (pv || e >= 40) {
-      lista.push('orl', 'cardiologia', 'neurologia', 'psiquiatria', 'odontograma');
-    }
-    if (e >= 40) lista.push('oftalmo_comp', 'perfil', 'creatinina', 'ekg');
-    if (e >= 45) lista.push('oftalmo_comp');
-    if (e >= 40) lista.push('esfuerzo');
-    if (e >= 55) lista.push('ekg');
-    if (e >= 60) {
-      lista.push('psicologia', 'perfil', 'creatinina', 'ekg');
-      alerts.push({ type: 'warning', text: '⚠️ Psicología obligatoria cada 2 años desde los 60.' });
-    }
-    if (pv) {
-      lista.push('rayosx');
-      alerts.push({ type: 'info', text: '📌 Rayos X de tórax solo en la primera solicitud.' });
-    }
+  else if (lic === 'clase3_cta') {
+    if (e <= 24)                  lista.push('optometria');
+    else if (e >= 25 && e <= 26)  lista.push('oftalmo_comp','orl','psiquiatria');
+    else if (e >= 27 && e <= 29)  lista.push('optometria');
+    else if (e >= 30 && e <= 31)  lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','ekg');
+    else if (e >= 32 && e <= 34)  lista.push('optometria','ekg');
+    else if (e >= 35 && e <= 36)  lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','perfil','creatinina','ekg');
+    else if (e >= 37 && e <= 39)  lista.push('optometria','perfil','ekg');
+    else if (e >= 40 && e <= 41)  lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','perfil','creatinina','esfuerzo');
+    else if (e >= 42 && e <= 44)  lista.push('optometria','perfil','ekg');
+    else if (e >= 45 && e <= 46)  lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','perfil','creatinina','esfuerzo');
+    else if (e >= 47 && e <= 49)  lista.push('optometria','perfil','ekg');
+    else if (e >= 50 && e <= 51)  lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','perfil','creatinina','esfuerzo');
+    else if (e >= 52 && e <= 54)  lista.push('optometria','perfil','ekg');
+    else if (e === 55)            lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','perfil','creatinina','esfuerzo');
+    else if (e >= 56 && e <= 59)  lista.push('optometria','perfil','ekg');
+    else if (e === 60)            { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','perfil','creatinina','esfuerzo'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
+    else if (e >= 61 && e <= 64)  { lista.push('optometria','perfil','ekg','esfuerzo'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
+    else if (e >= 65)             { lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','perfil','creatinina','esfuerzo'); alerts.push({type:'warning',text:'⚠️ Desde los 65 años: todos los exámenes.'}); }
   }
 
-  // ── CLASE 3: OEA — Operador de Estación Aeronáutica (vigencia 3 años) ──
-  if (lic === 'clase3_oea') {
-    lista.push('oftalmo_aero');
-
-    if (pv) {
-      lista.push('orl', 'odontograma', 'rayosx');
-      alerts.push({ type: 'info', text: '📌 ORL, Odontograma y Rayos X solo en la primera solicitud.' });
-    }
-    if (e >= 40) lista.push('ekg', 'perfil', 'creatinina');
-    if (e >= 40) lista.push('esfuerzo');
-    alerts.push({ type: 'info', text: '📋 OEA Operador de Estación Aeronáutica: vigencia fija de 36 meses (3 años).' });
+  else if (lic === 'clase3_oea') {
+    if (e <= 24)                  lista.push('optometria');
+    else if (e >= 25 && e <= 29)  lista.push('oftalmo_comp','psiquiatria');
+    else if (e >= 30 && e <= 34)  lista.push('optometria','orl','cardiologia','neurologia','psiquiatria','ekg');
+    else if (e >= 35 && e <= 39)  lista.push('optometria','orl','cardiologia','neurologia','psiquiatria','perfil','creatinina','ekg');
+    else if (e >= 40)             lista.push('oftalmo_comp','orl','cardiologia','neurologia','psiquiatria','perfil','creatinina','ekg','esfuerzo');
+    if (e >= 60) { lista.push('psicologia'); alerts.push({type:'warning',text:'⚠️ Psicología obligatoria cada 2 años desde los 60.'}); }
+    if (e >= 65) alerts.push({type:'warning',text:'⚠️ Desde los 65 años: todos los exámenes.'});
+    alerts.push({type:'info',text:'📋 OEA / BAE: vigencia fija de 36 meses (3 años).'});
   }
 
-  // ── CLASE 3: PUL — Piloto de Ultraliviano ──
-  if (lic === 'clase3_pul') {
-    lista.push('oftalmo_aero');
-
-    if (pv || e >= 40) {
-      lista.push('orl', 'cardiologia', 'neurologia', 'psiquiatria', 'odontograma');
-    }
-    if (e >= 40) lista.push('oftalmo_comp', 'perfil', 'creatinina', 'ekg');
-    if (e >= 40) lista.push('esfuerzo');
-    if (e >= 60) {
-      lista.push('psicologia');
-      alerts.push({ type: 'warning', text: '⚠️ Psicología obligatoria cada 2 años desde los 60.' });
-    }
-    if (pv) {
-      lista.push('rayosx');
-      alerts.push({ type: 'info', text: '📌 Rayos X de tórax solo en la primera solicitud.' });
-    }
-  }
-
-  // Deterioro auditivo
-  alerts.push({ type: 'info', text: '🔊 Si hay deterioro auditivo previo: audiometría semestral y debe anotarse en el certificado.' });
-
-  // Dedup
-  lista = [...new Set(lista)];
-  return { lista, alerts };
+  return { lista:[...new Set(lista)], alerts };
 }
 
-// ─── Vigencia del Certificado (RAC 67 Colombia) ───────────
-function getVigenciaMeses(licencia, edad) {
-  // Clase 1: PCA, PTL
-  if (licencia === 'clase1') {
-    return edad < 40 ? 12 : 6;
-  }
-  // Clase 2: Pilotos privados PPA, PPL, APA, BAE — vigencia fija 36 meses
-  if (licencia === 'clase2_piloto') {
-    return 36;
-  }
-  // Clase 2: TCP Tripulante de Cabina — vigencia fija 3 años
-  if (licencia === 'clase2_tcp') {
-    return 36;
-  }
-  // Clase 3: CTA Controlador de Tránsito Aéreo
-  if (licencia === 'clase3_cta') {
-    return edad < 50 ? 24 : 12;
-  }
-  // Clase 3: OEA Operador de Estación Aeronáutica — vigencia fija 3 años
-  if (licencia === 'clase3_oea') {
-    return 36;
-  }
-  // Clase 3: PUL Piloto de Ultraliviano — vigencia fija 36 meses (privado)
-  if (licencia === 'clase3_pul') {
-    return 36;
-  }
-  return 12;
+function fmt(n){ return '$ '+n.toLocaleString('es-CO'); }
+function calcEdad(f){ const h=new Date(),n=new Date(f); let e=h.getFullYear()-n.getFullYear(); const m=h.getMonth()-n.getMonth(); if(m<0||(m===0&&h.getDate()<n.getDate()))e--; return e; }
+
+function enviarSheets(nombre,cc,celular,correo,empresa,institucion,programa,licencia,tipo,edad){
+  if(!SHEETS_URL)return;
+  fetch(SHEETS_URL+'?nombre='+encodeURIComponent(nombre)+'&cc='+encodeURIComponent(cc)+'&celular='+encodeURIComponent(celular)+'&correo='+encodeURIComponent(correo)+'&empresa='+encodeURIComponent(empresa)+'&institucion='+encodeURIComponent(institucion)+'&programa='+encodeURIComponent(programa)+'&licencia='+encodeURIComponent(licencia)+'&tipo='+encodeURIComponent(tipo)+'&edad='+encodeURIComponent(edad),{method:'GET',mode:'no-cors'}).catch(()=>{});
 }
 
-function calcFechaVencimiento(fechaExpedicion, meses) {
-  const d = new Date(fechaExpedicion);
-  d.setMonth(d.getMonth() + meses);
-  return d;
+function renderExams(lista,gridId){ document.getElementById(gridId).innerHTML=lista.map(k=>`<div class="exam-item"><span class="exam-icon">${EXAMS[k].icon}</span><div><div class="exam-name">${EXAMS[k].name}</div><div class="exam-note">${EXAMS[k].note}</div></div></div>`).join(''); }
+function renderAlerts(alerts,boxId){ document.getElementById(boxId).innerHTML=alerts.map(a=>`<div class="alert-box alert-${a.type}">${a.text}</div>`).join(''); }
+
+function avisoHTML(){
+  const wi=`<svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
+  const wl=(num,lbl)=>`<a href="https://wa.me/${num}" target="_blank" style="display:flex;align-items:center;gap:12px;background:#f0faf4;border:0.5px solid #b7e4c7;border-radius:10px;padding:12px 14px;text-decoration:none;">${wi}<span style="font-size:14px;font-weight:500;color:#1a5c2a;">${lbl}</span></a>`;
+  return `<div class="aviso-box" style="background:#1a5c2a;margin-top:1rem;"><div class="aviso-title">📋 Información importante para tu visita</div><div class="aviso-body">Puedes llegar <b>SIN CITA PREVIA</b> directamente a nuestra IPS de <b>lunes a viernes desde las 6:00 a.m. hasta las 8:00 a.m.</b><br><br>· Debes venir en <b>ayunas</b><br>· Si usas <b>gafas</b>, tráelas<br>· Si en tu listado aparece <b>Prueba de Esfuerzo</b>, trae <b>ropa cómoda para caminar en trotadora</b></div></div>
+  <div style="background:white;border:0.5px solid #e0e2e6;border-radius:12px;padding:1.25rem 1.5rem;margin-top:1rem;"><div style="font-size:12px;font-weight:500;color:#888;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:10px;">📍 Nuestra ubicación</div><div style="font-size:14px;color:#111;line-height:1.7;margin-bottom:12px;">Calle 134 # 7-83, Torre 4, Piso 2, Consultorio 421<br><span style="color:#888;">Edificio Altos del Bosque · Bogotá</span></div><a href="https://maps.google.com/?q=Calle+134+%237-83+Torre+4+Piso+2+Bogota+Colombia" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#E6F1FB;border:0.5px solid #B5D4F4;border-radius:8px;padding:10px;color:#0c3b6e;font-size:13px;font-weight:500;text-decoration:none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0c3b6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>Ver en Google Maps</a></div>
+  <div style="background:white;border:0.5px solid #e0e2e6;border-radius:12px;padding:1.25rem 1.5rem;margin-top:1rem;"><div style="font-size:12px;font-weight:500;color:#888;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:12px;">💬 Si requieres más información</div><div style="display:flex;flex-direction:column;gap:8px;">${wl('573187083260','+57 318 708 3260')}${wl('573012271729','+57 301 227 1729')}${wl('573246860333','+57 324 686 0333')}</div></div>`;
 }
 
-function formatFecha(date) {
-  return date.toLocaleDateString('es-CO', { day: '2-digit', month: 'long', year: 'numeric' });
+function showHome(){['screenHome','screenPassword','screenPV','screenRV'].forEach(id=>document.getElementById(id).style.display='none');document.getElementById('screenHome').style.display='block';}
+function showPasswordScreen(){document.getElementById('screenHome').style.display='none';document.getElementById('screenPassword').style.display='block';document.getElementById('pwdInput').value='';document.getElementById('pwdErr').style.display='none';}
+function checkPassword(){if(document.getElementById('pwdInput').value.trim()==='7087'){document.getElementById('screenPassword').style.display='none';startPrimeraVez();}else document.getElementById('pwdErr').style.display='block';}
+document.getElementById('pwdInput').addEventListener('keydown',e=>{if(e.key==='Enter')checkPassword();});
+
+function startPrimeraVez(){
+  PV={instKey:null,instLabel:null,progLabel:null,progPrice:0,progNote:'',progWarn:'',licencia:null,edad:null,nombre:'',cc:'',celular:'',email:''};
+  ['screenHome','screenPassword','screenRV'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('screenPV').style.display='block';
+  renderPVInst(); pvGoTo(1);
 }
 
-function getDiasRestantes(fechaVenc) {
-  const hoy = new Date();
-  hoy.setHours(0,0,0,0);
-  const diff = fechaVenc - hoy;
-  return Math.ceil(diff / (1000 * 60 * 60 * 24));
+function pvAllSteps(){return['pvStep1','pvStep2','pvStep3','pvStep4','pvStep5','pvResults'];}
+function pvHideAll(){pvAllSteps().forEach(id=>document.getElementById(id).style.display='none');}
+function pvSetBar(s){for(let i=1;i<=7;i++){document.getElementById('pv'+i).className='step-dot '+(i<s?'done':i===s?'active':'pending');}for(let i=1;i<=6;i++){document.getElementById('pl'+i).className='step-line'+(i<s?' done':'');}}
+function pvGoTo(s){pvHideAll();pvSetBar(s);if(s===3)renderPVLic();const ids={1:'pvStep1',2:'pvStep2',3:'pvStep3',4:'pvStep4',5:'pvStep5',6:'pvResults'};if(ids[s])document.getElementById(ids[s]).style.display='block';}
+
+function renderPVInst(){
+  const g=document.getElementById('pvInstGrid');g.innerHTML='';
+  INSTITUCIONES.forEach(inst=>{const b=document.createElement('button');b.className='option-btn';b.textContent=inst.label;b.onclick=()=>{PV.instKey=inst.key;PV.instLabel=inst.label;if(inst.programas.length===1){PV.progLabel=inst.programas[0].label;PV.progPrice=inst.programas[0].price;PV.progNote=inst.programas[0].note;PV.progWarn=inst.programas[0].warn;pvGoTo(3);}else{renderPVProg(inst);pvGoTo(2);}};g.appendChild(b);});
+  const o=document.createElement('button');o.className='option-btn';o.textContent='Otras';o.onclick=()=>{PV.instKey='OTRAS';PV.instLabel='Particular';renderPVPart();pvGoTo(2);};g.appendChild(o);
+}
+function renderPVProg(inst){const g=document.getElementById('pvProgGrid');g.innerHTML='';inst.programas.forEach(p=>{const b=document.createElement('button');b.className='option-btn';b.textContent=p.label;b.onclick=()=>{PV.progLabel=p.label;PV.progPrice=p.price;PV.progNote=p.note;PV.progWarn=p.warn;pvGoTo(3);};g.appendChild(b);});}
+function renderPVPart(){const g=document.getElementById('pvProgGrid');g.innerHTML='';PARTICULARES.forEach(p=>{const b=document.createElement('button');b.className='option-btn';b.innerHTML=`<div>${p.label}</div><div class="opt-sub">${p.sub}</div>`;b.onclick=()=>{PV.progLabel=p.label;PV.progPrice=p.price;PV.progNote='';PV.progWarn='';pvGoTo(3);};g.appendChild(b);});}
+function renderPVLic(){const g=document.getElementById('pvLicGrid');g.innerHTML='';LIC_OPTIONS.forEach(l=>{const b=document.createElement('button');b.className='option-btn';b.innerHTML=`<div>${l.label}</div><div class="opt-sub">${l.sub}</div>`;b.onclick=()=>{PV.licencia=l.key;pvGoTo(4);};g.appendChild(b);});}
+
+function pvConfirmAge(){const v=parseInt(document.getElementById('pvAgeInput').value);if(!v||v<16||v>99){document.getElementById('pvAgeErr').style.display='block';return;}PV.edad=v;document.getElementById('pvAgeErr').style.display='none';pvGoTo(5);}
+
+function pvConfirmContact(){
+  const nombre=document.getElementById('pvNombre').value.trim();
+  const cc=document.getElementById('pvCC').value.trim();
+  const cel=document.getElementById('pvCelular').value.trim();
+  const em=document.getElementById('pvEmail').value.trim();
+  if(!nombre||!cc||!cel||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){document.getElementById('pvContactErr').style.display='block';return;}
+  PV.nombre=nombre;PV.cc=cc;PV.celular=cel;PV.email=em;
+  const tox=PV.instKey==='AEROCLUB';
+  const{lista,alerts}=getExamsPV(PV.licencia,PV.edad,tox);
+  let precio=PV.progPrice;const notas=[];
+  if(PV.edad>=40&&lista.includes('esfuerzo')){precio+=220000;notas.push('$220.000 prueba de esfuerzo');}
+  enviarSheets(nombre,cc,cel,em,'',PV.instLabel,PV.progLabel,LIC_NAMES[PV.licencia]||PV.licencia,'Primera vez / Vencido >2 años',PV.edad);
+  document.getElementById('pvSummary').innerHTML=`<div class="summary-item"><span class="summary-label">Nombre</span><span class="summary-value">${nombre}</span></div><div class="summary-item"><span class="summary-label">Institución</span><span class="summary-value">${PV.instLabel}</span></div><div class="summary-item"><span class="summary-label">Programa</span><span class="summary-value">${PV.progLabel}</span></div><div class="summary-item"><span class="summary-label">Licencia</span><span class="summary-value">${LIC_NAMES[PV.licencia]||PV.licencia}</span></div><div class="summary-item"><span class="summary-label">Edad</span><span class="summary-value">${PV.edad} años</span></div><div class="summary-item"><span class="summary-label">Exámenes</span><span class="summary-value">${lista.length}</span></div>`;
+  renderExams(lista,'pvExamGrid');renderAlerts(alerts,'pvAlerts');
+  document.getElementById('pvRInst').textContent=PV.instLabel;
+  document.getElementById('pvRProg').textContent=PV.progLabel;
+  document.getElementById('pvRPrice').textContent=fmt(precio);
+  document.getElementById('pvRNote').textContent=notas.length?'Incluye: '+notas.join(' + '):(PV.progNote||'');
+  const w=document.getElementById('pvRWarn');if(PV.progWarn){w.textContent=PV.progWarn;w.style.display='block';}else w.style.display='none';
+  document.getElementById('pvAvisoInfo').innerHTML=avisoHTML();
+  pvGoTo(6);
 }
 
-function getVigenciaLabel(licencia) {
-  const labels = {
-    'clase1':        'Clase 1 — PCA · PCH · PTL · IDV',
-    'clase2_piloto': 'Clase 2 — PPA · PPL · APA · BAE',
-    'clase2_tcp':    'Clase 2 — TCP Tripulante de Cabina de Pasajeros',
-    'clase3_cta':    'Clase 3 — CTA Controlador de Tránsito Aéreo',
-    'clase3_oea':    'Clase 3 — OEA Operador de Estación Aeronáutica',
-    'clase3_pul':    'Clase 3 — PUL Piloto de Ultraliviano'
-  };
-  return labels[licencia] || licencia;
+function startRenovacion(){
+  RV={licencia:null,edad:null,empresa:'',nombre:'',cc:'',celular:'',email:''};
+  ['screenHome','screenPassword','screenPV'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('screenRV').style.display='block';
+  renderRVLic();rvGoTo(1);
+  document.getElementById('rvFecha').max=new Date().toISOString().split('T')[0];
 }
 
-// ─── TTS ─────────────────────────────────────────────────
-function speak(text, onEnd) {
-  if (!('speechSynthesis' in window)) { if (onEnd) onEnd(); return; }
-  window.speechSynthesis.cancel();
-  const utter = new SpeechSynthesisUtterance(text);
-  utter.lang = 'es-ES';
-  utter.rate = 0.95;
-  utter.pitch = 1;
-  if (onEnd) utter.onend = onEnd;
-  window.speechSynthesis.speak(utter);
+function rvAllSteps(){return['rvStep1','rvStep2','rvStep3','rvStep4','rvResults'];}
+function rvHideAll(){rvAllSteps().forEach(id=>document.getElementById(id).style.display='none');}
+function rvSetBar(s){for(let i=1;i<=5;i++){document.getElementById('rv'+i).className='step-dot '+(i<s?'done':i===s?'active':'pending');}for(let i=1;i<=4;i++){document.getElementById('rl'+i).className='step-line'+(i<s?' done':'');}}
+function rvGoTo(s){rvHideAll();rvSetBar(s);const ids={1:'rvStep1',2:'rvStep2',3:'rvStep3',4:'rvStep4',5:'rvResults'};if(ids[s])document.getElementById(ids[s]).style.display='block';if(s===3)renderRVEmpresa();}
+
+function renderRVLic(){const g=document.getElementById('rvLicGrid');g.innerHTML='';LIC_OPTIONS.forEach(l=>{const b=document.createElement('button');b.className='option-btn';b.innerHTML=`<div>${l.label}</div><div class="opt-sub">${l.sub}</div>`;b.onclick=()=>{RV.licencia=l.key;rvGoTo(2);};g.appendChild(b);});}
+function renderRVEmpresa(){const empresas=['Particular','Avianca','Latam','Clic','Lanco','Avianca Express','Avianca Cargo','Aeroclub','Copa/Wingo','Aeronáutica Civil','Otros'];const g=document.getElementById('rvEmpresaGrid');g.innerHTML='';empresas.forEach(emp=>{const b=document.createElement('button');b.className='option-btn';b.textContent=emp;b.onclick=()=>{RV.empresa=emp;rvGoTo(4);};g.appendChild(b);});}
+
+function rvConfirmFecha(){
+  const fecha=document.getElementById('rvFecha').value;
+  if(!fecha){document.getElementById('rvFechaErr').style.display='block';return;}
+  const edad=calcEdad(fecha);
+  if(edad<16||edad>99){document.getElementById('rvFechaErr').style.display='block';return;}
+  RV.edad=edad;document.getElementById('rvFechaErr').style.display='none';rvGoTo(3);
 }
 
-// ─── STT (Reconocimiento de Voz) ─────────────────────────
-let recognition = null;
-let micActive = false;
-
-function initRecognition() {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SpeechRecognition) return null;
-  const r = new SpeechRecognition();
-  r.lang = 'es-ES';
-  r.continuous = false;
-  r.interimResults = false;
-  return r;
+function rvConfirmContact(){
+  const nombre=document.getElementById('rvNombre').value.trim();
+  const cc=document.getElementById('rvCC').value.trim();
+  const cel=document.getElementById('rvCelular').value.trim();
+  const em=document.getElementById('rvEmail').value.trim();
+  if(!nombre||!cc||!cel||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){document.getElementById('rvContactErr').style.display='block';return;}
+  RV.nombre=nombre;RV.cc=cc;RV.celular=cel;RV.email=em;
+  const{lista,alerts}=getExamsRV(RV.licencia,RV.edad);
+  enviarSheets(nombre,cc,cel,em,RV.empresa,'N/A','N/A',LIC_NAMES[RV.licencia]||RV.licencia,'Renovación',RV.edad);
+  document.getElementById('rvSummary').innerHTML=`<div class="summary-item"><span class="summary-label">Nombre</span><span class="summary-value">${nombre}</span></div><div class="summary-item"><span class="summary-label">Licencia</span><span class="summary-value">${LIC_NAMES[RV.licencia]||RV.licencia}</span></div><div class="summary-item"><span class="summary-label">Empresa</span><span class="summary-value">${RV.empresa}</span></div><div class="summary-item"><span class="summary-label">Edad</span><span class="summary-value">${RV.edad} años</span></div><div class="summary-item"><span class="summary-label">Tipo</span><span class="summary-value">Renovación</span></div><div class="summary-item"><span class="summary-label">Exámenes</span><span class="summary-value">${lista.length}</span></div>`;
+  renderExams(lista,'rvExamGrid');renderAlerts(alerts,'rvAlerts');
+  document.getElementById('rvAvisoInfo').innerHTML=avisoHTML();
+  rvGoTo(5);
 }
 
-function startListening(onResult) {
-  if (recognition) { try { recognition.abort(); } catch(e){} }
-  recognition = initRecognition();
-  if (!recognition) return;
-
-  micActive = true;
-  updateMicUI(true);
-
-  recognition.onresult = (e) => {
-    const transcript = e.results[0][0].transcript.toLowerCase().trim();
-    micActive = false;
-    updateMicUI(false);
-    onResult(transcript);
-  };
-
-  recognition.onerror = () => { micActive = false; updateMicUI(false); };
-  recognition.onend = () => { micActive = false; updateMicUI(false); };
-
-  try { recognition.start(); } catch(e) {}
-}
-
-function stopListening() {
-  if (recognition) { try { recognition.abort(); } catch(e){} }
-  micActive = false;
-  updateMicUI(false);
-}
-
-function updateMicUI(active) {
-  const btn = document.getElementById('micBtn');
-  if (!btn) return;
-  if (active) {
-    btn.style.background = 'rgba(255,77,109,0.2)';
-    btn.style.borderColor = '#ff4d6d';
-    btn.style.color = '#ff4d6d';
-    btn.innerHTML = '<span class="dot" style="background:#ff4d6d"></span> Escuchando...';
-  } else {
-    btn.style.background = 'rgba(0,194,224,0.08)';
-    btn.style.borderColor = 'rgba(0,194,224,0.25)';
-    btn.style.color = 'var(--cyan)';
-    btn.innerHTML = '<span class="dot"></span> 🎤 Hablar';
-  }
-}
-
-// ─── Interpretar respuesta de voz por paso ────────────────
-function interpretVoice(transcript, step) {
-  const t = transcript;
-  if (step === 0) {
-    if (t.includes('primera') || t.includes('comercial') || t.includes('pca') || t.includes('pch') || t.includes('ptl') || t.includes('idv') || t.includes('ingeniero') || t.includes('transporte de línea') || t.includes('transporte de linea')) return 'clase1';
-    if (t.includes('privado') || t.includes('ppa') || t.includes('ppl') || t.includes('planeador') || t.includes('alumno piloto') || t.includes('apa') || t.includes('bae') || t.includes('bombero')) return 'clase2_piloto';
-    if (t.includes('tcp') || t.includes('tripulante') || t.includes('cabina')) return 'clase2_tcp';
-    if (t.includes('controlador') || t.includes('tránsito') || t.includes('transito') || t.includes('cta')) return 'clase3_cta';
-    if (t.includes('oea') || t.includes('operador') || t.includes('estación') || t.includes('estacion') || t.includes('radio')) return 'clase3_oea';
-    if (t.includes('pul') || t.includes('ultraliviano') || t.includes('ultra')) return 'clase3_pul';
-  }
-  if (step === 1) {
-    if (t.includes('sí') || t.includes('si') || t.includes('primera vez') || t.includes('primero') || t.includes('nuevo')) return true;
-    if (t.includes('no') || t.includes('renovac') || t.includes('renov')) return false;
-  }
-  if (step === 2) {
-    const nums = t.match(/\d+/);
-    if (nums) return parseInt(nums[0]);
-    // palabras numéricas comunes
-    const palabras = {'diecisiete':17,'dieciocho':18,'diecinueve':19,'veinte':20,'veintiuno':21,'veintidos':22,'veintitres':23,'veinticuatro':24,'veinticinco':25,'veintiseis':26,'veintisiete':27,'veintiocho':28,'veintinueve':29,'treinta':30,'cuarenta':40,'cincuenta':50,'sesenta':60,'setenta':70,'ochenta':80};
-    for (const [word, num] of Object.entries(palabras)) {
-      if (t.includes(word)) return num;
-    }
-  }
-  return null;
-}
-
-function handleVoiceStep0(transcript) {
-  const result = interpretVoice(transcript, 0);
-  const nombres = {
-    'clase1':        'Clase 1, PCA, PCH, PTL e Ingeniero de Vuelo.',
-    'clase2_piloto': 'Clase 2, Pilotos privados y Bombero Aeronáutico.',
-    'clase2_tcp':    'Clase 2, Tripulante de Cabina.',
-    'clase3_cta':    'Clase 3, Controlador de Tránsito Aéreo.',
-    'clase3_oea':    'Clase 3, Operador de Estación Aeronáutica.',
-    'clase3_pul':    'Clase 3, Piloto Ultraliviano.'
-  };
-  if (result) {
-    speak('Entendido. ' + nombres[result]);
-    setTimeout(() => { state.licencia = result; state.step = 1; render(); }, 1200);
-  } else {
-    speak('No entendí. Diga: Primera clase, Segunda clase piloto, TCP, Controlador, Operador de estación, o Ultraliviano.');
-    setTimeout(() => startListeningForStep(0), 3000);
-  }
-}
-
-function handleVoiceStep1(transcript) {
-  const result = interpretVoice(transcript, 1);
-  if (result !== null) {
-    speak(result ? 'Primera vez.' : 'Renovación.');
-    setTimeout(() => { state.primeraVez = result; state.step = 2; render(); }, 1000);
-  } else {
-    speak('No entendí. Di: Sí para primera vez, o No para renovación.');
-    setTimeout(() => startListeningForStep(1), 2500);
-  }
-}
-
-function handleVoiceStep2(transcript) {
-  const result = interpretVoice(transcript, 2);
-  if (result && result >= 16 && result <= 99) {
-    speak(`${result} años. Perfecto.`);
-    setTimeout(() => { state.edad = result; state.step = 3; render(); }, 1200);
-  } else {
-    speak('No entendí la edad. Por favor diga el número de años.');
-    setTimeout(() => startListeningForStep(2), 2500);
-  }
-}
-
-function startListeningForStep(step) {
-  const handlers = [handleVoiceStep0, handleVoiceStep1, handleVoiceStep2];
-  if (handlers[step]) startListening(handlers[step]);
-}
-
-function activateMic(step) {
-  if (micActive) { stopListening(); return; }
-  startListeningForStep(step);
-}
-
-// ─── Render ───────────────────────────────────────────────
-function updateDots() {
-  for (let i = 0; i <= 3; i++) {
-    const d = document.getElementById('dot' + i);
-    d.className = 'step-dot';
-    if (i < state.step) d.classList.add('done');
-    else if (i === state.step) d.classList.add('active');
-  }
-}
-
-function render() {
-  updateDots();
-  const app = document.getElementById('app');
-  app.innerHTML = '';
-
-  if (state.step === 0) renderStep0(app);
-  else if (state.step === 1) renderStep1(app);
-  else if (state.step === 2) renderStep2(app);
-  else if (state.step === 3) renderResults(app);
-}
-
-function audioBtn(text) {
-  return `<button class="audio-btn" onclick="speak('${text.replace(/'/g,"\\'")}')">
-    <span class="dot"></span> Escuchar pregunta
-  </button>`;
-}
-
-function renderStep0(app) {
-  const q = '¿Qué tipo de licencia tiene el paciente?';
-  app.innerHTML = `
-    <div class="card">
-      <div style="display:flex;gap:10px;margin-bottom:20px;">
-        ${audioBtn(q)}
-        <button class="audio-btn" id="micBtn" onclick="activateMic(0)">
-          <span class="dot"></span> 🎤 Hablar
-        </button>
-      </div>
-      <div class="step-label">Pregunta 1 de 3</div>
-      <div class="question">${q}</div>
-      <div class="options">
-
-        <div class="option-group-label">✈️ Certificado Médico Clase 1</div>
-        <button class="option-btn" onclick="select('licencia','clase1')">
-          <span class="option-title">PCA · PCH · PTL · IDV</span>
-          <span class="option-desc">
-            <b>PCA</b> Piloto Comercial de Avión &nbsp;·&nbsp;
-            <b>PCH</b> Piloto Comercial de Helicóptero &nbsp;·&nbsp;
-            <b>PTL</b> Piloto de Transporte de Línea &nbsp;·&nbsp;
-            <b>IDV</b> Ingeniero de Vuelo
-          </span>
-        </button>
-
-        <div class="option-group-label">🛩️ Certificado Médico Clase 2</div>
-        <button class="option-btn" onclick="select('licencia','clase2_piloto')">
-          <span class="option-title">PPA · PPL · APA · BAE</span>
-          <span class="option-desc">
-            <b>PPA</b> Piloto Privado de Avión &nbsp;·&nbsp;
-            <b>PPL</b> Piloto Privado de Planeador &nbsp;·&nbsp;
-            <b>APA</b> Alumno Piloto de Aeronave &nbsp;·&nbsp;
-            <b>BAE</b> Bombero Aeronáutico
-          </span>
-        </button>
-        <button class="option-btn" onclick="select('licencia','clase2_tcp')">
-          <span class="option-title">TCP — Tripulante de Cabina de Pasajeros</span>
-          <span class="option-desc"><b>TCP</b> Tripulante de Cabina de Pasajeros &nbsp;·&nbsp; Vigencia fija: 3 años</span>
-        </button>
-
-        <div class="option-group-label">🗼 Certificado Médico Clase 3</div>
-        <button class="option-btn" onclick="select('licencia','clase3_cta')">
-          <span class="option-title">CTA — Controlador de Tránsito Aéreo</span>
-          <span class="option-desc"><b>CTA</b> Controlador de Tránsito Aéreo &nbsp;·&nbsp; Alumno controlador</span>
-        </button>
-        <button class="option-btn" onclick="select('licencia','clase3_oea')">
-          <span class="option-title">OEA — Operador de Estación Aeronáutica</span>
-          <span class="option-desc"><b>OEA</b> Operador de Estación Aeronáutica &nbsp;·&nbsp; Vigencia fija: 3 años</span>
-        </button>
-        <button class="option-btn" onclick="select('licencia','clase3_pul')">
-          <span class="option-title">PUL — Piloto de Ultraliviano</span>
-          <span class="option-desc"><b>PUL</b> Piloto de Aeronave Ultraliviana</span>
-        </button>
-
-      </div>
-      <div id="voiceStatus" style="margin-top:12px;font-size:0.82rem;color:var(--gray);min-height:20px;"></div>
-    </div>`;
-  speak(q, () => setTimeout(() => startListeningForStep(0), 400));
-}
-
-function renderStep1(app) {
-  const q = '¿Es la primera vez que solicita el certificado médico aeronáutico?';
-  app.innerHTML = `
-    <div class="card">
-      <div style="display:flex;gap:10px;margin-bottom:20px;">
-        ${audioBtn(q)}
-        <button class="audio-btn" id="micBtn" onclick="activateMic(1)">
-          <span class="dot"></span> 🎤 Hablar
-        </button>
-      </div>
-      <div class="step-label">Pregunta 2 de 3</div>
-      <div class="question">${q}</div>
-      <div class="options two-col">
-        <button class="option-btn" onclick="select('primeraVez', true)">
-          <span class="option-title">✅ Sí</span>
-          <span class="option-desc">Primera solicitud</span>
-        </button>
-        <button class="option-btn" onclick="select('primeraVez', false)">
-          <span class="option-title">🔄 No</span>
-          <span class="option-desc">Renovación</span>
-        </button>
-      </div>
-      <div id="voiceStatus" style="margin-top:12px;font-size:0.82rem;color:var(--gray);min-height:20px;"></div>
-    </div>`;
-  speak(q, () => setTimeout(() => startListeningForStep(1), 400));
-}
-
-function renderStep2(app) {
-  const q = '¿Cuántos años tiene el paciente?';
-  app.innerHTML = `
-    <div class="card">
-      <div style="display:flex;gap:10px;margin-bottom:20px;">
-        ${audioBtn(q)}
-        <button class="audio-btn" id="micBtn" onclick="activateMic(2)">
-          <span class="dot"></span> 🎤 Hablar
-        </button>
-      </div>
-      <div class="step-label">Pregunta 3 de 3</div>
-      <div class="question">${q}</div>
-      <div class="age-input-wrap">
-        <input type="number" class="age-input" id="ageInput" min="16" max="99" placeholder="Ej: 45" />
-        <button class="confirm-btn" onclick="confirmAge()">Confirmar →</button>
-      </div>
-      <div id="voiceStatus" style="margin-top:12px;font-size:0.82rem;color:var(--gray);min-height:20px;"></div>
-    </div>`;
-  speak(q, () => setTimeout(() => startListeningForStep(2), 400));
-  setTimeout(() => document.getElementById('ageInput').focus(), 100);
-  document.getElementById('ageInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') confirmAge();
-  });
-}
-
-function confirmAge() {
-  const val = parseInt(document.getElementById('ageInput').value);
-  if (!val || val < 16 || val > 99) {
-    speak('Por favor ingrese una edad válida entre 16 y 99 años.');
-    return;
-  }
-  state.edad = val;
-  state.step = 3;
-  render();
-}
-
-
-function renderResults(app) {
-  const { lista, alerts } = getExams(state.licencia, state.primeraVez, state.edad);
-
-  const licNames = {
-    'clase1':        'Clase 1 — PCA · PCH · PTL · IDV',
-    'clase2_piloto': 'Clase 2 — PPA · PPL · APA · BAE',
-    'clase2_tcp':    'Clase 2 — TCP Tripulante de Cabina de Pasajeros',
-    'clase3_cta':    'Clase 3 — CTA Controlador de Tránsito Aéreo',
-    'clase3_oea':    'Clase 3 — OEA Operador de Estación Aeronáutica',
-    'clase3_pul':    'Clase 3 — PUL Piloto de Ultraliviano'
-  };
-
-  // ── Calcular vigencia desde hoy ──
-  const vigenciaMeses = getVigenciaMeses(state.licencia, state.edad);
-  const hoy = new Date();
-  const proximaRenovacion = calcFechaVencimiento(hoy, vigenciaMeses);
-  const vigenciaTexto = vigenciaMeses % 12 === 0
-    ? `${vigenciaMeses / 12} año${vigenciaMeses / 12 > 1 ? 's' : ''}`
-    : `${vigenciaMeses} meses`;
-
-  const examHtml = lista.map((key, i) => {
-    const ex = EXAMS[key];
-    return `<div class="exam-item" style="animation-delay:${i * 0.06}s">
-      <span class="exam-icon">${ex.icon}</span>
-      <div>
-        <div class="exam-name">${ex.name}</div>
-        <div class="exam-note">${ex.note}</div>
-      </div>
-    </div>`;
-  }).join('');
-
-  const alertHtml = alerts.map(a => `
-    <div class="alert-box alert-${a.type}">
-      <span>${a.text}</span>
-    </div>`).join('');
-
-  const resumen = `El paciente de ${state.edad} años con licencia ${licNames[state.licencia]} requiere ${lista.length} exámenes. El certificado tiene una vigencia de ${vigenciaTexto}. Si se expide hoy, la próxima renovación sería el ${formatFecha(proximaRenovacion)}.`;
-
-  app.innerHTML = `
-    <div class="results">
-      <div class="card">
-        <button class="audio-btn" onclick="speak('${resumen.replace(/'/g,"\\'")}')">
-          <span class="dot"></span> Escuchar resumen
-        </button>
-
-        <div class="patient-summary">
-          <div class="summary-item">
-            <span class="summary-label">Licencia</span>
-            <span class="summary-value">${licNames[state.licencia]}</span>
-          </div>
-          <div class="summary-item">
-            <span class="summary-label">Solicitud</span>
-            <span class="summary-value">${state.primeraVez ? 'Primera vez' : 'Renovación'}</span>
-          </div>
-          <div class="summary-item">
-            <span class="summary-label">Edad</span>
-            <span class="summary-value">${state.edad} años</span>
-          </div>
-          <div class="summary-item">
-            <span class="summary-label">Total exámenes</span>
-            <span class="summary-value">${lista.length}</span>
-          </div>
-        </div>
-
-        <!-- Bloque de vigencia -->
-        <div style="background:rgba(0,194,224,0.06);border:1px solid rgba(0,194,224,0.25);border-radius:12px;padding:24px;margin-bottom:24px;text-align:center;">
-          <div style="font-family:'Rajdhani',sans-serif;font-size:0.8rem;letter-spacing:3px;text-transform:uppercase;color:var(--gray);margin-bottom:8px;">Vigencia del Certificado</div>
-          <div style="font-family:'Rajdhani',sans-serif;font-size:3rem;font-weight:700;color:var(--cyan);line-height:1;">${vigenciaTexto}</div>
-          <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-            <div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:12px;">
-              <div style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:4px;">Examen realizado hoy</div>
-              <div style="font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:600;color:var(--white);">${formatFecha(hoy)}</div>
-            </div>
-            <div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:12px;">
-              <div style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:4px;">Próxima renovación</div>
-              <div style="font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:600;color:var(--cyan);">${formatFecha(proximaRenovacion)}</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="results-title">Exámenes Requeridos</div>
-        <div class="exam-grid">${examHtml}</div>
-
-        ${alertHtml}
-
-        <!-- Bloque informativo IPS -->
-        <div style="margin-top:28px;background:rgba(0,194,224,0.05);border:1px solid rgba(0,194,224,0.2);border-radius:14px;padding:24px;">
-          <div style="font-family:'Rajdhani',sans-serif;font-size:0.8rem;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);margin-bottom:16px;">📍 Información de Atención</div>
-
-          <div style="display:flex;flex-direction:column;gap:12px;font-size:0.92rem;color:var(--gray);line-height:1.6;">
-
-            <div style="display:flex;gap:12px;align-items:flex-start;">
-              <span style="font-size:1.2rem;">🏢</span>
-              <span><b style="color:var(--white);">Dirección:</b> Calle 134 # 7-83, Piso 2, Consultorio 421 — Bogotá</span>
-            </div>
-
-            <div style="display:flex;gap:12px;align-items:flex-start;">
-              <span style="font-size:1.2rem;">🗓️</span>
-              <span><b style="color:var(--white);">Horario:</b> Lunes a viernes · 6:30 a 8:30 a.m. · <span style="color:var(--cyan);">Sin cita previa</span></span>
-            </div>
-
-            <div style="display:flex;gap:12px;align-items:flex-start;">
-              <span style="font-size:1.2rem;">🍽️</span>
-              <span><b style="color:var(--white);">Importante:</b> Asistir en <b style="color:var(--cyan);">ayunas</b>. Si usas gafas, <b style="color:var(--cyan);">tráelas</b>.</span>
-            </div>
-
-            <div style="display:flex;gap:12px;align-items:flex-start;">
-              <span style="font-size:1.2rem;">💬</span>
-              <div>
-                <b style="color:var(--white);">WhatsApp:</b>
-                <div style="margin-top:6px;display:flex;gap:10px;flex-wrap:wrap;">
-                  <a href="https://wa.me/573012271729" target="_blank"
-                     style="display:inline-flex;align-items:center;gap:6px;background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.3);color:#25d366;padding:6px 14px;border-radius:20px;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:0.95rem;text-decoration:none;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    301 227 1729
-                  </a>
-                  <a href="https://wa.me/573187083262" target="_blank"
-                     style="display:inline-flex;align-items:center;gap:6px;background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.3);color:#25d366;padding:6px 14px;border-radius:20px;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:0.95rem;text-decoration:none;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    318 708 3262
-                  </a>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Bloque agendar cita -->
-        <div style="margin-top:20px;background:rgba(0,194,224,0.05);border:1px solid rgba(0,194,224,0.2);border-radius:14px;padding:24px;">
-          <div style="font-family:'Rajdhani',sans-serif;font-size:0.8rem;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);margin-bottom:6px;">📅 Agendar Cita</div>
-          <p style="font-size:0.9rem;color:var(--gray);margin-bottom:18px;line-height:1.5;">Si quieres tomar cita con nosotros, envíanos los siguientes datos:</p>
-
-          <div style="display:flex;flex-direction:column;gap:14px;">
-
-            <div>
-              <label style="font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Nombre completo</label>
-              <input id="cita_nombre" type="text" placeholder="Ej: Juan Pérez García"
-                style="width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(0,194,224,0.2);border-radius:8px;padding:10px 14px;color:var(--white);font-size:0.95rem;font-family:'Rajdhani',sans-serif;outline:none;box-sizing:border-box;"
-                onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='rgba(0,194,224,0.2)'" />
-            </div>
-
-            <div>
-              <label style="font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Documento de identidad</label>
-              <input id="cita_doc" type="text" placeholder="Ej: 80123456"
-                style="width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(0,194,224,0.2);border-radius:8px;padding:10px 14px;color:var(--white);font-size:0.95rem;font-family:'Rajdhani',sans-serif;outline:none;box-sizing:border-box;"
-                onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='rgba(0,194,224,0.2)'" />
-            </div>
-
-            <div>
-              <label style="font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Celular</label>
-              <input id="cita_cel" type="tel" placeholder="Ej: 3001234567"
-                style="width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(0,194,224,0.2);border-radius:8px;padding:10px 14px;color:var(--white);font-size:0.95rem;font-family:'Rajdhani',sans-serif;outline:none;box-sizing:border-box;"
-                onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='rgba(0,194,224,0.2)'" />
-            </div>
-
-            <div>
-              <label style="font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Fecha de asistencia</label>
-              <input id="cita_fecha" type="date"
-                style="width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(0,194,224,0.2);border-radius:8px;padding:10px 14px;color:var(--white);font-size:0.95rem;font-family:'Rajdhani',sans-serif;outline:none;box-sizing:border-box;color-scheme:dark;"
-                onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='rgba(0,194,224,0.2)'" />
-            </div>
-
-            <button onclick="enviarCita()"
-              style="margin-top:4px;width:100%;background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.4);color:#25d366;padding:12px;border-radius:10px;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;"
-              onmouseover="this.style.background='rgba(37,211,102,0.22)'" onmouseout="this.style.background='rgba(37,211,102,0.12)'">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              Enviar por WhatsApp
-            </button>
-
-          </div>
-        </div>
-
-        <button class="restart-btn" onclick="restart()">↩ Nueva consulta</button>
-      </div>
-    </div>`;
-
-  speak(resumen);
-}
-
-// ─── Actions ──────────────────────────────────────────────
-function select(field, value) {
-  state[field] = value;
-  state.step++;
-  render();
-}
-
-function restart() {
-  state.step = 0;
-  state.licencia = null;
-  state.primeraVez = null;
-  state.edad = null;
-  render();
-}
-
-// ── URL del Google Apps Script (reemplazar después de desplegar) ──
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxzW0i5X1Akw21h6-E5WucRCK66QnUrkzMb1drEUr08vF1WUX5qkSQlM61ZhwoPW4Z1/exec';
-
-function enviarCita() {
-  const nombre = document.getElementById('cita_nombre')?.value.trim();
-  const doc    = document.getElementById('cita_doc')?.value.trim();
-  const cel    = document.getElementById('cita_cel')?.value.trim();
-  const fecha  = document.getElementById('cita_fecha')?.value;
-
-  if (!nombre || !doc || !cel || !fecha) {
-    alert('Por favor completa todos los campos antes de enviar.');
-    return;
-  }
-
-  const fechaFormateada = new Date(fecha + 'T12:00:00').toLocaleDateString('es-CO', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
-
-  // 1. Guardar en Google Sheets (si ya configuraste la URL)
-  if (SHEET_URL && SHEET_URL !== 'PEGA_AQUI_TU_URL') {
-    const payload = {
-      nombre:     nombre,
-      documento:  doc,
-      celular:    cel,
-      fechaCita:  fechaFormateada,
-      licencia:   state.licencia || '-',
-      edad:       state.edad     || '-',
-      primeraVez: state.primeraVez
-    };
-    fetch(SHEET_URL, {
-      method: 'POST',
-      mode:   'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body:   JSON.stringify(payload)
-    }).catch(() => {});
-  }
-
-  // 2. Abrir WhatsApp con los datos prellenados
-  const msg = `*Solicitud de Cita — Grancolombiana IPS*\n\n` +
-    `👤 *Nombre:* ${nombre}\n` +
-    `🪪 *Documento:* ${doc}\n` +
-    `📱 *Celular:* ${cel}\n` +
-    `📅 *Fecha de asistencia:* ${fechaFormateada}\n\n` +
-    `🏥 *Licencia:* ${state.licencia || '-'}\n` +
-    `🎂 *Edad:* ${state.edad || '-'} años`;
-
-  window.open('https://wa.me/573012271729?text=' + encodeURIComponent(msg), '_blank');
-}
-
-// ─── Init ─────────────────────────────────────────────────
-render();
+showHome();
 </script>
 </body>
 </html>

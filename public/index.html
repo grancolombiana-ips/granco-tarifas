@@ -252,9 +252,7 @@ let PV = { instKey:null, instLabel:null, progLabel:null, progPrice:0, progNote:'
 let RV = { licencia:null, edad:null, empresa:'', nombre:'', cc:'', celular:'', email:'' };
 
 const INSTITUCIONES = [
-  { key:'DELTA_FORCE', label:'Delta Force', programas:[{label:'Tripulante de Cabina (TCP)',price:420000,note:'',warn:''},{label:'Alumno Piloto de Avión (APA)',price:450000,note:'',warn:''}]},
-  { key:'DREAM_FLY',   label:'Dream Fly',   programas:[{label:'Alumno Piloto de Avión (APA)',price:430000,note:'',warn:''}]},
-  { key:'AEROCLUB',    label:'Aeroclub',    programas:[{label:'APA (Incluye Toxicología)',price:540000,note:'Incluye toxicología',warn:''}]},
+  { key:'AEROCLUB',    label:'Aeroclub',    programas:[{label:'Alumno Piloto de Avión (APA)',price:430000,note:'',warn:'Si tu escuela solicita toxicología, el valor adicional es de $70.000'}]},
   { key:'AEROANDES',   label:'Aeroandes',   programas:[{label:'Tripulante de Cabina (TCP)',price:430000,note:'',warn:''},{label:'Alumno Piloto de Avión (APA)',price:460000,note:'',warn:''}]}
 ];
 const PARTICULARES = [{label:'TCP',sub:'Tripulante de Cabina',price:370000},{label:'APA',sub:'Alumno Piloto de Avión',price:430000}];
@@ -490,7 +488,7 @@ function pvConfirmContact(){
   const em=document.getElementById('pvEmail').value.trim();
   if(!nombre||!cc||!cel||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){document.getElementById('pvContactErr').style.display='block';return;}
   PV.nombre=nombre;PV.cc=cc;PV.celular=cel;PV.email=em;
-  const tox=PV.instKey==='AEROCLUB';
+  const tox=false;
   const{lista,alerts}=getExamsPV(PV.licencia,PV.edad,tox);
   let precio=PV.progPrice;const notas=[];
   if(PV.edad>=40&&lista.includes('esfuerzo')){precio+=230000;notas.push('$230.000 prueba de esfuerzo');}

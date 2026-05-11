@@ -133,9 +133,13 @@
       <div class="step-dot pending" id="pv6">6</div><div class="step-line" id="pl6"></div>
       <div class="step-dot pending" id="pv7">✓</div>
     </div>
+
+    <!-- AVISO PRIMERA VEZ - aparece antes del paso 1 -->
+    <div id="pvAvisoInicio" style="display:none;margin-bottom:1.5rem;"></div>
+
     <div id="pvStep1">
       <div class="question-label">Paso 1 de 6</div>
-      <div class="question-title">¿Estudiaste en alguna de estas instituciones?</div>
+      <div class="question-title">Escoge tu Institución</div>
       <div class="option-grid" id="pvInstGrid"></div>
     </div>
     <div id="pvStep2" style="display:none">
@@ -160,13 +164,25 @@
     </div>
     <div id="pvStep5" style="display:none">
       <div class="question-label">Paso 5 de 6 — Datos de contacto</div>
-      <div class="question-title">¿Cuál es tu información de contacto?</div>
+      <!-- Precio anticipado -->
+      <div id="pvPrecioPreview" style="background:#0c3b6e;border-radius:10px;padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
+        <div>
+          <div style="font-size:11px;color:#B5D4F4;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:2px;">Tu tarifa estimada</div>
+          <div id="pvPrecioPreviewVal" style="font-family:'Playfair Display',serif;font-size:28px;font-weight:600;color:white;"></div>
+          <div id="pvPrecioPreviewNote" style="font-size:11px;color:#85B7EB;margin-top:2px;"></div>
+        </div>
+        <div style="font-size:36px;opacity:0.25;color:white;">$</div>
+      </div>
+      <div style="background:linear-gradient(135deg,#1a6cc4,#0c3b6e);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;text-align:center;">
+        <div style="font-size:13px;color:#e8f4fd;line-height:1.9;">
+          RECUERDA QUE NO SE REQUIERE CITA PREVIA PARA ASISTIR A LOS EXÁMENES,<br>
+          TE ATENDEREMOS DE LUNES A VIERNES<br>
+          <span style="font-size:15px;font-weight:600;color:white;">DE 6:00 a.m. A 8:00 a.m.</span>
+        </div>
+        <div style="font-size:18px;font-weight:700;color:#FFD700;margin-top:10px;letter-spacing:1px;">✈ ¡TE ESPERAMOS!</div>
+      </div>
       <p class="err-msg" id="pvContactErr" style="display:none">Por favor completa todos los campos.</p>
-      <input type="text" id="pvNombre" placeholder="Nombre completo" />
-      <input type="text" id="pvCC" placeholder="Número de cédula" />
-      <input type="tel" id="pvCelular" placeholder="Celular (Ej: 3001234567)" />
-      <input type="email" id="pvEmail" placeholder="Correo electrónico" />
-      <button class="submit-btn" onclick="pvConfirmContact()">Ver mis exámenes y tarifa →</button>
+      <button class="submit-btn" onclick="pvConfirmContact()">Ver mis exámenes →</button>
       <button class="back-btn" onclick="pvGoTo(4)">← Volver</button>
     </div>
     <div id="pvResults" style="display:none">
@@ -429,11 +445,15 @@ function enviarSheets(nombre,cc,celular,correo,empresa,institucion,programa,lice
 function renderExams(lista,gridId){ document.getElementById(gridId).innerHTML=lista.map(k=>`<div class="exam-item"><span class="exam-icon">${EXAMS[k].icon}</span><div><div class="exam-name">${EXAMS[k].name}</div><div class="exam-note">${EXAMS[k].note}</div></div></div>`).join(''); }
 function renderAlerts(alerts,boxId){ document.getElementById(boxId).innerHTML=alerts.map(a=>`<div class="alert-box alert-${a.type}">${a.text}</div>`).join(''); }
 
-function avisoHTML(){
+function instruccionesHTML(conEncabezado){
   const wi=`<svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
   const wl=(num,lbl)=>`<a href="https://wa.me/${num}" target="_blank" style="display:flex;align-items:center;gap:12px;background:#f0faf4;border:0.5px solid #b7e4c7;border-radius:10px;padding:12px 14px;text-decoration:none;">${wi}<span style="font-size:14px;font-weight:500;color:#1a5c2a;">${lbl}</span></a>`;
+  const encabezado = conEncabezado
+    ? `<div style="font-size:22px;font-weight:700;color:#0c3b6e;margin-bottom:4px;letter-spacing:0.5px;font-family:'Playfair Display',serif;text-align:center;">✈ ¡TE ESPERAMOS!</div>
+       <div style="font-size:12px;color:#185FA5;margin-bottom:1rem;letter-spacing:0.3px;text-align:center;">📋 Información importante para tu visita</div>`
+    : `<div style="font-size:14px;font-weight:700;color:#0c3b6e;margin-bottom:1rem;letter-spacing:0.3px;">📋 Información importante para tu visita</div>`;
   return `<div style="background:#e8f4fd;border:1px solid #b3d9f5;border-radius:12px;padding:1.5rem;margin-top:1rem;">
-    <div style="font-size:14px;font-weight:700;color:#0c3b6e;margin-bottom:1rem;letter-spacing:0.3px;">📋 Información importante para tu visita</div>
+    ${encabezado}
     <div style="display:flex;flex-direction:column;gap:1rem;">
       <div style="display:flex;gap:12px;align-items:flex-start;">
         <div style="background:#0c3b6e;color:white;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px;">1</div>
@@ -452,6 +472,8 @@ function avisoHTML(){
   <div style="background:white;border:0.5px solid #e0e2e6;border-radius:12px;padding:1.25rem 1.5rem;margin-top:1rem;"><div style="font-size:12px;font-weight:500;color:#888;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:10px;">📍 Nuestra ubicación</div><div style="font-size:14px;color:#111;line-height:1.7;margin-bottom:12px;">Calle 134 # 7-83, Torre 4, Piso 2, Consultorio 421<br><span style="color:#888;">Edificio Altos del Bosque · Bogotá</span></div><a href="https://maps.google.com/?q=Calle+134+%237-83+Torre+4+Piso+2+Bogota+Colombia" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#E6F1FB;border:0.5px solid #B5D4F4;border-radius:8px;padding:10px;color:#0c3b6e;font-size:13px;font-weight:500;text-decoration:none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0c3b6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>Ver en Google Maps</a></div>
   <div style="background:white;border:0.5px solid #e0e2e6;border-radius:12px;padding:1.25rem 1.5rem;margin-top:1rem;"><div style="font-size:12px;font-weight:500;color:#888;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:12px;">💬 Si requieres más información</div><div style="display:flex;flex-direction:column;gap:8px;">${wl('573187083260','+57 318 708 3260')}${wl('573012271729','+57 301 227 1729')}${wl('573246860333','+57 324 686 0333')}</div></div>`;
 }
+// Alias para compatibilidad con rvAvisoInfo (renovación, sin encabezado)
+function avisoHTML(){ return instruccionesHTML(false); }
 
 function showHome(){['screenHome','screenPassword','screenPV','screenRV'].forEach(id=>document.getElementById(id).style.display='none');document.getElementById('screenHome').style.display='block';}
 function showPasswordScreen(){document.getElementById('screenHome').style.display='none';document.getElementById('screenPassword').style.display='block';document.getElementById('pwdInput').value='';document.getElementById('pwdErr').style.display='none';}
@@ -462,13 +484,23 @@ function startPrimeraVez(){
   PV={instKey:null,instLabel:null,progLabel:null,progPrice:0,progNote:'',progWarn:'',licencia:null,edad:null,nombre:'',cc:'',celular:'',email:''};
   ['screenHome','screenPassword','screenRV'].forEach(id=>document.getElementById(id).style.display='none');
   document.getElementById('screenPV').style.display='block';
+  // Mostrar aviso de inmediato al entrar al flujo primera vez
+  document.getElementById('pvAvisoInicio').style.display='block';
+  document.getElementById('pvAvisoInicio').innerHTML=instruccionesHTML(false);
   renderPVInst(); pvGoTo(1);
 }
 
 function pvAllSteps(){return['pvStep1','pvStep2','pvStep3','pvStep4','pvStep5','pvResults'];}
 function pvHideAll(){pvAllSteps().forEach(id=>document.getElementById(id).style.display='none');}
 function pvSetBar(s){for(let i=1;i<=7;i++){document.getElementById('pv'+i).className='step-dot '+(i<s?'done':i===s?'active':'pending');}for(let i=1;i<=6;i++){document.getElementById('pl'+i).className='step-line'+(i<s?' done':'');}}
-function pvGoTo(s){pvHideAll();pvSetBar(s);if(s===3)renderPVLic();const ids={1:'pvStep1',2:'pvStep2',3:'pvStep3',4:'pvStep4',5:'pvStep5',6:'pvResults'};if(ids[s])document.getElementById(ids[s]).style.display='block';}
+function pvGoTo(s){
+  pvHideAll();pvSetBar(s);
+  // Aviso solo visible en paso 1
+  document.getElementById('pvAvisoInicio').style.display=(s===1)?'block':'none';
+  if(s===3)renderPVLic();
+  const ids={1:'pvStep1',2:'pvStep2',3:'pvStep3',4:'pvStep4',5:'pvStep5',6:'pvResults'};
+  if(ids[s])document.getElementById(ids[s]).style.display='block';
+}
 
 function renderPVInst(){
   const g=document.getElementById('pvInstGrid');g.innerHTML='';
@@ -479,28 +511,35 @@ function renderPVProg(inst){const g=document.getElementById('pvProgGrid');g.inne
 function renderPVPart(){const g=document.getElementById('pvProgGrid');g.innerHTML='';PARTICULARES.forEach(p=>{const b=document.createElement('button');b.className='option-btn';b.innerHTML=`<div>${p.label}</div><div class="opt-sub">${p.sub}</div>`;b.onclick=()=>{PV.progLabel=p.label;PV.progPrice=p.price;PV.progNote='';PV.progWarn='';pvGoTo(3);};g.appendChild(b);});}
 function renderPVLic(){const g=document.getElementById('pvLicGrid');g.innerHTML='';LIC_OPTIONS.forEach(l=>{const b=document.createElement('button');b.className='option-btn';b.innerHTML=`<div>${l.label}</div><div class="opt-sub">${l.sub}</div>`;b.onclick=()=>{PV.licencia=l.key;pvGoTo(4);};g.appendChild(b);});}
 
-function pvConfirmAge(){const v=parseInt(document.getElementById('pvAgeInput').value);if(!v||v<16||v>99){document.getElementById('pvAgeErr').style.display='block';return;}PV.edad=v;document.getElementById('pvAgeErr').style.display='none';pvGoTo(5);}
+function pvConfirmAge(){
+  const v=parseInt(document.getElementById('pvAgeInput').value);
+  if(!v||v<16||v>99){document.getElementById('pvAgeErr').style.display='block';return;}
+  PV.edad=v;
+  document.getElementById('pvAgeErr').style.display='none';
+  // Calcular precio anticipado
+  const {lista} = getExamsPV(PV.licencia, v, false);
+  let precio = PV.progPrice; const notas = [];
+  if(v>=40 && lista.includes('esfuerzo')){precio+=230000;notas.push('+$230.000 prueba de esfuerzo');}
+  document.getElementById('pvPrecioPreviewVal').textContent = fmt(precio);
+  document.getElementById('pvPrecioPreviewNote').textContent = notas.length ? notas.join(' ') : (PV.progNote||'Tarifa base 2026');
+  pvGoTo(5);
+}
 
 function pvConfirmContact(){
-  const nombre=document.getElementById('pvNombre').value.trim();
-  const cc=document.getElementById('pvCC').value.trim();
-  const cel=document.getElementById('pvCelular').value.trim();
-  const em=document.getElementById('pvEmail').value.trim();
-  if(!nombre||!cc||!cel||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){document.getElementById('pvContactErr').style.display='block';return;}
-  PV.nombre=nombre;PV.cc=cc;PV.celular=cel;PV.email=em;
+  PV.nombre='';PV.cc='';PV.celular='';PV.email='';
   const tox=false;
   const{lista,alerts}=getExamsPV(PV.licencia,PV.edad,tox);
   let precio=PV.progPrice;const notas=[];
   if(PV.edad>=40&&lista.includes('esfuerzo')){precio+=230000;notas.push('$230.000 prueba de esfuerzo');}
-  enviarSheets(nombre,cc,cel,em,'',PV.instLabel,PV.progLabel,LIC_NAMES[PV.licencia]||PV.licencia,'Primera vez / Vencido >2 años',PV.edad);
-  document.getElementById('pvSummary').innerHTML=`<div class="summary-item"><span class="summary-label">Nombre</span><span class="summary-value">${nombre}</span></div><div class="summary-item"><span class="summary-label">Institución</span><span class="summary-value">${PV.instLabel}</span></div><div class="summary-item"><span class="summary-label">Programa</span><span class="summary-value">${PV.progLabel}</span></div><div class="summary-item"><span class="summary-label">Licencia</span><span class="summary-value">${LIC_NAMES[PV.licencia]||PV.licencia}</span></div><div class="summary-item"><span class="summary-label">Edad</span><span class="summary-value">${PV.edad} años</span></div><div class="summary-item"><span class="summary-label">Exámenes</span><span class="summary-value">${lista.length}</span></div>`;
+  enviarSheets('','','','','',PV.instLabel,PV.progLabel,LIC_NAMES[PV.licencia]||PV.licencia,'Primera vez / Vencido >2 años',PV.edad);
+  document.getElementById('pvSummary').innerHTML=`<div class="summary-item"><span class="summary-label">Institución</span><span class="summary-value">${PV.instLabel}</span></div><div class="summary-item"><span class="summary-label">Programa</span><span class="summary-value">${PV.progLabel}</span></div><div class="summary-item"><span class="summary-label">Licencia</span><span class="summary-value">${LIC_NAMES[PV.licencia]||PV.licencia}</span></div><div class="summary-item"><span class="summary-label">Edad</span><span class="summary-value">${PV.edad} años</span></div><div class="summary-item"><span class="summary-label">Exámenes</span><span class="summary-value">${lista.length}</span></div>`;
   renderExams(lista,'pvExamGrid');renderAlerts(alerts,'pvAlerts');
   document.getElementById('pvRInst').textContent=PV.instLabel;
   document.getElementById('pvRProg').textContent=PV.progLabel;
   document.getElementById('pvRPrice').textContent=fmt(precio);
   document.getElementById('pvRNote').textContent=notas.length?'Incluye: '+notas.join(' + '):(PV.progNote||'');
   const w=document.getElementById('pvRWarn');if(PV.progWarn){w.textContent=PV.progWarn;w.style.display='block';}else w.style.display='none';
-  document.getElementById('pvAvisoInfo').innerHTML=avisoHTML();
+  document.getElementById('pvAvisoInfo').innerHTML=instruccionesHTML(true);
   pvGoTo(6);
 }
 

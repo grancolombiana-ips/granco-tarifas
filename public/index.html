@@ -499,10 +499,12 @@ function instruccionesHTML(conEncabezado){
        <div style="font-size:12px;color:#185FA5;margin-bottom:1rem;letter-spacing:0.3px;text-align:center;">📋 Información importante para tu visita</div>`
     : `<div style="font-size:14px;font-weight:700;color:#0c3b6e;margin-bottom:1rem;letter-spacing:0.3px;">📋 Información importante para tu visita</div>`;
   const circulo = (n)=>`<div style="background:#0c3b6e;color:white;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px;">${n}</div>`;
-  const pLlegada = 'Puedes llegar a nuestra IPS <em>(el mapa y dirección se encuentran en la parte inferior)</em>, de <strong>lunes a viernes SIN CITA PREVIA, de 6:00 a.m. a 8:30 a.m.</strong>, en <strong>ayunas de 12 horas</strong>. Si usas gafas y/o lentes de contacto, tráelos. Si en tu listado aparece <strong>PRUEBA DE ESFUERZO</strong>, trae tenis y ropa cómoda.';
+  const pLlegadaBase = 'Puedes llegar a nuestra IPS <em>(el mapa y dirección se encuentran en la parte inferior)</em>, de <strong>lunes a viernes SIN CITA PREVIA, de 6:00 a.m. a 8:30 a.m.</strong>, en <strong>ayunas de 12 horas</strong>. Si usas gafas y/o lentes de contacto, tráelos.';
+  // La frase de prueba de esfuerzo solo se muestra en renovación (en ingresos se quitó).
+  const pLlegada = conEncabezado ? pLlegadaBase : pLlegadaBase + ' Si en tu listado aparece <strong>PRUEBA DE ESFUERZO</strong>, trae tenis y ropa cómoda.';
   const pReno = 'Los exámenes de <strong>RENOVACIÓN</strong> tienen una duración aproximada de <strong>3 horas</strong> y recibes el <strong>Certificado Médico de inmediato</strong>.';
-  const pPrimera = 'Los exámenes de <strong>PRIMERA VEZ</strong> tienen una duración aproximada de <strong>5 horas</strong>, luego de lo cual te entregamos tu <strong>Certificado Médico de un día para otro</strong>, siempre y cuando tu Centro de Instrucción haya subido las pruebas al SIGA.';
-  const pPsico = 'Si las pruebas psicotécnicas de tu escuela se encuentran vencidas (realizadas hace más de 1 año), las puedes realizar con nosotros, con un <strong>recargo de $160.000</strong>.';
+  const pPrimera = 'Los exámenes de <strong>primera vez</strong> tienen una duración de <strong>5 horas</strong> y el Certificado Médico se entrega <strong>al día siguiente</strong>.';
+  const pPsico = 'Las pruebas psicotécnicas tienen una <strong>validez de 1 año</strong>; si se encuentran vencidas, se deben realizar nuevamente con un <strong>valor adicional de $160.000</strong>.';
   const pSiga = 'Trae tu <strong>certificado médico anterior</strong> (sirve en digital) y el <strong>nuevo número del SIGA</strong>. Si aún no lo has solicitado, sigue el paso a paso de abajo.';
   // Primera vez (conEncabezado): llegada + primera vez + psicotécnicas. Renovación: llegada + renovación + SIGA.
   const puntos = conEncabezado ? [pLlegada, pPrimera, pPsico] : [pLlegada, pReno, pSiga];

@@ -658,7 +658,7 @@ function pvConfirmContact(){
   const{lista,alerts}=getExamsPV(PV.licencia,PV.edad,tox);
   let precio=PV.progPrice;const notas=[];
   if(PV.edad>=40&&lista.includes('esfuerzo')){precio+=230000;notas.push('$230.000 prueba de esfuerzo');}
-  enviarSheets({tipo:'Primera vez / Vencido >2 años',institucion:PV.instLabel,programa:PV.progLabel,licencia:LIC_NAMES[PV.licencia]||PV.licencia,edad:PV.edad,examenes:lista.map(k=>EXAMS[k].name).join('|')});
+  enviarSheets({tipo:'Primera vez / Vencido >2 años',institucion:PV.instLabel,programa:PV.progLabel,licencia:LIC_NAMES[PV.licencia]||PV.licencia,edad:PV.edad,examenes:lista.map(k=>EXAMS[k].name).join('|'),tarifa:precio});
   document.getElementById('pvSummary').innerHTML=`<div class="summary-item"><span class="summary-label">Institución</span><span class="summary-value">${PV.instLabel}</span></div><div class="summary-item"><span class="summary-label">Programa</span><span class="summary-value">${PV.progLabel}</span></div><div class="summary-item"><span class="summary-label">Licencia</span><span class="summary-value">${LIC_NAMES[PV.licencia]||PV.licencia}</span></div><div class="summary-item"><span class="summary-label">Edad</span><span class="summary-value">${PV.edad} años</span></div><div class="summary-item"><span class="summary-label">Exámenes</span><span class="summary-value">${lista.length}</span></div>`;
   renderExams(lista,'pvExamGrid');renderAlerts(alerts,'pvAlerts');renderVigencia(PV.licencia,PV.edad,'pvVigencia');
   document.getElementById('pvRInst').textContent=PV.instLabel;
@@ -707,7 +707,7 @@ function rvConfirmEmpresa(){
   const{lista,alerts}=getExamsRV(RV.licencia,RV.edad);
   const examNames=lista.map(k=>EXAMS[k].name).join('|');
   // Enviar a Google Sheets (datos del paciente + lista de exámenes para el tablero)
-  enviarSheets({tipo:'Renovación',empresa:RV.empresa,nombres:RV.nombres,apellidos:RV.apellidos,cc:RV.cc,licencia:LIC_NAMES[RV.licencia]||RV.licencia,edad:RV.edad,examenes:examNames});
+  enviarSheets({tipo:'Renovación',empresa:RV.empresa,nombres:RV.nombres,apellidos:RV.apellidos,cc:RV.cc,licencia:LIC_NAMES[RV.licencia]||RV.licencia,edad:RV.edad,examenes:examNames,tarifa:(RV.empresa==='Particular'?(getTarifaRV(RV.licencia,RV.edad)||''):'')});
   document.getElementById('rvSummary').innerHTML=`<div class="summary-item"><span class="summary-label">Paciente</span><span class="summary-value">${RV.nombres} ${RV.apellidos}</span></div><div class="summary-item"><span class="summary-label">Cédula</span><span class="summary-value">${RV.cc}</span></div><div class="summary-item"><span class="summary-label">Licencia</span><span class="summary-value">${LIC_NAMES[RV.licencia]||RV.licencia}</span></div><div class="summary-item"><span class="summary-label">Empresa</span><span class="summary-value">${RV.empresa}</span></div><div class="summary-item"><span class="summary-label">Edad</span><span class="summary-value">${RV.edad} años</span></div><div class="summary-item"><span class="summary-label">Tipo</span><span class="summary-value">Renovación</span></div><div class="summary-item"><span class="summary-label">Exámenes</span><span class="summary-value">${lista.length}</span></div>`;
   renderExams(lista,'rvExamGrid');renderAlerts(alerts,'rvAlerts');renderVigencia(RV.licencia,RV.edad,'rvVigencia');renderTarifaRV(RV.licencia,RV.edad,RV.empresa);
   document.getElementById('rvAvisoInfo').innerHTML=avisoHTML();

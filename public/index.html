@@ -149,6 +149,8 @@
       <input type="text" id="faaNombres" placeholder="Nombres" autocomplete="given-name" />
       <input type="text" id="faaApellidos" placeholder="Apellidos" autocomplete="family-name" />
       <input type="text" id="faaCC" placeholder="Cédula (CC)" inputmode="numeric" autocomplete="off" />
+      <input type="tel" id="faaCelular" placeholder="Celular" inputmode="numeric" autocomplete="tel" />
+      <input type="email" id="faaCorreo" placeholder="Correo electrónico" autocomplete="email" />
       <input type="text" id="faaSiga" placeholder="N° SIGA (si ya lo tienes — opcional)" inputmode="numeric" autocomplete="off" />
       <button class="submit-btn" onclick="faaConfirm()">Ver examen →</button>
       <button class="back-btn" onclick="showHome()" style="justify-content:center;">← Volver al inicio</button>
@@ -182,6 +184,8 @@
       <input type="text" id="otrosNombres" placeholder="Nombres" autocomplete="given-name" />
       <input type="text" id="otrosApellidos" placeholder="Apellidos" autocomplete="family-name" />
       <input type="text" id="otrosCC" placeholder="Cédula (CC)" inputmode="numeric" autocomplete="off" />
+      <input type="tel" id="otrosCelular" placeholder="Celular" inputmode="numeric" autocomplete="tel" />
+      <input type="email" id="otrosCorreo" placeholder="Correo electrónico" autocomplete="email" />
       <input type="text" id="otrosSiga" placeholder="N° SIGA (si ya lo tienes — opcional)" inputmode="numeric" autocomplete="off" />
       <input type="text" id="otrosExamen" placeholder="Tipo de examen (escribe libremente)" />
       <input type="number" id="otrosValor" placeholder="Valor en pesos (COP)" inputmode="numeric" />
@@ -270,8 +274,10 @@
       <input type="text" id="pvNombres" placeholder="Nombres" autocomplete="given-name" />
       <input type="text" id="pvApellidos" placeholder="Apellidos" autocomplete="family-name" />
       <input type="text" id="pvCC" placeholder="Cédula (CC)" inputmode="numeric" autocomplete="off" />
+      <input type="tel" id="pvCelular" placeholder="Celular" inputmode="numeric" autocomplete="tel" />
+      <input type="email" id="pvCorreo" placeholder="Correo electrónico" autocomplete="email" />
       <input type="text" id="pvSiga" placeholder="N° SIGA (si ya lo tienes — opcional)" inputmode="numeric" autocomplete="off" />
-      <p class="err-msg" id="pvContactErr" style="display:none">Por favor completa todos los campos.</p>
+      <p class="err-msg" id="pvContactErr" style="display:none">Por favor completa todos los campos correctamente.</p>
       <button class="submit-btn" onclick="pvConfirmContact()">Ver mis exámenes →</button>
       <button class="back-btn" onclick="pvGoTo(4)">← Volver</button>
     </div>
@@ -330,6 +336,8 @@
       <input type="text" id="rvNombres" placeholder="Nombres" autocomplete="given-name" />
       <input type="text" id="rvApellidos" placeholder="Apellidos" autocomplete="family-name" />
       <input type="text" id="rvCC" placeholder="Cédula (CC)" inputmode="numeric" autocomplete="off" />
+      <input type="tel" id="rvCelular" placeholder="Celular" inputmode="numeric" autocomplete="tel" />
+      <input type="email" id="rvCorreo" placeholder="Correo electrónico" autocomplete="email" />
       <input type="text" id="rvSiga" placeholder="N° SIGA (si ya lo tienes — opcional)" inputmode="numeric" autocomplete="off" />
       <select id="rvEmpresaSelect" class="empresa-select">
         <option value="">— Selecciona tu empresa —</option>
@@ -646,6 +654,8 @@ function renderVigencia(lic, edad, boxId){
 
 function fmt(n){ return '$ '+n.toLocaleString('es-CO'); }
 function calcEdad(f){ const h=new Date(),n=new Date(f); let e=h.getFullYear()-n.getFullYear(); const m=h.getMonth()-n.getMonth(); if(m<0||(m===0&&h.getDate()<n.getDate()))e--; return e; }
+function validarCorreo(c){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((c||'').trim()); }
+function validarCelular(c){ const d=(c||'').replace(/\D/g,''); return d.length>=7; }
 
 function enviarSheets(d){
   if(!SHEETS_URL)return;
@@ -720,7 +730,7 @@ document.getElementById('pwdInput').addEventListener('keydown',e=>{if(e.key==='E
 
 function startPrimeraVez(){
   PV={instKey:null,instLabel:null,progLabel:null,progPrice:0,progNote:'',progWarn:'',licencia:null,edad:null,nombres:'',apellidos:'',cc:'',celular:'',email:''};
-  ['pvNombres','pvApellidos','pvCC','pvSiga'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  ['pvNombres','pvApellidos','pvCC','pvCelular','pvCorreo','pvSiga'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   ['screenHome','screenPassword','screenRV','screenFAA','screenOtros'].forEach(id=>document.getElementById(id).style.display='none');
   document.getElementById('screenPV').style.display='block';
   // Mostrar aviso de inmediato al entrar al flujo primera vez
@@ -768,14 +778,19 @@ function pvConfirmContact(){
   const nombres=document.getElementById('pvNombres').value.trim();
   const apellidos=document.getElementById('pvApellidos').value.trim();
   const cc=document.getElementById('pvCC').value.trim();
-  if(!nombres||!apellidos||!cc){document.getElementById('pvContactErr').style.display='block';return;}
-  document.getElementById('pvContactErr').style.display='none';
-  PV.nombres=nombres;PV.apellidos=apellidos;PV.cc=cc;PV.celular='';PV.email='';
+  const celular=document.getElementById('pvCelular').value.trim();
+  const correo=document.getElementById('pvCorreo').value.trim();
+  const errBox=document.getElementById('pvContactErr');
+  if(!nombres||!apellidos||!cc||!celular||!correo){errBox.textContent='Por favor completa todos los campos.';errBox.style.display='block';return;}
+  if(!validarCelular(celular)){errBox.textContent='Ingresa un celular válido (mínimo 7 dígitos).';errBox.style.display='block';return;}
+  if(!validarCorreo(correo)){errBox.textContent='Ingresa un correo electrónico válido.';errBox.style.display='block';return;}
+  errBox.style.display='none';
+  PV.nombres=nombres;PV.apellidos=apellidos;PV.cc=cc;PV.celular=celular;PV.email=correo;
   const tox=false;
   const{lista,alerts}=getExamsPV(PV.licencia,PV.edad,tox);
   let precio=PV.progPrice;const notas=[];
   if(PV.edad>=40&&lista.includes('esfuerzo')){precio+=230000;notas.push('$230.000 prueba de esfuerzo');}
-  enviarSheets({tipo:'Primera vez / Vencido >2 años',nombres:PV.nombres,apellidos:PV.apellidos,cc:PV.cc,institucion:PV.instLabel,programa:PV.progLabel,licencia:LIC_NAMES[PV.licencia]||PV.licencia,edad:PV.edad,examenes:lista.map(k=>EXAMS[k].name).join('|'),tarifa:precio,siga:document.getElementById('pvSiga').value.trim()});
+  enviarSheets({tipo:'Primera vez / Vencido >2 años',nombres:PV.nombres,apellidos:PV.apellidos,cc:PV.cc,celular:PV.celular,correo:PV.email,institucion:PV.instLabel,programa:PV.progLabel,licencia:LIC_NAMES[PV.licencia]||PV.licencia,edad:PV.edad,examenes:lista.map(k=>EXAMS[k].name).join('|'),tarifa:precio,siga:document.getElementById('pvSiga').value.trim()});
   document.getElementById('pvSummary').innerHTML=`<div class="summary-item"><span class="summary-label">Paciente</span><span class="summary-value">${PV.nombres} ${PV.apellidos}</span></div><div class="summary-item"><span class="summary-label">Cédula</span><span class="summary-value">${PV.cc}</span></div><div class="summary-item"><span class="summary-label">Institución</span><span class="summary-value">${PV.instLabel}</span></div><div class="summary-item"><span class="summary-label">Programa</span><span class="summary-value">${PV.progLabel}</span></div><div class="summary-item"><span class="summary-label">Licencia</span><span class="summary-value">${LIC_NAMES[PV.licencia]||PV.licencia}</span></div><div class="summary-item"><span class="summary-label">Edad</span><span class="summary-value">${PV.edad} años</span></div><div class="summary-item"><span class="summary-label">Exámenes</span><span class="summary-value">${lista.length}</span></div>`;
   renderExams(lista,'pvExamGrid');renderAlerts(alerts,'pvAlerts');renderVigencia(PV.licencia,PV.edad,'pvVigencia');
   document.getElementById('pvRInst').textContent=PV.instLabel;
@@ -789,7 +804,7 @@ function pvConfirmContact(){
 
 function startRenovacion(){
   RV={licencia:null,edad:null,empresa:'',nombres:'',apellidos:'',cc:'',celular:'',email:'',semestral:false};
-  ['rvNombres','rvApellidos','rvCC','rvSiga'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  ['rvNombres','rvApellidos','rvCC','rvCelular','rvCorreo','rvSiga'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   const es=document.getElementById('rvEmpresaSelect');if(es)es.value='';
   ['screenHome','screenPassword','screenPV','screenFAA','screenOtros'].forEach(id=>document.getElementById(id).style.display='none');
   document.getElementById('screenRV').style.display='block';
@@ -817,10 +832,15 @@ function rvConfirmEmpresa(){
   const nombres=document.getElementById('rvNombres').value.trim();
   const apellidos=document.getElementById('rvApellidos').value.trim();
   const cc=document.getElementById('rvCC').value.trim();
+  const celular=document.getElementById('rvCelular').value.trim();
+  const correo=document.getElementById('rvCorreo').value.trim();
   const emp=document.getElementById('rvEmpresaSelect').value;
-  if(!nombres||!apellidos||!cc||!emp){document.getElementById('rvDatosErr').style.display='block';return;}
-  document.getElementById('rvDatosErr').style.display='none';
-  RV.empresa=emp;RV.nombres=nombres;RV.apellidos=apellidos;RV.cc=cc;
+  const errBox=document.getElementById('rvDatosErr');
+  if(!nombres||!apellidos||!cc||!celular||!correo||!emp){errBox.textContent='Por favor completa todos los campos.';errBox.style.display='block';return;}
+  if(!validarCelular(celular)){errBox.textContent='Ingresa un celular válido (mínimo 7 dígitos).';errBox.style.display='block';return;}
+  if(!validarCorreo(correo)){errBox.textContent='Ingresa un correo electrónico válido.';errBox.style.display='block';return;}
+  errBox.style.display='none';
+  RV.empresa=emp;RV.nombres=nombres;RV.apellidos=apellidos;RV.cc=cc;RV.celular=celular;RV.email=correo;
   // Clase 1 con 40+ años: preguntar si es examen completo o semestral
   if(RV.licencia==='clase1' && RV.edad>=40){
     document.getElementById('rvStep3').style.display='none';
@@ -850,7 +870,7 @@ function rvRenderResults(){
   if(RV.semestral){ tarifaEnv=(RV.empresa==='Particular'?120000:''); }
   else { tarifaEnv=(RV.empresa==='Particular'?(getTarifaRV(RV.licencia,RV.edad)||''):''); }
   const tipoTxt='Renovación'+(RV.semestral?' · Semestral':'');
-  enviarSheets({tipo:tipoTxt,empresa:RV.empresa,nombres:RV.nombres,apellidos:RV.apellidos,cc:RV.cc,licencia:LIC_NAMES[RV.licencia]||RV.licencia,edad:RV.edad,examenes:examNames,tarifa:tarifaEnv,siga:document.getElementById('rvSiga').value.trim()});
+  enviarSheets({tipo:tipoTxt,empresa:RV.empresa,nombres:RV.nombres,apellidos:RV.apellidos,cc:RV.cc,celular:RV.celular,correo:RV.email,licencia:LIC_NAMES[RV.licencia]||RV.licencia,edad:RV.edad,examenes:examNames,tarifa:tarifaEnv,siga:document.getElementById('rvSiga').value.trim()});
   document.getElementById('rvSummary').innerHTML=`<div class="summary-item"><span class="summary-label">Paciente</span><span class="summary-value">${RV.nombres} ${RV.apellidos}</span></div><div class="summary-item"><span class="summary-label">Cédula</span><span class="summary-value">${RV.cc}</span></div><div class="summary-item"><span class="summary-label">Licencia</span><span class="summary-value">${LIC_NAMES[RV.licencia]||RV.licencia}</span></div><div class="summary-item"><span class="summary-label">Empresa</span><span class="summary-value">${RV.empresa}</span></div><div class="summary-item"><span class="summary-label">Edad</span><span class="summary-value">${RV.edad} años</span></div><div class="summary-item"><span class="summary-label">Tipo</span><span class="summary-value">${tipoTxt}</span></div><div class="summary-item"><span class="summary-label">Exámenes</span><span class="summary-value">${lista.length}</span></div>`;
   renderExams(lista,'rvExamGrid');renderAlerts(alerts,'rvAlerts');renderVigencia(RV.licencia,RV.edad,'rvVigencia');
   if(RV.semestral){ renderTarifaSemestral(RV.empresa); }
@@ -869,7 +889,7 @@ function renderTarifaSemestral(empresa){
 }
 
 function startFAA(){
-  ['faaNombres','faaApellidos','faaCC','faaSiga'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  ['faaNombres','faaApellidos','faaCC','faaCelular','faaCorreo','faaSiga'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('faaErr').style.display='none';
   document.getElementById('faaForm').style.display='block';
   document.getElementById('faaResults').style.display='none';
@@ -880,10 +900,15 @@ function faaConfirm(){
   const nombres=document.getElementById('faaNombres').value.trim();
   const apellidos=document.getElementById('faaApellidos').value.trim();
   const cc=document.getElementById('faaCC').value.trim();
-  if(!nombres||!apellidos||!cc){document.getElementById('faaErr').style.display='block';return;}
-  document.getElementById('faaErr').style.display='none';
+  const celular=document.getElementById('faaCelular').value.trim();
+  const correo=document.getElementById('faaCorreo').value.trim();
+  const errBox=document.getElementById('faaErr');
+  if(!nombres||!apellidos||!cc||!celular||!correo){errBox.textContent='Por favor completa todos los campos.';errBox.style.display='block';return;}
+  if(!validarCelular(celular)){errBox.textContent='Ingresa un celular válido (mínimo 7 dígitos).';errBox.style.display='block';return;}
+  if(!validarCorreo(correo)){errBox.textContent='Ingresa un correo electrónico válido.';errBox.style.display='block';return;}
+  errBox.style.display='none';
   const lista=['medico','ekg','oftalmo_comp'];
-  enviarSheets({tipo:'Examen FAA',empresa:'Particular',nombres:nombres,apellidos:apellidos,cc:cc,examenes:lista.map(k=>EXAMS[k].name).join('|'),tarifa:'',siga:document.getElementById('faaSiga').value.trim()});
+  enviarSheets({tipo:'Examen FAA',empresa:'Particular',nombres:nombres,apellidos:apellidos,cc:cc,celular:celular,correo:correo,examenes:lista.map(k=>EXAMS[k].name).join('|'),tarifa:'',siga:document.getElementById('faaSiga').value.trim()});
   document.getElementById('faaSummary').innerHTML=`<div class="summary-item"><span class="summary-label">Paciente</span><span class="summary-value">${nombres} ${apellidos}</span></div><div class="summary-item"><span class="summary-label">Cédula</span><span class="summary-value">${cc}</span></div><div class="summary-item"><span class="summary-label">Tipo</span><span class="summary-value">Examen FAA</span></div><div class="summary-item"><span class="summary-label">Exámenes</span><span class="summary-value">${lista.length}</span></div>`;
   renderExams(lista,'faaExamGrid');
   document.getElementById('faaAvisoInfo').innerHTML=instruccionesHTML(false, false, true);
@@ -891,7 +916,7 @@ function faaConfirm(){
   document.getElementById('faaResults').style.display='block';
 }
 function startOtros(){
-  ['otrosNombres','otrosApellidos','otrosCC','otrosSiga','otrosExamen','otrosValor'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  ['otrosNombres','otrosApellidos','otrosCC','otrosCelular','otrosCorreo','otrosSiga','otrosExamen','otrosValor'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('otrosErr').style.display='none';
   document.getElementById('otrosForm').style.display='block';
   document.getElementById('otrosResults').style.display='none';
@@ -902,11 +927,16 @@ function otrosConfirm(){
   const nombres=document.getElementById('otrosNombres').value.trim();
   const apellidos=document.getElementById('otrosApellidos').value.trim();
   const cc=document.getElementById('otrosCC').value.trim();
+  const celular=document.getElementById('otrosCelular').value.trim();
+  const correo=document.getElementById('otrosCorreo').value.trim();
   const examen=document.getElementById('otrosExamen').value.trim();
   const valor=parseInt(document.getElementById('otrosValor').value)||0;
-  if(!nombres||!apellidos||!cc||!examen||!valor){document.getElementById('otrosErr').style.display='block';return;}
-  document.getElementById('otrosErr').style.display='none';
-  enviarSheets({tipo:'Otros',empresa:'Particular',nombres:nombres,apellidos:apellidos,cc:cc,examenes:examen,tarifa:valor,siga:document.getElementById('otrosSiga').value.trim()});
+  const errBox=document.getElementById('otrosErr');
+  if(!nombres||!apellidos||!cc||!celular||!correo||!examen||!valor){errBox.textContent='Completa nombres, apellidos, cédula, celular, correo, tipo de examen y valor.';errBox.style.display='block';return;}
+  if(!validarCelular(celular)){errBox.textContent='Ingresa un celular válido (mínimo 7 dígitos).';errBox.style.display='block';return;}
+  if(!validarCorreo(correo)){errBox.textContent='Ingresa un correo electrónico válido.';errBox.style.display='block';return;}
+  errBox.style.display='none';
+  enviarSheets({tipo:'Otros',empresa:'Particular',nombres:nombres,apellidos:apellidos,cc:cc,celular:celular,correo:correo,examenes:examen,tarifa:valor,siga:document.getElementById('otrosSiga').value.trim()});
   document.getElementById('otrosSummary').innerHTML=`<div class="summary-item"><span class="summary-label">Paciente</span><span class="summary-value">${nombres} ${apellidos}</span></div><div class="summary-item"><span class="summary-label">Cédula</span><span class="summary-value">${cc}</span></div><div class="summary-item"><span class="summary-label">Examen</span><span class="summary-value">${examen}</span></div>`;
   document.getElementById('otrosExamGrid').innerHTML=`<div class="exam-item"><span class="exam-icon">📝</span><div><div class="exam-name">${examen}</div><div class="exam-note">Examen particular</div></div></div>`;
   document.getElementById('otrosPrice').textContent=fmt(valor);

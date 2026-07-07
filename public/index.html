@@ -947,10 +947,16 @@ function otrosConfirm(){
 
 showHome();
 
-// Registrar Service Worker (PWA)
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {
     navigator.serviceWorker.register('/sw.js').catch(function(){});
+  });
+  // Cuando el nuevo Service Worker avisa que ya está activo, recargamos
+  // la página automáticamente para que el paciente vea la versión nueva.
+  navigator.serviceWorker.addEventListener('message', function (event) {
+    if (event.data && event.data.type === 'SW_UPDATED') {
+      window.location.reload();
+    }
   });
 }
 </script>

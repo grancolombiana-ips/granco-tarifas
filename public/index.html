@@ -761,7 +761,7 @@ function renderPVPart(){const g=document.getElementById('pvProgGrid');g.innerHTM
 function renderPVLic(){const g=document.getElementById('pvLicGrid');g.innerHTML='';LIC_OPTIONS.forEach(l=>{const b=document.createElement('button');b.className='option-btn';b.innerHTML=`<div>${l.label}</div><div class="opt-sub">${l.sub}</div>`;b.onclick=()=>{PV.licencia=l.key;pvGoTo(4);};g.appendChild(b);});}
 function precioBasePV(edad){
   if(PV.instKey==='OTRAS' && PV.progLabel==='TCP' && PV.licencia==='clase2_tcp' && Number(edad)<40){
-    return 395000;
+    return 370000;
   }
   return PV.progPrice;
 }

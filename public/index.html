@@ -156,7 +156,17 @@
       <input type="text" id="faaCC" placeholder="Cédula (CC)" inputmode="numeric" autocomplete="off" />
       <input type="tel" id="faaCelular" placeholder="Celular" inputmode="numeric" autocomplete="tel" />
       <input type="email" id="faaCorreo" placeholder="Correo electrónico" autocomplete="email" />
-      <input type="text" id="faaSiga" placeholder="N° SIGA (si ya lo tienes — opcional)" inputmode="numeric" autocomplete="off" />
+           <input type="text" id="faaSiga" placeholder="N° SIGA (si ya lo tienes — opcional)" inputmode="numeric" autocomplete="off" />
+      <input type="text" id="faaCiudad" placeholder="Ciudad de residencia" autocomplete="address-level2" />
+      <select id="faaEstadoCivil" class="empresa-select">
+        <option value="">— Estado civil —</option>
+        <option>Soltero(a)</option><option>Casado(a)</option><option>Unión libre</option><option>Divorciado(a)</option><option>Viudo(a)</option>
+      </select>
+      <input type="number" id="faaHijos" placeholder="Número de hijos" min="0" inputmode="numeric" />
+      <select id="faaNivelEducativo" class="empresa-select">
+        <option value="">— Nivel educativo —</option>
+        <option>Primaria</option><option>Secundaria</option><option>Técnico/Tecnólogo</option><option>Universitario</option><option>Posgrado</option>
+      </select>
       <button class="submit-btn" onclick="faaConfirm()">Ver examen →</button>
       <button class="back-btn" onclick="showHome()" style="justify-content:center;">← Volver al inicio</button>
     </div>

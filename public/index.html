@@ -969,7 +969,7 @@ function rvRenderResults(){
   if(RV.semestral){ tarifaEnv=(RV.empresa==='Particular'?120000:''); }
   else { tarifaEnv=(RV.empresa==='Particular'?(getTarifaRV(RV.licencia,RV.edad)||''):''); }
   const tipoTxt='Renovación'+(RV.semestral?' · Semestral':'');
-  enviarSheets({tipo:tipoTxt,empresa:RV.empresa, ... }).then(function(){
+ enviarSheets({tipo:tipoTxt,empresa:RV.empresa,nombres:RV.nombres,apellidos:RV.apellidos,cc:RV.cc,celular:RV.celular,correo:RV.email,licencia:LIC_NAMES[RV.licencia]||RV.licencia,edad:RV.edad,examenes:examNames,tarifa:tarifaEnv,siga:document.getElementById('rvSiga').value.trim(),gafas:GAFAS.rv,fechaNacimiento:RV.fechaNacimiento}).then(function(){
   enviarDatosAdicionales(RV.cc, {
     ciudadResidencia: RV.ciudad,
     estadoCivil: RV.estadoCivil,

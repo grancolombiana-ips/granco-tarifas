@@ -1020,7 +1020,7 @@ function otrosConfirm(){
   if(!validarCelular(celular)){errBox.textContent='Ingresa un celular válido (mínimo 7 dígitos).';errBox.style.display='block';return;}
   if(!validarCorreo(correo)){errBox.textContent='Ingresa un correo electrónico válido.';errBox.style.display='block';return;}
   errBox.style.display='none';
-  enviarSheets({tipo:'Otros',empresa:'Particular',nombres:nombres,apellidos:apellidos,cc:cc,celular:celular,correo:correo,examenes:examen,tarifa:valor,siga:document.getElementById('otrosSiga').value.trim()});
+   enviarSheets({tipo:'Otros',empresa:'Particular',nombres:nombres,apellidos:apellidos,cc:cc,celular:celular,correo:correo,examenes:examen,tarifa:valor,siga:document.getElementById('otrosSiga').value.trim(),ciudadResidencia:document.getElementById('otrosCiudad').value.trim(),estadoCivil:document.getElementById('otrosEstadoCivil').value,numeroHijos:document.getElementById('otrosHijos').value.trim(),nivelEducativo:document.getElementById('otrosNivelEducativo').value});
   document.getElementById('otrosSummary').innerHTML=`<div class="summary-item"><span class="summary-label">Paciente</span><span class="summary-value">${nombres} ${apellidos}</span></div><div class="summary-item"><span class="summary-label">Cédula</span><span class="summary-value">${cc}</span></div><div class="summary-item"><span class="summary-label">Examen</span><span class="summary-value">${examen}</span></div>`;
   document.getElementById('otrosExamGrid').innerHTML=`<div class="exam-item"><span class="exam-icon">📝</span><div><div class="exam-name">${examen}</div><div class="exam-note">Examen particular</div></div></div>`;
   document.getElementById('otrosPrice').textContent=fmt(valor);

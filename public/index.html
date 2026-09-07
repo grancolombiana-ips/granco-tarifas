@@ -1048,6 +1048,12 @@ function otrosConfirm(){
   document.getElementById('otrosAvisoInfo').innerHTML=avisoHTML();
   document.getElementById('otrosForm').style.display='none';
   document.getElementById('otrosResults').style.display='block';
+  enviarDatosAdicionales(cc, {
+  ciudadResidencia: document.getElementById('faaCiudad').value.trim(), // o 'otrosCiudad'
+  estadoCivil: document.getElementById('faaEstadoCivil').value,        // o 'otrosEstadoCivil'
+  numeroHijos: document.getElementById('faaHijos').value.trim(),       // o 'otrosHijos'
+  nivelEducativo: document.getElementById('faaNivelEducativo').value   // o 'otrosNivelEducativo'
+});
 }
 
 showHome();

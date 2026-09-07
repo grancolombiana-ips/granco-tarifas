@@ -728,15 +728,17 @@ function validarCelular(c){ const d=(c||'').replace(/\D/g,''); return d.length>=
 
 function enviarSheets(d){
   if(!SHEETS_URL)return;
-  const body=Object.keys(d).map(k=>k+'='+encodeURIComponent(d[k]==null?'':d[k])).join('&');
-  fetch(SHEETS_URL,{
-    method:'POST',
-    mode:'no-cors',
-    headers:{'Content-Type':'application/x-www-form-urlencoded'},
-    body:body
-  }).catch(()=>{});
+  const q=Object.keys(d).map(k=>k+'='+encodeURIComponent(d[k]==null?'':d[k])).join('&');
+  fetch(SHEETS_URL+'?'+q,{method:'GET',mode:'no-cors'}).catch(()=>{});
 }
 
+// Segunda llamada corta, independiente, para los campos que no caben en el registro principal.
+function enviarDatosAdicionales(cc, extra){
+  if(!SHEETS_URL || !cc) return;
+  const d = Object.assign({accion:'extra', cc:cc}, extra);
+  const q = Object.keys(d).map(k=>k+'='+encodeURIComponent(d[k]==null?'':d[k])).join('&');
+  fetch(SHEETS_URL+'?'+q,{method:'GET',mode:'no-cors'}).catch(()=>{});
+}
 function renderExams(lista,gridId){ document.getElementById(gridId).innerHTML=lista.map(k=>`<div class="exam-item"><span class="exam-icon">${EXAMS[k].icon}</span><div><div class="exam-name">${EXAMS[k].name}</div><div class="exam-note">${EXAMS[k].note}</div></div></div>`).join(''); }
 function renderAlerts(alerts,boxId){ document.getElementById(boxId).innerHTML=alerts.map(a=>`<div class="alert-box alert-${a.type}">${a.text}</div>`).join(''); }
 

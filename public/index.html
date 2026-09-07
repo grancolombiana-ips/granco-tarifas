@@ -727,9 +727,9 @@ function validarCorreo(c){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((c||'').trim
 function validarCelular(c){ const d=(c||'').replace(/\D/g,''); return d.length>=7; }
 
 function enviarSheets(d){
-  if(!SHEETS_URL)return;
+  if(!SHEETS_URL)return Promise.resolve();
   const q=Object.keys(d).map(k=>k+'='+encodeURIComponent(d[k]==null?'':d[k])).join('&');
-  fetch(SHEETS_URL+'?'+q,{method:'GET',mode:'no-cors'}).catch(()=>{});
+  return fetch(SHEETS_URL+'?'+q,{method:'GET',mode:'no-cors'}).catch(()=>{});
 }
 
 // Segunda llamada corta, independiente, para los campos que no caben en el registro principal.

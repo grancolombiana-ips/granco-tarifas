@@ -976,14 +976,14 @@ function rvRenderResults(){
   if(RV.semestral){ tarifaEnv=(RV.empresa==='Particular'?120000:''); }
   else { tarifaEnv=(RV.empresa==='Particular'?(getTarifaRV(RV.licencia,RV.edad)||''):''); }
   const tipoTxt='Renovación'+(RV.semestral?' · Semestral':'');
- enviarSheets({tipo:tipoTxt,empresa:RV.empresa,nombres:RV.nombres,apellidos:RV.apellidos,cc:RV.cc,celular:RV.celular,correo:RV.email,licencia:LIC_NAMES[RV.licencia]||RV.licencia,edad:RV.edad,examenes:examNames,tarifa:tarifaEnv,siga:document.getElementById('rvSiga').value.trim(),gafas:GAFAS.rv,fechaNacimiento:RV.fechaNacimiento}).then(function(){
-  enviarDatosAdicionales(RV.cc, {
-    ciudadResidencia: RV.ciudad,
-    estadoCivil: RV.estadoCivil,
-    numeroHijos: RV.hijos,
-    nivelEducativo: RV.nivelEducativo
+  enviarSheets({tipo:tipoTxt,empresa:RV.empresa,nombres:RV.nombres,apellidos:RV.apellidos,cc:RV.cc,celular:RV.celular,correo:RV.email,licencia:LIC_NAMES[RV.licencia]||RV.licencia,edad:RV.edad,examenes:examNames,tarifa:tarifaEnv,siga:document.getElementById('rvSiga').value.trim(),gafas:GAFAS.rv,fechaNacimiento:RV.fechaNacimiento}).then(function(){
+    enviarDatosAdicionales(RV.cc, {
+      ciudadResidencia: RV.ciudad,
+      estadoCivil: RV.estadoCivil,
+      numeroHijos: RV.hijos,
+      nivelEducativo: RV.nivelEducativo
+    });
   });
-});
   document.getElementById('rvSummary').innerHTML=`<div class="summary-item"><span class="summary-label">Paciente</span><span class="summary-value">${RV.nombres} ${RV.apellidos}</span></div><div class="summary-item"><span class="summary-label">Cédula</span><span class="summary-value">${RV.cc}</span></div><div class="summary-item"><span class="summary-label">Licencia</span><span class="summary-value">${LIC_NAMES[RV.licencia]||RV.licencia}</span></div><div class="summary-item"><span class="summary-label">Empresa</span><span class="summary-value">${RV.empresa}</span></div><div class="summary-item"><span class="summary-label">Edad</span><span class="summary-value">${RV.edad} años</span></div><div class="summary-item"><span class="summary-label">Tipo</span><span class="summary-value">${tipoTxt}</span></div><div class="summary-item"><span class="summary-label">Exámenes</span><span class="summary-value">${lista.length}</span></div>`;
   renderExams(lista,'rvExamGrid');renderAlerts(alerts,'rvAlerts');renderVigencia(RV.licencia,RV.edad,'rvVigencia');
   if(RV.semestral){ renderTarifaSemestral(RV.empresa); }

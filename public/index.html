@@ -728,8 +728,13 @@ function validarCelular(c){ const d=(c||'').replace(/\D/g,''); return d.length>=
 
 function enviarSheets(d){
   if(!SHEETS_URL)return;
-  const q=Object.keys(d).map(k=>k+'='+encodeURIComponent(d[k]==null?'':d[k])).join('&');
-  fetch(SHEETS_URL+'?'+q,{method:'GET',mode:'no-cors'}).catch(()=>{});
+  const body=Object.keys(d).map(k=>k+'='+encodeURIComponent(d[k]==null?'':d[k])).join('&');
+  fetch(SHEETS_URL,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:body
+  }).catch(()=>{});
 }
 
 function renderExams(lista,gridId){ document.getElementById(gridId).innerHTML=lista.map(k=>`<div class="exam-item"><span class="exam-icon">${EXAMS[k].icon}</span><div><div class="exam-name">${EXAMS[k].name}</div><div class="exam-note">${EXAMS[k].note}</div></div></div>`).join(''); }

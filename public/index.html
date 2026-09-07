@@ -739,13 +739,7 @@ function enviarDatosAdicionales(cc, extra){
   const q = Object.keys(d).map(k=>k+'='+encodeURIComponent(d[k]==null?'':d[k])).join('&');
   fetch(SHEETS_URL+'?'+q,{method:'GET',mode:'no-cors'}).catch(()=>{});
 }
-  enviarDatosAdicionales(PV.cc, {
-  ciudadResidencia: document.getElementById('pvCiudad').value.trim(),
-  estadoCivil: document.getElementById('pvEstadoCivil').value,
-  numeroHijos: document.getElementById('pvHijos').value.trim(),
-  nivelEducativo: document.getElementById('pvNivelEducativo').value,
-  fechaNacimiento: document.getElementById('pvFecha') ? document.getElementById('pvFecha').value : ''
-});
+ 
 function renderExams(lista,gridId){ document.getElementById(gridId).innerHTML=lista.map(k=>`<div class="exam-item"><span class="exam-icon">${EXAMS[k].icon}</span><div><div class="exam-name">${EXAMS[k].name}</div><div class="exam-note">${EXAMS[k].note}</div></div></div>`).join(''); }
 function renderAlerts(alerts,boxId){ document.getElementById(boxId).innerHTML=alerts.map(a=>`<div class="alert-box alert-${a.type}">${a.text}</div>`).join(''); }
 

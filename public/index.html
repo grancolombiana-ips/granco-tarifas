@@ -992,7 +992,7 @@ function faaConfirm(){
   if(!validarCorreo(correo)){errBox.textContent='Ingresa un correo electrónico válido.';errBox.style.display='block';return;}
   errBox.style.display='none';
   const lista=['medico','ekg','oftalmo_comp'];
-  enviarSheets({tipo:'Examen FAA',empresa:'Particular',nombres:nombres,apellidos:apellidos,cc:cc,celular:celular,correo:correo,examenes:lista.map(k=>EXAMS[k].name).join('|'),tarifa:'',siga:document.getElementById('faaSiga').value.trim()});
+    enviarSheets({tipo:'Examen FAA',empresa:'Particular',nombres:nombres,apellidos:apellidos,cc:cc,celular:celular,correo:correo,examenes:lista.map(k=>EXAMS[k].name).join('|'),tarifa:'',siga:document.getElementById('faaSiga').value.trim(),ciudadResidencia:document.getElementById('faaCiudad').value.trim(),estadoCivil:document.getElementById('faaEstadoCivil').value,numeroHijos:document.getElementById('faaHijos').value.trim(),nivelEducativo:document.getElementById('faaNivelEducativo').value});
   document.getElementById('faaSummary').innerHTML=`<div class="summary-item"><span class="summary-label">Paciente</span><span class="summary-value">${nombres} ${apellidos}</span></div><div class="summary-item"><span class="summary-label">Cédula</span><span class="summary-value">${cc}</span></div><div class="summary-item"><span class="summary-label">Tipo</span><span class="summary-value">Examen FAA</span></div><div class="summary-item"><span class="summary-label">Exámenes</span><span class="summary-value">${lista.length}</span></div>`;
   renderExams(lista,'faaExamGrid');
   document.getElementById('faaAvisoInfo').innerHTML=instruccionesHTML(false, false, true);

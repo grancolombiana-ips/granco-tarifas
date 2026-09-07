@@ -201,7 +201,17 @@
       <input type="text" id="otrosCC" placeholder="Cédula (CC)" inputmode="numeric" autocomplete="off" />
       <input type="tel" id="otrosCelular" placeholder="Celular" inputmode="numeric" autocomplete="tel" />
       <input type="email" id="otrosCorreo" placeholder="Correo electrónico" autocomplete="email" />
-      <input type="text" id="otrosSiga" placeholder="N° SIGA (si ya lo tienes — opcional)" inputmode="numeric" autocomplete="off" />
+            <input type="text" id="otrosSiga" placeholder="N° SIGA (si ya lo tienes — opcional)" inputmode="numeric" autocomplete="off" />
+      <input type="text" id="otrosCiudad" placeholder="Ciudad de residencia" autocomplete="address-level2" />
+      <select id="otrosEstadoCivil" class="empresa-select">
+        <option value="">— Estado civil —</option>
+        <option>Soltero(a)</option><option>Casado(a)</option><option>Unión libre</option><option>Divorciado(a)</option><option>Viudo(a)</option>
+      </select>
+      <input type="number" id="otrosHijos" placeholder="Número de hijos" min="0" inputmode="numeric" />
+      <select id="otrosNivelEducativo" class="empresa-select">
+        <option value="">— Nivel educativo —</option>
+        <option>Primaria</option><option>Secundaria</option><option>Técnico/Tecnólogo</option><option>Universitario</option><option>Posgrado</option>
+      </select>
       <input type="text" id="otrosExamen" placeholder="Tipo de examen (escribe libremente)" />
       <input type="number" id="otrosValor" placeholder="Valor en pesos (COP)" inputmode="numeric" />
 

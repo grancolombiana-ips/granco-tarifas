@@ -359,7 +359,17 @@
       <input type="text" id="rvCC" placeholder="Cédula (CC)" inputmode="numeric" autocomplete="off" />
       <input type="tel" id="rvCelular" placeholder="Celular" inputmode="numeric" autocomplete="tel" />
       <input type="email" id="rvCorreo" placeholder="Correo electrónico" autocomplete="email" />
-      <input type="text" id="rvSiga" placeholder="N° SIGA (si ya lo tienes — opcional)" inputmode="numeric" autocomplete="off" />
+            <input type="text" id="rvSiga" placeholder="N° SIGA (si ya lo tienes — opcional)" inputmode="numeric" autocomplete="off" />
+      <input type="text" id="rvCiudad" placeholder="Ciudad de residencia" autocomplete="address-level2" />
+      <select id="rvEstadoCivil" class="empresa-select">
+        <option value="">— Estado civil —</option>
+        <option>Soltero(a)</option><option>Casado(a)</option><option>Unión libre</option><option>Divorciado(a)</option><option>Viudo(a)</option>
+      </select>
+      <input type="number" id="rvHijos" placeholder="Número de hijos" min="0" inputmode="numeric" />
+      <select id="rvNivelEducativo" class="empresa-select">
+        <option value="">— Nivel educativo —</option>
+        <option>Primaria</option><option>Secundaria</option><option>Técnico/Tecnólogo</option><option>Universitario</option><option>Posgrado</option>
+      </select>
       <div class="gafas-label">¿Usas gafas o lentes de contacto?</div>
       <div class="gafas-toggle" id="rvGafasToggle">
         <button type="button" class="gafas-btn" data-val="SI" onclick="setGafas('rv','SI')">Sí</button>

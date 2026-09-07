@@ -919,7 +919,12 @@ function rvConfirmEmpresa(){
   if(!validarCorreo(correo)){errBox.textContent='Ingresa un correo electrónico válido.';errBox.style.display='block';return;}
   if(!GAFAS.rv){errBox.textContent='Por favor indica si usas gafas o lentes de contacto.';errBox.style.display='block';return;}
   errBox.style.display='none';
-  RV.empresa=emp;RV.nombres=nombres;RV.apellidos=apellidos;RV.cc=cc;RV.celular=celular;RV.email=correo;
+    RV.empresa=emp;RV.nombres=nombres;RV.apellidos=apellidos;RV.cc=cc;RV.celular=celular;RV.email=correo;
+  RV.fechaNacimiento=document.getElementById('rvFecha').value;
+  RV.ciudad=document.getElementById('rvCiudad').value.trim();
+  RV.estadoCivil=document.getElementById('rvEstadoCivil').value;
+  RV.hijos=document.getElementById('rvHijos').value.trim();
+  RV.nivelEducativo=document.getElementById('rvNivelEducativo').value;
   // Clase 1 con 40+ años: preguntar si es examen completo o semestral
   if(RV.licencia==='clase1' && RV.edad>=40){
     document.getElementById('rvStep3').style.display='none';
